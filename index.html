@@ -437,15 +437,22 @@
             margin-top: 20px;
         }
 
-        .payment-logo {
-            background: white;
-            border: 1px solid #ddd;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: 700;
-            color: #555;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+	.payment-logo {
+  	    background: white; /* Biarkan putih agar kontras */
+   	    border: 1px solid #ddd;
+    	    padding: 15px 20px; /* Jarak pinggir diperbanyak */
+  	    border-radius: 8px; /* Sudut dibuat sedikit bulat */
+  	    display: flex;       /* Penting agar logo berada di tengah */
+  	    align-items: center;
+   	    justify-content: center;
+   	    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
+
+	.payment-logo img {
+  	    max-width: 100%;
+   	    max-height: 50px; /* Batasi tinggi logo supaya tidak raksasa */
+  	    object-fit: contain;
+}
 
         /* --- FOOTER --- */
         footer {
@@ -1043,19 +1050,19 @@
                 allowfullscreen="" loading="lazy">
             </iframe>
         </div>
-        <h3 style="text-align: center;">Metode Pembayaran Tersedia</h3>
-        <div class="payments-grid">
-            <div class="payment-logo">BCA</div>
-            <div class="payment-logo">MANDIRI</div>
-            <div class="payment-logo">BRI</div>
-            <div class="payment-logo">BNI</div>
-            <div class="payment-logo">DANA</div>
-            <div class="payment-logo">OVO</div>
-            <div class="payment-logo">GOPAY</div>
-            <div class="payment-logo">SHOPEEPAY</div>
-        </div>
-    </section>
-
+  <h3 style="text-align: center;">Metode Pembayaran Tersedia</h3>
+    
+    <div class="payments-grid">
+        <div class="payment-logo"><img src="bca.png" alt="BCA"></div>
+        <div class="payment-logo"><img src="mandiri.png" alt="MANDIRI"></div>
+        <div class="payment-logo"><img src="bri.png" alt="BRI"></div>
+        <div class="payment-logo"><img src="bni.png" alt="BNI"></div>
+        <div class="payment-logo"><img src="dana.png" alt="DANA"></div>
+        <div class="payment-logo"><img src="ovo.png" alt="OVO"></div>
+        <div class="payment-logo"><img src="gopay.png" alt="GOPAY"></div>
+        <div class="payment-logo"><img src="shopeepay.png" alt="SHOPEEPAY"></div>
+    </div> 
+</section>
     <!-- Footer -->
     <footer>
         <div class="footer-info">
