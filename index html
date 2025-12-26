@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yusuf_Store 25 - Toko Sepatu Terlengkap di Padang Sidimpuan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+        body { font-family: 'Roboto', sans-serif; scroll-behavior: smooth; }
+        .font-brand { font-family: 'Montserrat', sans-serif; }
+        .logo-img { height: 50px !important; width: auto !important; object-fit: contain; border-radius: 6px; }
+        .footer-logo-img { height: 80px !important; width: auto !important; margin: 0 auto; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="1000108714.jpg" alt="Logo Yusuf_Store 25" class="logo-img" onerror="this.src='https://ui-avatars.com/api/?name=Y25&background=0D8ABC&color=fff';">
+                <div class="flex flex-col">
+                    <h1 class="text-lg font-black text-gray-900 leading-none font-brand uppercase tracking-tighter">YUSUF_STORE <span class="text-blue-600">25</span></h1>
+                    <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase">Padang Sidimpuan</span>
+                </div>
+            </div>
+            <div class="hidden md:flex space-x-6 font-medium text-gray-600">
+                <a href="#beranda" class="hover:text-blue-600 transition">Beranda</a>
+                <a href="#katalog" class="hover:text-blue-600 transition">Katalog</a>
+                <a href="https://wa.me/6281375861195" target="_blank" class="bg-green-500 text-white px-5 py-2 rounded-full flex items-center gap-2 hover:bg-green-600 transition">
+                    <i class="fab fa-whatsapp"></i> Chat Admin
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="beranda" class="relative h-[450px] flex items-center overflow-hidden bg-black text-white">
+        <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1920&q=80" alt="Banner" class="absolute inset-0 w-full h-full object-cover opacity-40">
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-4xl md:text-6xl font-black mb-4 font-brand leading-tight italic uppercase">Langkah Berkelas,<br>Harga Pas!</h2>
+            <p class="text-lg mb-8 text-gray-300 max-w-xl">Pusat sepatu Olahraga & Casual terlengkap di Padang Sidimpuan. Koleksi Import Premium & Lokal Original.</p>
+            <a href="#katalog" class="bg-blue-600 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-700 transition inline-block">Lihat Koleksi</a>
+        </div>
+    </header>
+
+    <!-- Katalog -->
+    <section id="katalog" class="py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-black text-gray-900 mb-12 font-brand uppercase">Katalog Unggulan</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Produk 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border group">
+                    <div class="h-60 overflow-hidden"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Red Sporty Import</h3>
+                        <p class="text-blue-600 font-black text-xl mb-4">Chat Harga</p>
+                        <a href="https://wa.me/6281375861195?text=Halo%20Yusuf_Store%2025,%20saya%20tertarik%20dengan%20Red%20Sporty%20Import" class="block bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Pesan Sekarang</a>
+                    </div>
+                </div>
+                <!-- Produk 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border group">
+                    <div class="h-60 overflow-hidden"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">White Air Classic</h3>
+                        <p class="text-blue-600 font-black text-xl mb-4">Chat Harga</p>
+                        <a href="https://wa.me/6281375861195?text=Halo%20Yusuf_Store%2025,%20saya%20tertarik%20dengan%20White%20Air%20Classic" class="block bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Pesan Sekarang</a>
+                    </div>
+                </div>
+                <!-- Produk 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border group">
+                    <div class="h-60 overflow-hidden"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Sporty Neon Local</h3>
+                        <p class="text-blue-600 font-black text-xl mb-4">Chat Harga</p>
+                        <a href="https://wa.me/6281375861195?text=Halo%20Yusuf_Store%2025,%20saya%20tertarik%20dengan%20Sporty%20Neon%20Local" class="block bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Pesan Sekarang</a>
+                    </div>
+                </div>
+                <!-- Produk 4 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border group">
+                    <div class="h-60 overflow-hidden"><img src="https://images.unsplash.com/photo-1605348532760-6753d2c43329?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"></div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Shadow Black Casual</h3>
+                        <p class="text-blue-600 font-black text-xl mb-4">Chat Harga</p>
+                        <a href="https://wa.me/6281375861195?text=Halo%20Yusuf_Store%2025,%20saya%20tertarik%20dengan%20Shadow%20Black%20Casual" class="block bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">Pesan Sekarang</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 text-center border-t">
+        <div class="container mx-auto px-4">
+            <img src="1000108714.jpg" alt="Logo" class="footer-logo-img mb-4" onerror="this.style.display='none'">
+            <h3 class="text-xl font-black font-brand uppercase italic">YUSUF_STORE 25</h3>
+            <p class="text-gray-500 text-sm mb-6">Padang Sidimpuan, Sumatera Utara</p>
+            <p class="text-gray-400 text-[10px] tracking-[0.3em] uppercase">&copy; 2024 Yusuf_Store 25</p>
+        </div>
+    </footer>
+
+</body>
+</html>
