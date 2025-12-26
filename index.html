@@ -21,26 +21,52 @@
             scroll-behavior: smooth;
         }
 
-
-        /* --- EFEK LOGO TOKO --- */
-        .logo-shop-effect {
-            animation: float 3s ease-in-out infinite;
-            box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
-            border: 2px solid rgba(37, 99, 235, 0.2);
-            transition: all 0.5s ease;
+        /* --- EFEK LOGO TOKO (PULSE & FLOAT) --- */
+        .logo-shop-container {
+            position: relative;
+            display: inline-block;
         }
 
-        .logo-shop-effect:hover {
-            box-shadow: 0 0 25px rgba(37, 99, 235, 0.6);
-            transform: scale(1.1) rotate(5deg);
+        .logo-shop-main {
+            animation: floating 3s ease-in-out infinite;
+            border: 2px solid rgba(37, 99, 235, 0.4);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
         }
 
-        @keyframes float {
+        /* Efek Cahaya di belakang logo */
+        .logo-shop-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: rgba(37, 99, 235, 0.5);
+            filter: blur(15px);
+            border-radius: 50%;
+            animation: pulse-glow 2s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes floating {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-6px); }
             100% { transform: translateY(0px); }
         }
 
+        @keyframes pulse-glow {
+            0% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.9); }
+            50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.2); }
+            100% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.9); }
+        }
+
+        .logo-shop-main:hover {
+            transform: scale(1.15) rotate(8deg) !important;
+            border-color: #2563eb;
+        }
         /* Desain Kartu Brand */
         .brand-logo-card {
             background: white;
@@ -341,11 +367,26 @@
                         <div class="mt-4">
                             <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded badge-${item.cat}">${item.cat}</span>
                             <h3 class="font-bold text-sm text-slate-800 mt-1 mb-4 h-10 overflow-hidden">${item.name}</h3>
-                            <button class="w-full bg-slate-900 text-white py-2 rounded-xl font-bold text-xs uppercase">Pesan</button>
+                            <button onclick="orderWhatsApp('${item.name}')" class="w-full bg-slate-900 text-white py-2 rounded-xl font-bold text-xs uppercase text-center block hover:bg-blue-600 transition">Pesan</button>
                         </div>
                     </div>
                 `;
             });
+        }
+
+        // Fungsi khusus untuk menangani klik tombol pesan
+        function orderWhatsApp(productName) {
+            const phoneNumber = "6281375861195";
+            const message = `Halo Yusuf_Store 25, saya tertarik dengan produk: ${productName}. Apakah stok masih tersedia?`;
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+        }
+
+        function filterItems(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            const currentBtn = Array.from(document.querySelectorAll('.filter-btn')).find(b => b.innerText.toLowerCase().includes(category.toLowerCase()) || (category === 'all' && b.innerText.toLowerCase() === 'semua'));
+            if(currentBtn) currentBtn.classList.add('active');
+            renderProducts(category);
         }
 
         function filterItems(category) {
