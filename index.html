@@ -3,414 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yusuf Store 25 | Langkah Pasti, Gaya Berkelas</title>
+    <title>Yusuf Store 25 - Toko Sepatu & Apparel Terlengkap</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@900&family=Playfair+Display:italic,wght@600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
         
-        body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+        .brand-grid img { filter: grayscale(100%); transition: all 0.3s ease; }
+        .brand-grid img:hover { filter: grayscale(0%); transform: scale(1.1); }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
         
-        .hero-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-
-        /* --- LOGO ANIMATION --- */
-        .logo-container {
-            position: relative;
-            width: 160px;
-            height: 160px;
-            margin: 0 auto;
-            background: #fff;
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
-            animation: morph 8s ease-in-out infinite, float 4s ease-in-out infinite;
-            overflow: hidden;
-            border: 4px solid #ef4444;
-        }
-
-        .logo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: relative;
-            z-index: 2;
-        }
-
-        .slogan-text {
-            font-family: 'Playfair Display', serif;
+        /* Animasi Text Banner agar tidak kaku */
+        .banner-title {
+            font-weight: 800;
             font-style: italic;
-            letter-spacing: 0.1em;
+            letter-spacing: -0.05em;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
 
-        .logo-container::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(to bottom right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-            z-index: 3;
-        }
-
-        @keyframes morph {
-            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-            50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
-            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @keyframes shine {
-            0% { left: -100%; top: -100%; }
-            20% { left: 100%; top: 100%; }
-            100% { left: 100%; top: 100%; }
-        }
-
-        .brand-logo-card {
-            width: 100%;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border: 1px solid #f1f5f9;
-            border-radius: 12px;
-            padding: 12px;
-            transition: all 0.3s;
-        }
-        
-        .brand-logo-card img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            filter: grayscale(100%);
-            opacity: 0.5;
-            transition: all 0.3s;
-        }
-
-        .brand-logo-card:hover { 
-            transform: translateY(-5px); 
-            border-color: #ef4444; 
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .brand-logo-card:hover img {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-
-        /* --- MODAL STYLES --- */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            backdrop-filter: blur(5px);
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            margin: auto; display: block; max-width: 90%; max-height: 80%;
-            border-radius: 15px; border: 5px solid white;
-        }
-
-        .tab-active { background-color: #ef4444; color: white; border-radius: 99px; }
-        
-        .map-container {
-            filter: grayscale(1) invert(0.9) contrast(1.2);
-            transition: all 0.5s ease;
-        }
-        .map-container:hover {
-            filter: grayscale(0) invert(0) contrast(1);
-        }
-
-        .size-guide-modal {
-            background-color: white;
-            margin: 5% auto;
-            padding: 2rem;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 24px;
-            position: relative;
-        }
-
-        .shipping-pulse {
-            animation: pulse-red 2s infinite;
-        }
-        @keyframes pulse-red {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="pb-20">
+<body class="bg-gray-50 text-gray-900">
 
-    <!-- Banner -->
-    <header class="hero-gradient text-white pt-16 pb-24 px-4 relative overflow-hidden">
-        <div class="container mx-auto text-center relative z-10">
-            <!-- Shipping Badge -->
-            <div class="inline-flex items-center gap-2 bg-red-600/20 border border-red-500/50 rounded-full px-4 py-1.5 mb-8 shipping-pulse">
-                <i class="fas fa-truck-fast text-red-500"></i>
-                <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Siap Kirim ke Seluruh Indonesia</span>
-            </div>
-
-            <!-- Logo Toko (Uploaded Image) -->
-            <div class="logo-container mb-6">
-                <img src="1000108714.jpg" alt="Logo Yusuf Store 25" class="logo-img">
-            </div>
-            
-            <h1 class="text-5xl font-black mb-2 tracking-tighter uppercase">Yusuf Store 25</h1>
-            
-            <p class="slogan-text text-xl md:text-2xl text-red-500 mb-6 drop-shadow-md">
-                "Langkah Pasti, Gaya Berkelas"
-            </p>
-            
-            <div class="h-1 w-24 bg-white/20 mx-auto mb-6"></div>
-            <p class="text-sm opacity-70 max-w-lg mx-auto font-light tracking-[0.2em] uppercase">Premium Shoes & Apparel Specialist</p>
-            
-            <div class="mt-10 flex flex-wrap justify-center gap-4">
-                <a href="https://wa.me/6281375861195" class="bg-green-500 hover:bg-green-600 px-8 py-3 rounded-full font-bold shadow-lg transition transform hover:scale-105 flex items-center gap-2">
-                    <i class="fab fa-whatsapp text-xl"></i> HUBUNGI ADMIN
-                </a>
-                <a href="#katalog" class="bg-white text-slate-900 px-8 py-3 rounded-full font-bold shadow-lg transition transform hover:scale-105">
-                    MULAI BELANJA
-                </a>
-            </div>
-            
-            <div class="mt-6">
-                <button class="text-xs text-white/50 hover:text-white transition underline decoration-dotted underline-offset-4">
-                    <i class="fas fa-info-circle mr-1"></i> Klik untuk info pengiriman luar kota
-                </button>
-            </div>
-        </div>
-        <div class="absolute top-0 right-0 w-96 h-96 bg-red-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
-    </header>
-
-    <!-- Brand Slider (2 Baris Grid) -->
-    <div class="bg-white py-12 border-b shadow-inner">
-        <div class="container mx-auto px-4">
-            <p class="text-center text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-8">Official Brand Partners</p>
-            <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" id="brand-grid">
-                <!-- Brands generated by JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation & Utility -->
-    <nav id="katalog" class="sticky top-0 bg-white/95 backdrop-blur-md shadow-sm z-50 border-b">
-        <div class="container mx-auto p-3">
-            <div class="flex items-center justify-between gap-4">
-                <!-- Mini Logo -->
-                <div class="hidden md:flex items-center gap-3">
-                    <img src="1000108714.jpg" alt="YS25" class="w-8 h-8 rounded-full border border-red-500 object-cover">
-                    <span class="font-black text-xs uppercase tracking-tighter italic">YS<span class="text-red-600">25</span></span>
+    <!-- Header / Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Logo Toko (Placeholder Image/Icon) -->
+                <div class="relative w-12 h-12 flex items-center justify-center bg-black rounded-full overflow-hidden border-2 border-blue-600 shadow-lg">
+                    <span class="text-white font-black italic text-xl">YS</span>
+                    <!-- Jika Anda punya link gambar logo asli, ganti src di bawah: -->
+                    <!-- <img src="link-ke-logo-anda.jpg" class="absolute inset-0 w-full h-full object-cover"> -->
                 </div>
-                
-                <div class="flex flex-grow justify-center gap-2">
-                    <button onclick="filterCategory('semua')" class="tab-btn px-4 md:px-6 py-2 text-[10px] md:text-xs font-bold uppercase tracking-widest tab-active" id="btn-semua">Semua</button>
-                    <button onclick="filterCategory('running')" class="tab-btn px-4 md:px-6 py-2 text-[10px] md:text-xs font-bold uppercase tracking-widest" id="btn-running">Running</button>
-                    <button onclick="filterCategory('casual')" class="tab-btn px-4 md:px-6 py-2 text-[10px] md:text-xs font-bold uppercase tracking-widest" id="btn-casual">Casual</button>
-                    <button onclick="filterCategory('kaos')" class="tab-btn px-4 md:px-6 py-2 text-[10px] md:text-xs font-bold uppercase tracking-widest" id="btn-kaos">Kaos</button>
-                </div>
-
-                <button onclick="toggleSizeGuide()" class="bg-red-50 text-red-600 p-2 rounded-lg hover:bg-red-100 transition">
-                    <i class="fas fa-ruler-combined"></i>
-                </button>
-            </div>
-            
-            <div class="flex justify-center mt-2 pb-1">
-                <div class="text-[9px] font-black text-slate-500 flex items-center gap-2 uppercase tracking-widest opacity-60">
-                    <i class="fas fa-box-open"></i> Indonesia-Wide Shipping
+                <div class="flex flex-col leading-none">
+                    <span class="font-black text-xl italic tracking-tighter">YUSUF STORE <span class="text-blue-600">25</span></span>
+                    <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase">Premium Sportswear</span>
                 </div>
             </div>
+            <div class="hidden md:flex space-x-8 font-bold text-xs uppercase tracking-widest text-gray-600">
+                <a href="#katalog" class="hover:text-blue-600 transition">Katalog</a>
+                <a href="#size-guide" class="hover:text-blue-600 transition">Size Guide</a>
+                <a href="#testimoni" class="hover:text-blue-600 transition">Testimoni</a>
+                <a href="#lokasi" class="hover:text-blue-600 transition">Lokasi</a>
+            </div>
+            <a href="https://wa.me/6281375861195" target="_blank" class="bg-green-500 text-white px-5 py-2 rounded-full flex items-center hover:bg-green-600 transition shadow-lg font-bold text-sm">
+                <i class="fab fa-whatsapp mr-2 text-lg"></i> Admin
+            </a>
         </div>
     </nav>
 
-    <!-- Product Grid -->
-    <section class="container mx-auto px-4 py-12">
-        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-            <!-- Items generated by JS -->
+    <!-- Banner (Didesain lebih dinamis) -->
+    <section class="relative bg-neutral-950 text-white h-[550px] flex items-center justify-center overflow-hidden">
+        <!-- Background Image dengan Overlay Gelap -->
+        <div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200')] bg-cover bg-center scale-105"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-950/50 to-neutral-950"></div>
+        
+        <div class="relative z-10 text-center px-4">
+            <!-- Logo Besar di Banner -->
+            <div class="mb-6 inline-flex items-center justify-center w-24 h-24 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 rotate-12 shadow-2xl mx-auto">
+                <span class="text-white font-black italic text-4xl -rotate-12">YS25</span>
+            </div>
+            
+            <h1 class="banner-title text-5xl md:text-8xl mb-2">
+                YUSUF STORE 25
+            </h1>
+            <p class="text-lg md:text-2xl mb-10 max-w-2xl mx-auto font-light text-gray-300 italic">
+                "Pusat Sepatu <span class="text-white font-bold">Running, Casual</span> & Apparel Original"
+            </p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-4 items-center">
+                <div class="glass-card px-6 py-3 rounded-2xl flex items-center space-x-3">
+                    <i class="fas fa-shipping-fast text-blue-400 text-xl"></i>
+                    <span class="text-sm font-bold tracking-wide uppercase">Kirim Seluruh Indonesia</span>
+                </div>
+                <div class="glass-card px-6 py-3 rounded-2xl flex items-center space-x-3">
+                    <i class="far fa-clock text-yellow-400 text-xl"></i>
+                    <span class="text-sm font-bold tracking-wide uppercase">11:00 - 22:30 WIB</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Efek Cahaya Dekoratif -->
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px]"></div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px]"></div>
+    </section>
+
+    <!-- Brand Logos (2 Rows) -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-xs font-black mb-10 text-gray-400 uppercase tracking-[0.4em]">Official Registered Brands</h2>
+            <div class="brand-grid grid grid-cols-3 md:grid-cols-6 gap-y-10 gap-x-8 items-center opacity-60">
+                <!-- Row 1 -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas" class="h-8 mx-auto">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike" class="h-8 mx-auto">
+                <img src="https://www.onitsukatiger.com/on/demandware.static/-/Sites-onitsukatiger-Library/default/dwb5d8f635/logo.svg" alt="Onitsuka" class="h-8 mx-auto">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/New_Balance_logo.svg" alt="NB" class="h-10 mx-auto">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Puma_Logo.svg/1200px-Puma_Logo.svg.png" alt="Puma" class="h-8 mx-auto">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Asics_logo.svg/2560px-Asics_logo.svg.png" alt="Asics" class="h-8 mx-auto">
+                <!-- Row 2 -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Skechers_logo.svg" alt="Skechers" class="h-8 mx-auto">
+                <img src="https://seeklogo.com/images/H/hoka-one-one-logo-1C90656D69-seeklogo.com.png" alt="Hoka" class="h-10 mx-auto">
+                <div class="font-black text-gray-400 text-lg tracking-tighter">SPECS</div>
+                <div class="font-black text-gray-400 text-lg tracking-tighter">ORTUS</div>
+                <div class="font-black text-gray-400 text-lg tracking-tighter uppercase italic">910-Nineten</div>
+                <div class="font-black text-gray-400 text-2xl italic tracking-tighter">On <span class="text-xs not-italic font-light opacity-50">Cloud</span></div>
+            </div>
         </div>
     </section>
 
-    <!-- Store Location Section (MAPS) -->
-    <section class="bg-slate-50 py-16 px-4 border-t">
-        <div class="container mx-auto max-w-6xl">
-            <div class="flex flex-col md:flex-row gap-10 items-center">
-                <div class="w-full md:w-1/2">
-                    <h2 class="text-3xl font-black mb-4 uppercase italic leading-tight">Kunjungi Store Kami</h2>
-                    <p class="text-slate-600 mb-8 slogan-text">Rasakan kenyamanan langkah Anda secara langsung di outlet kami.</p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-red-600 text-white rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-red-200">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 uppercase text-sm mb-1">Alamat</h4>
-                                <p class="text-slate-500 text-sm">Padang Sidimpuan, Sumatera Utara, Indonesia</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-slate-200">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 uppercase text-sm mb-1">Jam Operasional</h4>
-                                <p class="text-slate-500 text-sm">Setiap Hari: 09.00 - 22.00 WIB</p>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Katalog -->
+    <section id="katalog" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div class="text-center md:text-left">
+                    <h2 class="text-4xl font-black italic tracking-tighter">COLLECTION <span class="text-blue-600">2024</span></h2>
+                    <div class="h-1.5 w-24 bg-blue-600 mt-2 mx-auto md:ml-0 rounded-full"></div>
+                </div>
+                <div class="mt-8 flex flex-wrap justify-center gap-2">
+                    <button onclick="filterKatalog('all')" class="bg-black text-white px-6 py-2 rounded-full font-bold text-xs uppercase shadow-lg">Semua</button>
+                    <button onclick="filterKatalog('Running')" class="bg-white hover:bg-blue-600 hover:text-white px-6 py-2 rounded-full font-bold text-xs uppercase transition shadow-sm">Running</button>
+                    <button onclick="filterKatalog('Casual')" class="bg-white hover:bg-blue-600 hover:text-white px-6 py-2 rounded-full font-bold text-xs uppercase transition shadow-sm">Casual</button>
+                    <button onclick="filterKatalog('Kaos')" class="bg-white hover:bg-blue-600 hover:text-white px-6 py-2 rounded-full font-bold text-xs uppercase transition shadow-sm">Kaos</button>
+                </div>
+            </div>
 
-                    <div class="mt-10 flex flex-wrap gap-4">
-                        <a href="https://maps.google.com" target="_blank" class="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-full font-bold text-sm hover:bg-red-600 transition-colors shadow-xl">
-                            <i class="fas fa-directions"></i> PETUNJUK ARAH
-                        </a>
-                        <div class="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-slate-200 shadow-sm">
-                            <i class="fas fa-shipping-fast text-red-500 text-xs"></i>
-                            <span class="text-[10px] font-bold text-slate-600 uppercase">Melayani Pengiriman Nasional</span>
+            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Products dynamically rendered -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Size Guide -->
+    <section id="size-guide" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-black text-center italic mb-10 tracking-tighter">SIZE CHART GUIDE</h2>
+            <div class="max-w-4xl mx-auto overflow-hidden shadow-2xl rounded-3xl border border-gray-100">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-neutral-900 text-white">
+                        <tr>
+                            <th class="p-5 font-black uppercase text-xs tracking-widest">EU Size</th>
+                            <th class="p-5 font-black uppercase text-xs tracking-widest">UK Size</th>
+                            <th class="p-5 font-black uppercase text-xs tracking-widest">US Size</th>
+                            <th class="p-5 font-black uppercase text-xs tracking-widest text-blue-400">Insole (CM)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 font-bold text-gray-700">
+                        <tr class="hover:bg-blue-50 transition"><td class="p-5">39</td><td class="p-5">6</td><td class="p-5">7</td><td class="p-5 text-blue-600">24.5</td></tr>
+                        <tr class="hover:bg-blue-50 transition"><td class="p-5">40</td><td class="p-5">6.5</td><td class="p-5">7.5</td><td class="p-5 text-blue-600">25.0</td></tr>
+                        <tr class="hover:bg-blue-50 transition"><td class="p-5">41</td><td class="p-5">7.5</td><td class="p-5">8.5</td><td class="p-5 text-blue-600">26.0</td></tr>
+                        <tr class="hover:bg-blue-50 transition"><td class="p-5">42</td><td class="p-5">8</td><td class="p-5">9</td><td class="p-5 text-blue-600">26.5</td></tr>
+                        <tr class="hover:bg-blue-50 transition"><td class="p-5">43</td><td class="p-5">9</td><td class="p-5">10</td><td class="p-5 text-blue-600">27.5</td></tr>
+                        <tr class="hover:bg-blue-50 transition"><td class="p-5">44</td><td class="p-5">9.5</td><td class="p-5">10.5</td><td class="p-5 text-blue-600">28.0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimoni -->
+    <section id="testimoni" class="py-20 bg-neutral-900 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-black text-center italic mb-16 tracking-tighter">WHAT THEY SAY</h2>
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <i class="fas fa-quote-left text-blue-600 text-4xl absolute -top-4 -left-2 opacity-50"></i>
+                    <div class="text-yellow-400 mb-4 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="italic text-gray-300">"Sepatunya asli mantap, pelayanan admin Yusuf Store ramah banget. Langganan deh pokoknya!"</p>
+                    <div class="mt-6 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">R</div>
+                        <span class="font-bold text-sm">Rian, Medan</span>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <i class="fas fa-quote-left text-blue-600 text-4xl absolute -top-4 -left-2 opacity-50"></i>
+                    <div class="text-yellow-400 mb-4 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="italic text-gray-300">"Pengiriman ke Jakarta cepet bgt, packing aman. On Cloud-nya empuk abis!"</p>
+                    <div class="mt-6 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center font-bold">S</div>
+                        <span class="font-bold text-sm">Sarah, Jakarta</span>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <i class="fas fa-quote-left text-blue-600 text-4xl absolute -top-4 -left-2 opacity-50"></i>
+                    <div class="text-yellow-400 mb-4 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="italic text-gray-300">"Barang sesuai foto, harganya bersaing buat daerah Padang Sidimpuan."</p>
+                    <div class="mt-6 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center font-bold">A</div>
+                        <span class="font-bold text-sm">Ahmad, Sidimpuan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lokasi -->
+    <section id="lokasi" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-stretch gap-10">
+                <div class="md:w-1/3">
+                    <h2 class="text-4xl font-black italic tracking-tighter mb-6">VISIT US</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-blue-100 p-3 rounded-2xl text-blue-600"><i class="fas fa-map-marker-alt text-xl"></i></div>
+                            <div>
+                                <h4 class="font-black text-sm uppercase">Store Address</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed mt-1">Jln. Merdeka-Kantin, Kota Padang Sidimpuan, Sumatera Utara</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-green-100 p-3 rounded-2xl text-green-600"><i class="fab fa-whatsapp text-xl"></i></div>
+                            <div>
+                                <h4 class="font-black text-sm uppercase">Direct Contact</h4>
+                                <p class="text-gray-600 text-sm mt-1">0813 7586 1195</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="w-full md:w-1/2 h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative map-container">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15951.1234567890!2d99.2712345!3d1.3712345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302951234567890b%3A0x1234567890abcdef!2sPadang%20Sidimpuan!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
-                        class="w-full h-full border-0" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                <div class="md:w-2/3 h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-100">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3989.814777591322!2d99.27329924966573!3d1.3759020665545012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMcKwMjInMzMuMiJOIDk5wrAxNiczMy45IkU!5e0!3m2!1sen!2sid!4v1715000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-950 text-white pt-20 pb-10 px-4">
-        <div class="container mx-auto text-center">
-            <div class="flex flex-col items-center mb-6">
-                <img src="1000108714.jpg" alt="Logo" class="w-20 h-20 rounded-full border-2 border-red-500 mb-4 object-cover shadow-lg shadow-red-900/20">
-                <div class="text-4xl font-black mb-2 tracking-tighter italic uppercase">YUSUF<span class="text-red-500">STORE</span>25</div>
+    <footer class="bg-neutral-950 text-white pt-20 pb-10">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-16 border-b border-white/5 pb-16">
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="bg-blue-600 p-2 rounded-xl font-black italic">YS</div>
+                    <h3 class="text-2xl font-black italic tracking-tighter uppercase">Yusuf Store 25</h3>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6">Partner terpercaya Anda untuk kebutuhan perlengkapan lari dan gaya hidup casual original di Sumatera Utara.</p>
+                <div class="flex space-x-4">
+                    <a href="https://www.instagram.com/yusufstore_25" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-pink-600 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/6281375861195" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-green-600 transition"><i class="fab fa-whatsapp"></i></a>
+                </div>
             </div>
-            <p class="slogan-text text-red-500/80 mb-6 tracking-widest text-sm">Langkah Pasti, Gaya Berkelas</p>
-            <div class="flex justify-center gap-6 mb-16">
-                <a href="https://wa.me/6281375861195" class="w-12 h-12 flex items-center justify-center rounded-full border border-slate-800 hover:border-green-500 hover:text-green-500 transition-all shadow-lg"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.instagram.com/yusufstore_25" class="w-12 h-12 flex items-center justify-center rounded-full border border-slate-800 hover:border-pink-500 hover:text-pink-500 transition-all shadow-lg"><i class="fab fa-instagram"></i></a>
+            <div>
+                <h4 class="font-black text-xs uppercase tracking-[0.3em] text-blue-600 mb-6">Open Hours</h4>
+                <div class="space-y-3 text-sm font-bold">
+                    <div class="flex justify-between border-b border-white/5 pb-2">
+                        <span class="text-gray-500">Senin - Minggu</span>
+                        <span>11.00 - 22.30 WIB</span>
+                    </div>
+                    <p class="text-[10px] text-gray-500 italic mt-4 uppercase tracking-widest text-center">Open 7 days a week</p>
+                </div>
             </div>
-            <div class="pt-10 border-t border-slate-900">
-                <p class="text-[9px] text-slate-700 font-bold uppercase tracking-[0.5em]">&copy; 2025 Yusuf Store 25 • Padang Sidimpuan • Pengiriman Seluruh Indonesia</p>
+            <div>
+                <h4 class="font-black text-xs uppercase tracking-[0.3em] text-blue-600 mb-6">Payments</h4>
+                <div class="grid grid-cols-4 gap-3 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" alt="BCA" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
+                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/a/ad/Bank_Mandiri_logo_2016.svg/1200px-Bank_Mandiri_logo_2016.svg.png" alt="Mandiri" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/BRI_Logo.svg" alt="BRI" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
+                    <img src="https://upload.wikimedia.org/wikipedia/id/5/55/BNI_logo.svg" alt="BNI" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="Dana" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg" alt="OVO" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GOPAY" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay_logo.svg" alt="ShopeePay" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
+                </div>
             </div>
+        </div>
+        <div class="text-center mt-10 text-gray-700 text-[10px] font-black uppercase tracking-[0.5em]">
+            &copy; 2024 YUSUF STORE 25 &bull; ORIGINAL QUALITY ONLY
         </div>
     </footer>
 
-    <!-- Modal View Image -->
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <div class="flex flex-col items-center justify-center h-full p-4">
-            <img class="modal-content shadow-2xl" id="imgFull">
-            <div id="caption" class="text-white mt-6 text-xl font-black uppercase tracking-widest text-center"></div>
-        </div>
-    </div>
-
-    <!-- Modal Size Guide -->
-    <div id="sizeGuideModal" class="modal">
-        <div class="size-guide-modal shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-black uppercase tracking-tighter">Panduan Ukuran Sepatu</h3>
-                <button onclick="toggleSizeGuide()" class="text-slate-400 hover:text-red-600 transition text-2xl"><i class="fas fa-times"></i></button>
+    <!-- Modal Product -->
+    <div id="product-modal" class="modal flex items-center justify-center p-4">
+        <div class="bg-white rounded-[40px] max-w-4xl w-full relative overflow-hidden flex flex-col md:flex-row shadow-2xl animate-in zoom-in duration-300">
+            <button onclick="closeModal()" class="absolute top-6 right-6 w-10 h-10 bg-black text-white rounded-full flex items-center justify-center font-bold z-20 hover:scale-110 transition">&times;</button>
+            <div class="md:w-1/2 bg-gray-50 flex items-center justify-center">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
             </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-900 text-white uppercase text-[10px] tracking-widest">
-                            <th class="p-3 border-b border-slate-800">EU</th>
-                            <th class="p-3 border-b border-slate-800">US (Men)</th>
-                            <th class="p-3 border-b border-slate-800">UK</th>
-                            <th class="p-3 border-b border-slate-800">CM</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm font-medium">
-                        <tr class="hover:bg-slate-50"><td class="p-3 border-b font-bold">39</td><td class="p-3 border-b">6.5</td><td class="p-3 border-b">6</td><td class="p-3 border-b">24.5</td></tr>
-                        <tr class="bg-slate-50/50 hover:bg-slate-50"><td class="p-3 border-b font-bold">40</td><td class="p-3 border-b">7</td><td class="p-3 border-b">6.5</td><td class="p-3 border-b">25</td></tr>
-                        <tr class="hover:bg-slate-50"><td class="p-3 border-b font-bold">41</td><td class="p-3 border-b">8</td><td class="p-3 border-b">7.5</td><td class="p-3 border-b">26</td></tr>
-                        <tr class="bg-slate-50/50 hover:bg-slate-50"><td class="p-3 border-b font-bold">42</td><td class="p-3 border-b">8.5</td><td class="p-3 border-b">8</td><td class="p-3 border-b">26.5</td></tr>
-                        <tr class="hover:bg-slate-50"><td class="p-3 border-b font-bold">43</td><td class="p-3 border-b">9.5</td><td class="p-3 border-b">9</td><td class="p-3 border-b">27.5</td></tr>
-                        <tr class="bg-slate-50/50 hover:bg-slate-50"><td class="p-3 border-b font-bold">44</td><td class="p-3 border-b">10</td><td class="p-3 border-b">9.5</td><td class="p-3 border-b">28</td></tr>
-                        <tr class="hover:bg-slate-50"><td class="p-3 border-b font-bold">45</td><td class="p-3 border-b">11</td><td class="p-3 border-b">10.5</td><td class="p-3 border-b">29</td></tr>
-                    </tbody>
-                </table>
+            <div class="md:w-1/2 p-12">
+                <span id="modal-cat" class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Category</span>
+                <h3 id="modal-title" class="text-4xl font-black italic tracking-tighter my-4 leading-tight">Product Name</h3>
+                <p id="modal-desc" class="text-gray-500 text-sm leading-relaxed mb-8 font-medium">Description text goes here.</p>
+                <div class="flex items-center space-x-6 mb-10">
+                    <span class="text-4xl font-black text-blue-600 italic tracking-tighter">Rp <span id="modal-price">000</span></span>
+                </div>
+                <a id="modal-wa" href="#" target="_blank" class="block text-center bg-green-500 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-green-600 transition shadow-xl shadow-green-200">
+                    <i class="fab fa-whatsapp mr-2 text-xl"></i> ORDER via WhatsApp
+                </a>
             </div>
-            <p class="mt-6 text-[10px] text-slate-400 italic font-medium leading-relaxed uppercase tracking-wider text-center">
-                *Ukuran dapat sedikit berbeda tergantung model dan merek. Hubungi admin untuk konsultasi size.
-            </p>
         </div>
     </div>
 
     <script>
-        const brands = [
-            { name: "Specs", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Specs_Logo.png" },
-            { name: "Adidas", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/1024px-Adidas_Logo.svg.png" },
-            { name: "Nike", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1024px-Logo_NIKE.svg.png" },
-            { name: "Puma", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Puma-Logo.png/1200px-Puma-Logo.png" },
-            { name: "New Balance", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/New_Balance_logo.svg/1024px-New_Balance_logo.svg.png" },
-            { name: "Asics", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Asics_logo.svg/1024px-Asics_logo.svg.png" },
-            { name: "Hoka", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Hoka_One_One_logo.svg/1024px-Hoka_One_One_logo.svg.png" },
-            { name: "Skechers", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Skechers_logo.svg/1024px-Skechers_logo.svg.png" },
-            { name: "Ortus Eight", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Nn950N9C5L7vE8A375KqG8m4P6m6B8R1wA&s" },
-            { name: "Mizuno", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Mizuno_logo.svg/1280px-Mizuno_logo.svg.png" },
-            { name: "Under Armour", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Under_Armour_logo.svg/1200px-Under_Armour_logo.svg.png" },
-            { name: "Reebok", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Reebok_2019_logo.svg/1200px-Reebok_2019_logo.svg.png" }
-        ];
-
-        const brandContainer = document.getElementById('brand-grid');
-        brands.forEach(brand => {
-            const div = document.createElement('div');
-            div.className = "brand-logo-card";
-            div.innerHTML = `<img src="${brand.logo}" alt="${brand.name}" title="${brand.name}">`;
-            brandContainer.appendChild(div);
-        });
-
         const products = [
-            { id: 1, name: "Specs LS Alpha Pro", category: "running", price: "Rp 5xx.xxx", status: "Hot Item", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80" },
-            { id: 2, name: "Adidas Ultraboost 5.0", category: "running", price: "Rp 2.xxx.xxx", status: "Premium", img: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80" },
-            { id: 3, name: "Nike Air Jordan 1 Low", category: "casual", price: "Rp 2.xxx.xxx", status: "Best Seller", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80" },
-            { id: 4, name: "T-Shirt Sport Original YS25", category: "kaos", price: "Rp 150.000", status: "New Arrival", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" },
-            { id: 5, name: "New Balance 2002R", category: "casual", price: "Rp 2.xxx.xxx", status: "Limited", img: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80" },
-            { id: 6, name: "Ortus Eight Catalyst", category: "running", price: "Rp 4xx.xxx", status: "Hot Item", img: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=800&q=80" }
+            { id: 1, name: "Nike Air Zoom Pegasus", category: "Running", price: "1.850.000", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600", desc: "Sepatu lari performa tinggi dengan teknologi Zoom Air untuk kenyamanan maksimal saat berlari jarak jauh maupun pendek." },
+            { id: 2, name: "Adidas Ultraboost Light", category: "Running", price: "2.400.000", image: "https://images.unsplash.com/photo-1587563877366-26213797af52?auto=format&fit=crop&w=600", desc: "Energy return terbaik dengan busa Ultraboost terbaru yang lebih ringan namun tetap responsif." },
+            { id: 3, name: "Onitsuka Tiger Mexico 66", category: "Casual", price: "1.600.000", image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=600", desc: "Ikon gaya casual yang tak lekang oleh waktu dengan siluet klasik dan material kulit premium." },
+            { id: 4, name: "New Balance 530 White", category: "Casual", price: "1.450.000", image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=600", desc: "Tren chunky sneakers dengan desain retro yang sangat nyaman digunakan seharian." },
+            { id: 5, name: "Hoka Clifton 9", category: "Running", price: "2.550.000", image: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=600", desc: "Maksimal cushion untuk proteksi lutut Anda. Sangat populer di kalangan marathoners." },
+            { id: 6, name: "Kaos Dry-Fit Premium", category: "Kaos", price: "250.000", image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600", desc: "Material kain teknologi dry-fit yang memastikan sirkulasi udara maksimal saat berolahraga." },
+            { id: 7, name: "Specs Accelerator Alpha", category: "Running", price: "550.000", image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=600", desc: "Sepatu lari lokal dengan kualitas internasional. Sangat ringan untuk speed training." },
+            { id: 8, name: "Kaos Yusuf Store Exclusive", category: "Kaos", price: "150.000", image: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=600", desc: "Merchandise resmi dari Yusuf Store 25 menggunakan bahan Katun Combed 30s premium." },
         ];
 
-        function renderProducts(filtered) {
+        function renderProducts(data) {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
-            filtered.forEach(p => {
+            data.forEach(p => {
                 grid.innerHTML += `
-                    <div class="bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-100 group">
-                        <div class="relative overflow-hidden cursor-pointer h-56 md:h-64" onclick="openModal('${p.img}', '${p.name}')">
-                            <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
-                            <div class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase z-10">${p.status}</div>
+                    <div class="bg-white rounded-[32px] shadow-sm overflow-hidden hover:shadow-2xl transition-all duration-500 group cursor-pointer border border-gray-100" onclick="openModal(${p.id})">
+                        <div class="relative overflow-hidden aspect-square">
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-black font-black text-[9px] px-3 py-1 rounded-full uppercase tracking-widest italic">${p.category}</span>
                         </div>
-                        <div class="p-4 md:p-6">
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">${p.category}</div>
-                            <h3 class="font-bold text-slate-900 text-base mb-1 leading-tight h-10 overflow-hidden">${p.name}</h3>
+                        <div class="p-6">
+                            <h3 class="font-black text-sm h-10 line-clamp-2 uppercase tracking-tighter italic italic leading-tight">${p.name}</h3>
                             <div class="flex items-center justify-between mt-4">
-                                <span class="text-slate-950 font-black">${p.price}</span>
-                                <a href="https://wa.me/6281375861195?text=Halo%20Admin%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan:%20${encodeURIComponent(p.name)}" 
-                                   class="bg-slate-900 hover:bg-green-600 text-white p-2 md:p-3 rounded-xl transition">
-                                    <i class="fab fa-whatsapp"></i>
-                                </a>
+                                <p class="text-blue-600 font-black text-lg italic tracking-tighter">Rp ${p.price}</p>
+                                <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -418,10 +336,8 @@
             });
         }
 
-        function filterCategory(cat) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
-            document.getElementById('btn-' + cat).classList.add('tab-active');
-            if (cat === 'semua') {
+        function filterKatalog(cat) {
+            if(cat === 'all') {
                 renderProducts(products);
             } else {
                 const filtered = products.filter(p => p.category === cat);
@@ -429,29 +345,28 @@
             }
         }
 
-        function toggleSizeGuide() {
-            const modal = document.getElementById('sizeGuideModal');
-            modal.style.display = (modal.style.display === "block") ? "none" : "block";
-        }
-
-        function openModal(src, name) {
-            document.getElementById('imageModal').style.display = "block";
-            document.getElementById('imgFull').src = src;
-            document.getElementById('caption').innerHTML = name;
+        function openModal(id) {
+            const p = products.find(prod => prod.id === id);
+            document.getElementById('modal-img').src = p.image;
+            document.getElementById('modal-cat').innerText = p.category;
+            document.getElementById('modal-title').innerText = p.name;
+            document.getElementById('modal-desc').innerText = p.desc;
+            document.getElementById('modal-price').innerText = p.price;
+            document.getElementById('modal-wa').href = `https://wa.me/6281375861195?text=Halo%20Admin%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20produk%20${encodeURIComponent(p.name)}`;
+            document.getElementById('product-modal').style.display = 'flex';
         }
 
         function closeModal() {
-            document.getElementById('imageModal').style.display = "none";
+            document.getElementById('product-modal').style.display = 'none';
         }
 
         window.onclick = function(event) {
-            const imgModal = document.getElementById('imageModal');
-            const sizeModal = document.getElementById('sizeGuideModal');
-            if (event.target == imgModal) closeModal();
-            if (event.target == sizeModal) toggleSizeGuide();
+            if (event.target == document.getElementById('product-modal')) {
+                closeModal();
+            }
         }
 
-        window.onload = () => renderProducts(products);
+        renderProducts(products);
     </script>
 </body>
 </html>
