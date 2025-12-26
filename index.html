@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Yusuf_Store 25 - Pusat sepatu kualitas import, sepatu lokal original, dan kaos berkualitas di Padang Sidimpuan. Lokasi depan Tugu Salak.">
+    <meta name="keywords" content="sepatu import padang sidimpuan, sepatu lokal original, toko sepatu tugu salak, kaos berkualitas sidimpuan, yusuf_store 25">
+    <meta name="author" content="Yusuf_Store 25">
+    
     <title>Yusuf_Store 25 - Gaya Keren, Harga Bersahabat</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -87,7 +94,8 @@
                     <h1 class="text-lg font-extrabold tracking-tighter uppercase">YUSUF_STORE <span class="text-blue-600">25</span></h1>
                 </div>
             </div>
-            <a href="https://wa.me/6281375861195" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded-full font-bold flex items-center gap-2 hover:bg-green-700 transition shadow-md text-[10px] uppercase">
+            <!-- Link Chat Admin -->
+            <a href="https://wa.me/6281375861195?text=Halo%20Yusuf_Store%2025,%20saya%20ingin%20tanya%20stok%20produk" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded-full font-bold flex items-center gap-2 hover:bg-green-700 transition shadow-md text-[10px] uppercase">
                 <i class="fab fa-whatsapp"></i> Chat Admin
             </a>
         </div>
@@ -193,7 +201,8 @@
                         <div class="mt-4">
                             <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded badge-${item.cat}">${item.cat}</span>
                             <h3 class="font-bold text-sm text-slate-800 leading-tight mt-1 mb-4 h-10 overflow-hidden line-clamp-2">${item.name}</h3>
-                            <a href="https://wa.me/6281375861195?text=Halo%20Yusuf_Store%2025,%20saya%20tertarik%20dengan%20${item.name}" 
+                            <a href="https://wa.me/6281375861195?text=Halo%20Yusuf_Store%2025,%20saya%20tertarik%20dengan%20produk:%20${encodeURIComponent(item.name)}" 
+                               target="_blank"
                                class="w-full flex items-center justify-center gap-2 bg-slate-900 text-white py-2.5 rounded-xl font-bold text-xs hover:bg-blue-600 transition active:scale-95 shadow-sm">
                                 <i class="fab fa-whatsapp text-sm"></i> PESAN SEKARANG
                             </a>
