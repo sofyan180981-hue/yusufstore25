@@ -146,8 +146,8 @@
         }
 
         .hero-logo-img {
-            width: 130px;
-            height: 130px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             border: 4px solid var(--white);
             margin: 0 auto 20px;
@@ -157,14 +157,14 @@
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             margin-bottom: 10px;
             text-transform: uppercase;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.8rem;
             font-style: italic;
             margin-bottom: 20px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
@@ -187,8 +187,8 @@
             box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
         }
 
-        /* ---  SECTION (LOGO) --- */
-        .s-section {
+        /* --- BRAND SECTION (LOGO) --- */
+        .brands-section {
             padding: 40px 5%;
             background: var(--white);
         }
@@ -200,7 +200,7 @@
             font-weight: 700;
         }
 
-        .s-grid {
+        .brands-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 15px;
@@ -208,13 +208,13 @@
         }
 
         @media (min-width: 768px) {
-            .s-grid { grid-template-columns: repeat(6, 1fr); }
+            .brands-grid { grid-template-columns: repeat(6, 1fr); }
         }
 
         /* Styling untuk Logo Merek */
         .brand-item {
             background: #ffffff; /* Background putih agar logo terlihat jelas */
-            width: 90%;
+            width: 100%;
             height: 90px; /* Tinggi tetap agar rapi */
             display: flex;
             align-items: center;
@@ -568,54 +568,80 @@
 
         <div class="products-grid">
             <!-- Produk 1 -->
-            <div class="product-card" data-category="running">
+            <div class="product-card" data-category="RUNNING">
                 <div class="product-image" onclick="openModal(this)">
                     <img src="sepatu1.jpg" alt="Sepatu Running Nike">
                 </div>
                 <div class="product-info">
-                    <span class="product-category">Running</span>
+                    <span class="product-category">RUNNING</span>
                     <h3 class="product-title">Nike Vomero Size 43</h3>
                     <p class="product-price">Rp 300.000</p>
-                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Nike%20Zoom%20Air." target="_blank" class="btn-wa">Beli via WA</a>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Nike%20Vomero%20Size43." target="_blank" class="btn-wa">Beli via WA</a>
                 </div>
             </div>
 
             <!-- Produk 2 -->
-            <div class="product-card" data-category="casual">
+            <div class="product-card" data-category="CASUAL">
                 <div class="product-image" onclick="openModal(this)">
                     <img src="sepatu2.jpg" alt="Sepatu Le Coq">
                 </div>
                 <div class="product-info">
-                    <span class="product-category">Casual</span>
+                    <span class="product-category">CASUAL</span>
                     <h3 class="product-title">Le Coq Size 40</h3>
                     <p class="product-price">Rp 300.000</p>
-                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Adidas%20Court." target="_blank" class="btn-wa">Beli via WA</a>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20LeCoq%20Size40." target="_blank" class="btn-wa">Beli via WA</a>
                 </div>
             </div>
 
             <!-- Produk 3 -->
-            <div class="product-card" data-category="running">
+            <div class="product-card" data-category="RUNNING">
                 <div class="product-image" onclick="openModal(this)">
                     <img src="sepatu3.jpg" alt="Sepatu Nike">
                 </div>
                 <div class="product-info">
-                    <span class="product-category">Running</span>
+                    <span class="product-category">RUNNING</span>
                     <h3 class="product-title">Nike Pegasus Size 39</h3>
                     <p class="product-price">Rp 300.000</p>
-                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Hoka%20Bondi." target="_blank" class="btn-wa">Beli via WA</a>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20NIke%20Pegasus%20size39." target="_blank" class="btn-wa">Beli via WA</a>
                 </div>
             </div>
 
             <!-- Produk 4 -->
-            <div class="product-card" data-category="kaos">
+            <div class="product-card" data-category="KAOS">
                 <div class="product-image" onclick="openModal(this)">
                     <img src="kaos1.jpg" alt="Kaos Oblong">
                 </div>
                 <div class="product-info">
-                    <span class="product-category">Kaos</span>
+                    <span class="product-category">KAOS</span>
                     <h3 class="product-title">Kaos Puma Premium</h3>
                     <p class="product-price">Rp 100.000</p>
-                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Kaos%20Dri-Fit." target="_blank" class="btn-wa">Beli via WA</a>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Kaos%20Puma." target="_blank" class="btn-wa">Beli via WA</a>
+                </div>
+            </div>
+
+	    <!-- Produk 5 -->
+            <div class="product-card" data-category="RUNNING">
+                <div class="product-image" onclick="openModal(this)">
+                    <img src="sepatu4.jpg" alt="Sepatu Running">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">RUNNING</span>
+                    <h3 class="product-title">Asics Magic Speed Size 36</h3>
+                    <p class="product-price">Rp 350.000</p>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Asics%20Magicspeed%20size36." target="_blank" class="btn-wa">Beli via WA</a>
+                </div>
+            </div>
+
+	    <!-- Produk 6 -->
+            <div class="product-card" data-category="CASUAL">
+                <div class="product-image" onclick="openModal(this)">
+                    <img src="sepatu5.jpg" alt="Sepatu Running">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">CASUAL</span>
+                    <h3 class="product-title">ADIDAS SL72 Size 39</h3>
+                    <p class="product-price">Rp 290.000</p>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Adidas%20SL72d%20size39." target="_blank" class="btn-wa">Beli via WA</a>
                 </div>
             </div>
         </div>
@@ -759,7 +785,4 @@
         }
     </script>
 </body>
-
 </html>
-
-
