@@ -3,371 +3,760 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yusuf Store 25 - Toko Sepatu & Apparel Terlengkap</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Yusuf Store 25 - Sepatu & Apparel Original</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        
-        .brand-grid img { filter: grayscale(100%); transition: all 0.3s ease; }
-        .brand-grid img:hover { filter: grayscale(0%); transform: scale(1.1); }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
-        
-        /* Animasi Text Banner agar tidak kaku */
-        .banner-title {
-            font-weight: 800;
-            font-style: italic;
-            letter-spacing: -0.05em;
-            background: linear-gradient(to right, #ffffff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-color: #e63946; /* Merah Aksen */
+            --secondary-color: #1d3557; /* Biru Tua */
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --white: #ffffff;
+            --gray-light: #e9ecef;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- HEADER & NAVIGATION --- */
+        .top-bar {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 8px 5%;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 10px 5%;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-img-wrapper {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img-wrapper img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .logo-img-wrapper:hover img {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 5px 10px rgba(230, 57, 70, 0.5));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* --- ANIMASI KEYFRAMES --- */
+        @keyframes floatLogo {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes glowingBorder {
+            0% { 
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(230, 57, 70, 0.2); 
+                border-color: white;
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 50px rgba(230, 57, 70, 0.6); 
+                border-color: #e63946;
+            }
+            100% { 
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(230, 57, 70, 0.2); 
+                border-color: white;
+            }
+        }
+
+        /* --- HERO SECTION (Banner) --- */
+        .hero {
+            position: relative;
+            height: 500px;
+            max-height: 70vh;
+            /* Gambar Banner Sepatu Estetik */
+            background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1950&q=80'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .hero-logo-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            margin: 0 auto 20px;
+            object-fit: cover;
+            background-color: white;
+            animation: floatLogo 4s ease-in-out infinite, glowingBorder 3s infinite alternate;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        }
+
+        .cta-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover { 
+            background-color: #c92a37; 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+        }
+
+        /* --- BRAND SECTION (LOGO) --- */
+        .brands-section {
+            padding: 40px 5%;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            justify-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .brands-grid { grid-template-columns: repeat(6, 1fr); }
+        }
+
+        /* Styling untuk Logo Merek */
+        .brand-item {
+            background: #ffffff; /* Background putih agar logo terlihat jelas */
+            width: 100%;
+            height: 70px; /* Tinggi tetap agar rapi */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: var(--transition);
+            border: 1px solid #eee;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 10px;
+        }
+
+        .brand-item:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .brand-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Agar logo tidak terpotong */
+        }
+
+        /* --- CATALOG SECTION --- */
+        .catalog-section {
+            padding: 50px 5%;
+        }
+
+        .catalog-filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            display: block; 
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 250px;
+            width: 100%;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .btn-wa {
+            background-color: #25D366;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            width: 100%;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-wa:hover { background-color: #128C7E; }
+
+        /* --- INFO SECTION --- */
+        .info-section {
+            padding: 50px 5%;
+            background: var(--white);
+            margin-top: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .size-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .size-table th, .size-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .size-table th { background: var(--secondary-color); color: white; }
+
+        .ongkir-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ongkir-form input, .ongkir-form select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .ongkir-form button {
+            background: var(--secondary-color);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* --- LOCATION & PAYMENTS --- */
+        .location-section {
+            padding: 50px 5%;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            background: #ddd;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .payments-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .payment-logo {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 700;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .footer-info h3 { margin-bottom: 15px; }
+        .footer-info p { margin-bottom: 10px; font-size: 0.9rem; }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            color: var(--white);
+        }
+
+        .social-links a:hover { color: var(--primary-color); }
+
+        /* --- MODAL --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.9); 
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 5px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8rem; }
+            .nav-links { display: none; } 
+            .header { justify-content: center; }
+            .brands-grid { grid-template-columns: repeat(3, 1fr); }
+            .logo-img-wrapper img { height: 40px; }
+            .hero-logo-img { width: 100px; height: 100px; }
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body>
 
-    <!-- Header / Navbar -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <!-- Logo Toko (Placeholder Image/Icon) -->
-                <div class="relative w-12 h-12 flex items-center justify-center bg-black rounded-full overflow-hidden border-2 border-blue-600 shadow-lg">
-                    <span class="text-white font-black italic text-xl">YS</span>
-                    <!-- Jika Anda punya link gambar logo asli, ganti src di bawah: -->
-                    <!-- <img src="link-ke-logo-anda.jpg" class="absolute inset-0 w-full h-full object-cover"> -->
-                </div>
-                <div class="flex flex-col leading-none">
-                    <span class="font-black text-xl italic tracking-tighter">YUSUF STORE <span class="text-blue-600">25</span></span>
-                    <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase">Premium Sportswear</span>
-                </div>
-            </div>
-            <div class="hidden md:flex space-x-8 font-bold text-xs uppercase tracking-widest text-gray-600">
-                <a href="#katalog" class="hover:text-blue-600 transition">Katalog</a>
-                <a href="#size-guide" class="hover:text-blue-600 transition">Size Guide</a>
-                <a href="#testimoni" class="hover:text-blue-600 transition">Testimoni</a>
-                <a href="#lokasi" class="hover:text-blue-600 transition">Lokasi</a>
-            </div>
-            <a href="https://wa.me/6281375861195" target="_blank" class="bg-green-500 text-white px-5 py-2 rounded-full flex items-center hover:bg-green-600 transition shadow-lg font-bold text-sm">
-                <i class="fab fa-whatsapp mr-2 text-lg"></i> Admin
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <span><i class="clock"></i> Jam Operasional: 11.00 WIB - 22.30 WIB</span>
+        <span><i class="truck"></i> Melayani Pengiriman Seluruh Indonesia</span>
+    </div>
+
+    <!-- Header & Nav -->
+    <header class="header">
+        <div class="nav-container">
+            <!-- Logo Toko di Header -->
+            <a href="#" class="logo-img-wrapper">
+                <img src="https://z-cdn-media.chatglm.cn/files/8ec0f45f-aac5-4ba4-892b-e32fc8f76ed2.jpg?auth_key=1866751818-2ee6d09ca25a4f69a7f451317a337325-0-f54c5ad6428b8cd184d7f86e07cb76cf" alt="Yusuf Store 25 Logo">
             </a>
+            <nav class="nav-links">
+                <a href="#hero">Beranda</a>
+                <a href="#catalog">Katalog</a>
+                <a href="#location">Lokasi</a>
+                <a href="https://www.instagram.com/yusufstore_25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Instagram</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <!-- Banner (Didesain lebih dinamis) -->
-    <section class="relative bg-neutral-950 text-white h-[550px] flex items-center justify-center overflow-hidden">
-        <!-- Background Image dengan Overlay Gelap -->
-        <div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200')] bg-cover bg-center scale-105"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-950/50 to-neutral-950"></div>
+    <!-- Hero Banner (Gambar Sepatu) -->
+    <section id="hero" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <img src="https://z-cdn-media.chatglm.cn/files/8ec0f45f-aac5-4ba4-892b-e32fc8f76ed2.jpg?auth_key=1866751818-2ee6d09ca25a4f69a7f451317a337325-0-f54c5ad6428b8cd184d7f86e07cb76cf" alt="Yusuf Store 25 Logo" class="hero-logo-img">
+            <h1>Yusuf Store 25</h1>
+            <p>"Langkah Nyaman, Gaya Terkini"</p>
+            <button class="cta-btn" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">Belanja Sekarang</button>
+        </div>
+    </section>
+
+    <!-- Brand Logos (Gambar Logo Merek) -->
+    <section class="brands-section">
+        <h2 class="section-title">Merek Tersedia</h2>
+        <div class="brands-grid">
+            <!-- Logo Global (Wikimedia) -->
+            <div class="brand-item"><img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas"></div>
+            <div class="brand-item"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike"></div>
+            <div class="brand-item"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Onitsuka_Tiger_Logo.svg" alt="Onitsuka"></div>
+            <div class="brand-item"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/New_Balance_logo_(2011).svg" alt="NB"></div>
+            
+            <!-- Logo Lokal/Niche (Menggunakan Placeholder Teks agar tidak error link) -->
+            <div class="brand-item"><img src="https://placehold.co/120x60/fff/000?text=On+Cloud" alt="On Cloud"></div>
+            <div class="brand-item"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Puma_Logo.svg" alt="Puma"></div>
+            
+            <div class="brand-item"><img src="https://placehold.co/120x60/fff/000?text=Ortus" alt="Ortus"></div>
+            <div class="brand-item"><img src="https://placehold.co/120x60/fff/000?text=910" alt="910"></div>
+            <div class="brand-item"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Skechers_logo.svg" alt="Skechers"></div>
+            <div class="brand-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Hoka_one_one_2014_logo.svg" alt="Hoka"></div>
+            <div class="brand-item"><img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Asics_Logo.svg" alt="Asics"></div>
+            <div class="brand-item"><img src="https://placehold.co/120x60/fff/000?text=Specs" alt="Specs"></div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalog" class="catalog-section">
+        <h2 class="section-title">Katalog Produk</h2>
         
-        <div class="relative z-10 text-center px-4">
-            <!-- Logo Besar di Banner -->
-            <div class="mb-6 inline-flex items-center justify-center w-24 h-24 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 rotate-12 shadow-2xl mx-auto">
-                <span class="text-white font-black italic text-4xl -rotate-12">YS25</span>
-            </div>
-            
-            <h1 class="banner-title text-5xl md:text-8xl mb-2">
-                YUSUF STORE 25
-            </h1>
-            <p class="text-lg md:text-2xl mb-10 max-w-2xl mx-auto font-light text-gray-300 italic">
-                "Pusat Sepatu <span class="text-white font-bold">Running, Casual</span> & Apparel Berkualitas"
-            </p>
-            
-            <div class="flex flex-col md:flex-row justify-center gap-4 items-center">
-                <div class="glass-card px-6 py-3 rounded-2xl flex items-center space-x-3">
-                    <i class="fas fa-shipping-fast text-blue-400 text-xl"></i>
-                    <span class="text-sm font-bold tracking-wide uppercase">Kirim Seluruh Indonesia</span>
-                </div>
-                <div class="glass-card px-6 py-3 rounded-2xl flex items-center space-x-3">
-                    <i class="far fa-clock text-yellow-400 text-xl"></i>
-                    <span class="text-sm font-bold tracking-wide uppercase">11:00 - 22:30 WIB</span>
-                </div>
-            </div>
+        <div class="catalog-filters">
+            <button class="filter-btn active" onclick="filterSelection('all')">Semua</button>
+            <button class="filter-btn" onclick="filterSelection('running')">Running</button>
+            <button class="filter-btn" onclick="filterSelection('casual')">Casual</button>
+            <button class="filter-btn" onclick="filterSelection('kaos')">Kaos</button>
         </div>
 
-        <!-- Efek Cahaya Dekoratif -->
-        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px]"></div>
-        <div class="absolute -top-24 -right-24 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px]"></div>
-    </section>
-
-    <!-- Brand Logos (2 Rows) -->
-    <section class="py-12 bg-white">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-xs font-black mb-10 text-gray-400 uppercase tracking-[0.4em]">Official Registered Brands</h2>
-            <div class="brand-grid grid grid-cols-3 md:grid-cols-6 gap-y-10 gap-x-8 items-center opacity-60">
-                <!-- Row 1 -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas" class="h-8 mx-auto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike" class="h-8 mx-auto">
-                <img src="https://www.onitsukatiger.com/on/demandware.static/-/Sites-onitsukatiger-Library/default/dwb5d8f635/logo.svg" alt="Onitsuka" class="h-8 mx-auto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/New_Balance_logo.svg" alt="NB" class="h-10 mx-auto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Puma_Logo.svg/1200px-Puma_Logo.svg.png" alt="Puma" class="h-8 mx-auto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Asics_logo.svg/2560px-Asics_logo.svg.png" alt="Asics" class="h-8 mx-auto">
-                <!-- Row 2 -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Skechers_logo.svg" alt="Skechers" class="h-8 mx-auto">
-                <img src="https://seeklogo.com/images/H/hoka-one-one-logo-1C90656D69-seeklogo.com.png" alt="Hoka" class="h-10 mx-auto">
-                <div class="font-black text-gray-400 text-lg tracking-tighter">SPECS</div>
-                <div class="font-black text-gray-400 text-lg tracking-tighter">ORTUS</div>
-                <div class="font-black text-gray-400 text-lg tracking-tighter uppercase italic">910-Nineten</div>
-                <div class="font-black text-gray-400 text-2xl italic tracking-tighter">On <span class="text-xs not-italic font-light opacity-50">Cloud</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Katalog -->
-    <section id="katalog" class="py-20 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
-                <div class="text-center md:text-left">
-                    <h2 class="text-4xl font-black italic tracking-tighter">COLLECTION <span class="text-blue-600">2024</span></h2>
-                    <div class="h-1.5 w-24 bg-blue-600 mt-2 mx-auto md:ml-0 rounded-full"></div>
+        <div class="products-grid">
+            <!-- Produk 1 -->
+            <div class="product-card" data-category="running">
+                <div class="product-image" onclick="openModal(this)">
+                    <img src="https://picsum.photos/seed/shoe_run1/400/400" alt="Sepatu Running Nike">
                 </div>
-                <div class="mt-8 flex flex-wrap justify-center gap-2">
-                    <button onclick="filterKatalog('all')" class="bg-black text-white px-6 py-2 rounded-full font-bold text-xs uppercase shadow-lg">Semua</button>
-                    <button onclick="filterKatalog('Running')" class="bg-white hover:bg-blue-600 hover:text-white px-6 py-2 rounded-full font-bold text-xs uppercase transition shadow-sm">Running</button>
-                    <button onclick="filterKatalog('Casual')" class="bg-white hover:bg-blue-600 hover:text-white px-6 py-2 rounded-full font-bold text-xs uppercase transition shadow-sm">Casual</button>
-                    <button onclick="filterKatalog('Kaos')" class="bg-white hover:bg-blue-600 hover:text-white px-6 py-2 rounded-full font-bold text-xs uppercase transition shadow-sm">Kaos</button>
+                <div class="product-info">
+                    <span class="product-category">Running</span>
+                    <h3 class="product-title">Nike Zoom Air</h3>
+                    <p class="product-price">Rp 1.250.000</p>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Nike%20Zoom%20Air." target="_blank" class="btn-wa">Beli via WA</a>
                 </div>
             </div>
 
-            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Products dynamically rendered -->
+            <!-- Produk 2 -->
+            <div class="product-card" data-category="casual">
+                <div class="product-image" onclick="openModal(this)">
+                    <img src="https://picsum.photos/seed/shoe_casual1/400/400" alt="Sepatu Casual Adidas">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Casual</span>
+                    <h3 class="product-title">Adidas Court Vantage</h3>
+                    <p class="product-price">Rp 850.000</p>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Adidas%20Court." target="_blank" class="btn-wa">Beli via WA</a>
+                </div>
+            </div>
+
+            <!-- Produk 3 -->
+            <div class="product-card" data-category="running">
+                <div class="product-image" onclick="openModal(this)">
+                    <img src="https://picsum.photos/seed/shoe_hoka/400/400" alt="Sepatu Hoka">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Running</span>
+                    <h3 class="product-title">Hoka One One Bondi</h3>
+                    <p class="product-price">Rp 1.800.000</p>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Hoka%20Bondi." target="_blank" class="btn-wa">Beli via WA</a>
+                </div>
+            </div>
+
+            <!-- Produk 4 -->
+            <div class="product-card" data-category="kaos">
+                <div class="product-image" onclick="openModal(this)">
+                    <img src="https://picsum.photos/seed/tshirt1/400/400" alt="Kaos Lari">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Kaos</span>
+                    <h3 class="product-title">Kaos Dri-Fit Premium</h3>
+                    <p class="product-price">Rp 150.000</p>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Kaos%20Dri-Fit." target="_blank" class="btn-wa">Beli via WA</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Size Guide -->
-    <section id="size-guide" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-black text-center italic mb-10 tracking-tighter">SIZE CHART GUIDE</h2>
-            <div class="max-w-4xl mx-auto overflow-hidden shadow-2xl rounded-3xl border border-gray-100">
-                <table class="w-full text-left border-collapse">
-                    <thead class="bg-neutral-900 text-white">
+    <!-- Info Section: Size Guide & Ongkir -->
+    <section class="info-section">
+        <h2 class="section-title">Informasi Toko</h2>
+        <div class="info-grid">
+            <div class="info-block">
+                <h3>📏 Panduan Ukuran (Size Guide)</h3>
+                <table class="size-table">
+                    <thead>
                         <tr>
-                            <th class="p-5 font-black uppercase text-xs tracking-widest">EU Size</th>
-                            <th class="p-5 font-black uppercase text-xs tracking-widest">UK Size</th>
-                            <th class="p-5 font-black uppercase text-xs tracking-widest">US Size</th>
-                            <th class="p-5 font-black uppercase text-xs tracking-widest text-blue-400">Insole (CM)</th>
+                            <th>EU</th>
+                            <th>UK</th>
+                            <th>US</th>
+                            <th>CM (Panjang Kaki)</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100 font-bold text-gray-700">
-                        <tr class="hover:bg-blue-50 transition"><td class="p-5">39</td><td class="p-5">6</td><td class="p-5">7</td><td class="p-5 text-blue-600">24.5</td></tr>
-                        <tr class="hover:bg-blue-50 transition"><td class="p-5">40</td><td class="p-5">6.5</td><td class="p-5">7.5</td><td class="p-5 text-blue-600">25.0</td></tr>
-                        <tr class="hover:bg-blue-50 transition"><td class="p-5">41</td><td class="p-5">7.5</td><td class="p-5">8.5</td><td class="p-5 text-blue-600">26.0</td></tr>
-                        <tr class="hover:bg-blue-50 transition"><td class="p-5">42</td><td class="p-5">8</td><td class="p-5">9</td><td class="p-5 text-blue-600">26.5</td></tr>
-                        <tr class="hover:bg-blue-50 transition"><td class="p-5">43</td><td class="p-5">9</td><td class="p-5">10</td><td class="p-5 text-blue-600">27.5</td></tr>
-                        <tr class="hover:bg-blue-50 transition"><td class="p-5">44</td><td class="p-5">9.5</td><td class="p-5">10.5</td><td class="p-5 text-blue-600">28.0</td></tr>
+                    <tbody>
+                        <tr><td>39</td><td>6</td><td>7</td><td>24.5</td></tr>
+                        <tr><td>40</td><td>6.5</td><td>7.5</td><td>25.0</td></tr>
+                        <tr><td>41</td><td>7</td><td>8</td><td>25.5</td></tr>
+                        <tr><td>42</td><td>8</td><td>9</td><td>26.5</td></tr>
+                        <tr><td>43</td><td>9</td><td>10</td><td>27.5</td></tr>
+                        <tr><td>44</td><td>9.5</td><td>10.5</td><td>28.0</td></tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-    </section>
 
-    <!-- Testimoni -->
-    <section id="testimoni" class="py-20 bg-neutral-900 text-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-black text-center italic mb-16 tracking-tighter">WHAT THEY SAY</h2>
-            <div class="grid md:grid-cols-3 gap-10">
-                <div class="glass-card p-8 rounded-3xl relative">
-                    <i class="fas fa-quote-left text-blue-600 text-4xl absolute -top-4 -left-2 opacity-50"></i>
-                    <div class="text-yellow-400 mb-4 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="italic text-gray-300">"Sepatunya asli mantap, pelayanan admin Yusuf Store ramah banget. Langganan deh pokoknya!"</p>
-                    <div class="mt-6 flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold">R</div>
-                        <span class="font-bold text-sm">Rian, Medan</span>
-                    </div>
-                </div>
-                <div class="glass-card p-8 rounded-3xl relative">
-                    <i class="fas fa-quote-left text-blue-600 text-4xl absolute -top-4 -left-2 opacity-50"></i>
-                    <div class="text-yellow-400 mb-4 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="italic text-gray-300">"Pengiriman ke Jakarta cepet bgt, packing aman. On Cloud-nya empuk abis!"</p>
-                    <div class="mt-6 flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center font-bold">S</div>
-                        <span class="font-bold text-sm">Sarah, Jakarta</span>
-                    </div>
-                </div>
-                <div class="glass-card p-8 rounded-3xl relative">
-                    <i class="fas fa-quote-left text-blue-600 text-4xl absolute -top-4 -left-2 opacity-50"></i>
-                    <div class="text-yellow-400 mb-4 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="italic text-gray-300">"Barang sesuai foto, harganya bersaing buat daerah Padang Sidimpuan."</p>
-                    <div class="mt-6 flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center font-bold">A</div>
-                        <span class="font-bold text-sm">Ahmad, Sidimpuan</span>
-                    </div>
-                </div>
+            <div class="info-block">
+                <h3>🚚 Cek Ongkir</h3>
+                <p style="font-size:0.9rem; margin-bottom:10px;">Masukkan kota tujuan, admin akan cekkan biayanya via WhatsApp.</p>
+                <form class="ongkir-form" onsubmit="cekOngkir(event)">
+                    <input type="text" id="kota-tujuan" placeholder="Kota / Kecamatan Tujuan" required>
+                    <select id="kurir">
+                        <option value="JNE">JNE</option>
+                        <option value="J&T">J&T Express</option>
+                        <option value="Sicepat">Sicepat</option>
+                    </select>
+                    <button type="submit">Cek Sekarang</button>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- Lokasi -->
-    <section id="lokasi" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-stretch gap-10">
-                <div class="md:w-1/3">
-                    <h2 class="text-4xl font-black italic tracking-tighter mb-6">VISIT US</h2>
-                    <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <div class="bg-blue-100 p-3 rounded-2xl text-blue-600"><i class="fas fa-map-marker-alt text-xl"></i></div>
-                            <div>
-                                <h4 class="font-black text-sm uppercase">Store Address</h4>
-                                <p class="text-gray-600 text-sm leading-relaxed mt-1">Jln. Merdeka-Kantin, Depan Tugu Salak Kota Padang Sidimpuan, Sumatera Utara</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="bg-green-100 p-3 rounded-2xl text-green-600"><i class="fab fa-whatsapp text-xl"></i></div>
-                            <div>
-                                <h4 class="font-black text-sm uppercase">Direct Contact</h4>
-                                <p class="text-gray-600 text-sm mt-1">0813 7586 1195</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="md:w-2/3 h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-100">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3989.814777591322!2d99.27329924966573!3d1.3759020665545012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMcKwMjInMzMuMiJOIDk5wrAxNiczMy45IkU!5e0!3m2!1sen!2sid!4v1715000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
+    <!-- Location Map & Payments -->
+    <section id="location" class="location-section">
+        <h2 class="section-title">Lokasi & Pembayaran</h2>
+        <div class="map-container">
+            <iframe 
+                src="https://maps.google.com/maps?q=1.3759020665545012, 99.27329924966573&hl=id&z=15&output=embed" 
+                allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+        <h3 style="text-align: center;">Metode Pembayaran Tersedia</h3>
+        <div class="payments-grid">
+            <div class="payment-logo">BCA</div>
+            <div class="payment-logo">MANDIRI</div>
+            <div class="payment-logo">BRI</div>
+            <div class="payment-logo">BNI</div>
+            <div class="payment-logo">DANA</div>
+            <div class="payment-logo">OVO</div>
+            <div class="payment-logo">GOPAY</div>
+            <div class="payment-logo">SHOPEEPAY</div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-neutral-950 text-white pt-20 pb-10">
-        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-16 border-b border-white/5 pb-16">
-            <div>
-                <div class="flex items-center space-x-3 mb-6">
-                    <div class="bg-blue-600 p-2 rounded-xl font-black italic">YS</div>
-                    <h3 class="text-2xl font-black italic tracking-tighter uppercase">Yusuf Store 25</h3>
-                </div>
-                <p class="text-gray-500 text-sm leading-relaxed mb-6">Partner terpercaya Anda untuk kebutuhan perlengkapan lari dan gaya hidup casual di Sumatera Utara.</p>
-                <div class="flex space-x-4">
-                    <a href="https://www.instagram.com/yusufstore_25" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-pink-600 transition"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/6281375861195" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-green-600 transition"><i class="fab fa-whatsapp"></i></a>
-                </div>
+    <footer>
+        <div class="footer-info">
+            <h3>Yusuf Store 25</h3>
+            <p>Jln. Merdeka - Kantin, Kota Padang Sidimpuan, Sumatera Utara.</p>
+            <p>WA: 0813-7586-1195</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/yusufstore_25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Instagram</a>
             </div>
-            <div>
-                <h4 class="font-black text-xs uppercase tracking-[0.3em] text-blue-600 mb-6">Open Hours</h4>
-                <div class="space-y-3 text-sm font-bold">
-                    <div class="flex justify-between border-b border-white/5 pb-2">
-                        <span class="text-gray-500">Senin - Minggu</span>
-                        <span>11.00 - 22.30 WIB</span>
-                    </div>
-                    <p class="text-[10px] text-gray-500 italic mt-4 uppercase tracking-widest text-center">Open 7 days a week</p>
-                </div>
-            </div>
-            <div>
-                <h4 class="font-black text-xs uppercase tracking-[0.3em] text-blue-600 mb-6">Payments</h4>
-                <div class="grid grid-cols-4 gap-3 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" alt="BCA" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
-                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/a/ad/Bank_Mandiri_logo_2016.svg/1200px-Bank_Mandiri_logo_2016.svg.png" alt="Mandiri" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/BRI_Logo.svg" alt="BRI" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
-                    <img src="https://upload.wikimedia.org/wikipedia/id/5/55/BNI_logo.svg" alt="BNI" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="Dana" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg" alt="OVO" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GOPAY" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay_logo.svg" alt="ShopeePay" class="bg-white p-1.5 rounded-lg h-8 w-full object-contain">
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-10 text-gray-700 text-[10px] font-black uppercase tracking-[0.5em]">
-            &copy; 2024 YUSUF STORE 25 &bull; HIGHT QUALITY ONLY
+            <p style="margin-top: 20px; font-size: 0.8rem;">&copy; 2023 Yusuf Store 25. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- Modal Product -->
-    <div id="product-modal" class="modal flex items-center justify-center p-4">
-        <div class="bg-white rounded-[40px] max-w-4xl w-full relative overflow-hidden flex flex-col md:flex-row shadow-2xl animate-in zoom-in duration-300">
-            <button onclick="closeModal()" class="absolute top-6 right-6 w-10 h-10 bg-black text-white rounded-full flex items-center justify-center font-bold z-20 hover:scale-110 transition">&times;</button>
-            <div class="md:w-1/2 bg-gray-50 flex items-center justify-center">
-                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="md:w-1/2 p-12">
-                <span id="modal-cat" class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Category</span>
-                <h3 id="modal-title" class="text-4xl font-black italic tracking-tighter my-4 leading-tight">Product Name</h3>
-                <p id="modal-desc" class="text-gray-500 text-sm leading-relaxed mb-8 font-medium">Description text goes here.</p>
-                <div class="flex items-center space-x-6 mb-10">
-                    <span class="text-4xl font-black text-blue-600 italic tracking-tighter">Rp <span id="modal-price">000</span></span>
-                </div>
-                <a id="modal-wa" href="#" target="_blank" class="block text-center bg-green-500 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-green-600 transition shadow-xl shadow-green-200">
-                    <i class="fab fa-whatsapp mr-2 text-xl"></i> ORDER via WhatsApp
-                </a>
-            </div>
-        </div>
+    <!-- Modal Zoom -->
+    <div id="imgModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImg">
     </div>
 
     <script>
-        const products = [
-            { id: 1, name: "Nike Air Zoom Pegasus", category: "Running", price: "1.850.000", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600", desc: "Sepatu lari performa tinggi dengan teknologi Zoom Air untuk kenyamanan maksimal saat berlari jarak jauh maupun pendek." },
-            { id: 2, name: "Adidas Ultraboost Light", category: "Running", price: "2.400.000", image: "https://images.unsplash.com/photo-1587563877366-26213797af52?auto=format&fit=crop&w=600", desc: "Energy return terbaik dengan busa Ultraboost terbaru yang lebih ringan namun tetap responsif." },
-            { id: 3, name: "Onitsuka Tiger Mexico 66", category: "Casual", price: "1.600.000", image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=600", desc: "Ikon gaya casual yang tak lekang oleh waktu dengan siluet klasik dan material kulit premium." },
-            { id: 4, name: "New Balance 530 White", category: "Casual", price: "1.450.000", image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=600", desc: "Tren chunky sneakers dengan desain retro yang sangat nyaman digunakan seharian." },
-            { id: 5, name: "Hoka Clifton 9", category: "Running", price: "2.550.000", image: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=600", desc: "Maksimal cushion untuk proteksi lutut Anda. Sangat populer di kalangan marathoners." },
-            { id: 6, name: "Kaos Dry-Fit Premium", category: "Kaos", price: "250.000", image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600", desc: "Material kain teknologi dry-fit yang memastikan sirkulasi udara maksimal saat berolahraga." },
-            { id: 7, name: "Specs Accelerator Alpha", category: "Running", price: "550.000", image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=600", desc: "Sepatu lari lokal dengan kualitas internasional. Sangat ringan untuk speed training." },
-            { id: 8, name: "Kaos Yusuf Store Exclusive", category: "Kaos", price: "150.000", image: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=600", desc: "Merchandise resmi dari Yusuf Store 25 menggunakan bahan Katun Combed 30s premium." },
-        ];
+        function filterSelection(category) {
+            const cards = document.getElementsByClassName("product-card");
+            const btns = document.getElementsByClassName("filter-btn");
 
-        function renderProducts(data) {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = '';
-            data.forEach(p => {
-                grid.innerHTML += `
-                    <div class="bg-white rounded-[32px] shadow-sm overflow-hidden hover:shadow-2xl transition-all duration-500 group cursor-pointer border border-gray-100" onclick="openModal(${p.id})">
-                        <div class="relative overflow-hidden aspect-square">
-                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-black font-black text-[9px] px-3 py-1 rounded-full uppercase tracking-widest italic">${p.category}</span>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="font-black text-sm h-10 line-clamp-2 uppercase tracking-tighter italic italic leading-tight">${p.name}</h3>
-                            <div class="flex items-center justify-between mt-4">
-                                <p class="text-blue-600 font-black text-lg italic tracking-tighter">Rp ${p.price}</p>
-                                <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                                    <i class="fas fa-plus text-xs"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].classList.remove("active");
+                if (btns[i].textContent.toLowerCase().includes(category) || 
+                   (category === 'all' && btns[i].textContent === 'Semua')) {
+                    btns[i].classList.add("active");
+                }
+            }
 
-        function filterKatalog(cat) {
-            if(cat === 'all') {
-                renderProducts(products);
-            } else {
-                const filtered = products.filter(p => p.category === cat);
-                renderProducts(filtered);
+            for (let i = 0; i < cards.length; i++) {
+                if (category === "all") {
+                    cards[i].style.display = "block";
+                } else {
+                    if (cards[i].getAttribute("data-category") === category) {
+                        cards[i].style.display = "block";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
             }
         }
 
-        function openModal(id) {
-            const p = products.find(prod => prod.id === id);
-            document.getElementById('modal-img').src = p.image;
-            document.getElementById('modal-cat').innerText = p.category;
-            document.getElementById('modal-title').innerText = p.name;
-            document.getElementById('modal-desc').innerText = p.desc;
-            document.getElementById('modal-price').innerText = p.price;
-            document.getElementById('modal-wa').href = `https://wa.me/6281375861195?text=Halo%20Admin%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20produk%20${encodeURIComponent(p.name)}`;
-            document.getElementById('product-modal').style.display = 'flex';
+        function openModal(element) {
+            const modal = document.getElementById("imgModal");
+            const modalImg = document.getElementById("modalImg");
+            const img = element.querySelector("img");
+            modal.style.display = "flex";
+            modalImg.src = img.src;
         }
 
         function closeModal() {
-            document.getElementById('product-modal').style.display = 'none';
+            document.getElementById("imgModal").style.display = "none";
         }
 
         window.onclick = function(event) {
-            if (event.target == document.getElementById('product-modal')) {
-                closeModal();
+            const modal = document.getElementById("imgModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
             }
         }
 
-        renderProducts(products);
+        function cekOngkir(e) {
+            e.preventDefault();
+            const kota = document.getElementById("kota-tujuan").value;
+            const kurir = document.getElementById("kurir").value;
+            const pesan = `Halo Admin Yusuf Store 25, saya mau cek ongkir ke: *${kota}* via ${kurir}. Mohon infonya ya.`;
+            const url = `https://wa.me/6281375861195?text=${encodeURIComponent(pesan)}`;
+            window.open(url, '_blank');
+        }
     </script>
 </body>
 </html>
-
