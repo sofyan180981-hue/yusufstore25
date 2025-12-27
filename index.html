@@ -554,6 +554,37 @@
             .logo-img-wrapper img { height: 40px; }
             .hero-logo-img { width: 100px; height: 100px; }
         }
+
+/* --- STYLE UNTUK SOLDOUT --- */
+
+/* Label/Hijab transparan merah di atas foto */
+.soldout-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(230, 57, 70, 0.9); /* Merah transparan */
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px;
+    z-index: 2; /* Di atas foto */
+    text-transform: uppercase;
+}
+
+/* Mengurangi kecerahan foto agar terlihat tidak aktif */
+.product-card.soldout .product-image {
+    opacity: 0.7;
+    filter: grayscale(100%); /* Foto jadi hitam putih */
+}
+
+/* Tombol WhatsApp jadi abu-abu dan tidak bisa diklik */
+.btn-wa-soldout {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    pointer-events: none; /* Mencegah klik */
+}
     </style>
 </head>
 <body>
@@ -973,7 +1004,7 @@
             <!-- Produk 25 -->
             <div class="product-card" data-category="kaos">
                 <div class="product-image" onclick="openModal(this)">
-                    <img src="kaos8.jpg" alt="Kaos Puma Ferarri" loading="lazy">
+                    <img src="kaos9.jpg" alt="Kaos Puma Ferarri" loading="lazy">
                 </div>
                 <div class="product-info">
                     <span class="product-category">kaos</span>
@@ -1034,6 +1065,58 @@
 		<a href='https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Adidas%Samba%20Jane%20Putih%20Size%2039' target='_blank' class='btn-wa'>Beli via WA</a>
 	    </div>
 	 </div>
+
+            <!-- Produk 30 -->
+            <div class="product-card" data-category="kaos">
+                <div class="product-image" onclick="openModal(this)">
+                    <img src="kaos10.jpg" alt="Kaos TNF Abu" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">kaos</span>
+                    <h3 class="product-title">Kaos TNF Abu</h3>
+                    <p class="product-price">Rp 150.000</p>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Kaos%20TNF%20Abu." target="_blank" class="btn-wa">Beli via WA</a>
+                </div>
+            </div>
+
+            <!-- Produk 31 -->
+            <div class="product-card" data-category="kaos">
+                <div class="product-image" onclick="openModal(this)">
+                    <img src="kaos11.jpg" alt="Kaos Adidas panjang" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">kaos</span>
+                    <h3 class="product-title">Kaos Adidas panjang</h3>
+                    <p class="product-price">Rp 180.000</p>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Kaos%20Adidas%20Panjang." target="_blank" class="btn-wa">Beli via WA</a>
+                </div>
+            </div>
+
+            <!-- Produk 32 -->
+            <div class="product-card" data-category="kaos">
+                <div class="product-image" onclick="openModal(this)">
+                    <img src="kaos12.jpg" alt="Kaos Hijau Army" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">kaos</span>
+                    <h3 class="product-title">Kaos Adidas panjang</h3>
+                    <p class="product-price">Rp 150.000</p>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Kaos%20Hijau%20Army." target="_blank" class="btn-wa">Beli via WA</a>
+                </div>
+            </div>
+
+            <!-- Produk 33 -->
+            <div class="product-card" data-category="kaos">
+                <div class="product-image" onclick="openModal(this)">
+                    <img src="kaos13.jpg" alt="Kaos Puma Putih" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">kaos</span>
+                    <h3 class="product-title">Kaos Adidas panjang</h3>
+                    <p class="product-price">Rp 150.000</p>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Kaos%20Puma%20Putih." target="_blank" class="btn-wa">Beli via WA</a>
+                </div>
+            </div>
        </div>
     </section>
 
