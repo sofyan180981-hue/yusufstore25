@@ -569,20 +569,32 @@
         /* --- STYLE UNTUK SOLDOUT --- */
 
         /* Label/Hijab transparan merah di atas foto */
-    	    .soldout-badge {
-   	    position: absolute;
-    	    top: 10px;
-    	    right: 10px;
-    	    background-color: #e63946; /* Merah Solid (Tidak Transparan) */
-    	    color: #ffffff !important; /* Warna Putih dipaksa pakai !important */
-   	    padding: 5px 10px;
-    	    font-size: 0.9rem;
-	    font-weight: bold;
+    	   .soldout-badge {
+  	    /* Posisi */
+	    position: absolute;
+	    top: 10px;
+	    right: 10px;
+	    z-index: 20; /* Pastikan di atas elemen lain */
+
+ 	   /* WARNA (Yang Diperbaiki) */
+ 	   /* Menggunakan !important agar tidak tertimpa style lain */
+  	  background-color: #D32F2F !important; 
+    
+  	  /* Teks */
+  	  color: #ffffff !important; 
+  	  font-size: 0.85rem;
+  	  font-weight: 800; /* Lebih tebal */
+ 	   text-transform: uppercase;
+    
+ 	   /* Bentuk & Border */
+ 	   padding: 5px 12px;
 	    border-radius: 4px;
-	    z-index: 10; /* Di atas foto */
-	    text-transform: uppercase;
- 	   border: 2px solid white; /* Border putih agar lebih jelas */
- 	   box-shadow: 0 2px 5px rgba(0,0,0,0.5); /* Bayangan biar timbul */
+ 	   border: 2px solid #ffffff; /* Border putih biar kontras dengan background */
+	    box-shadow: 0 4px 6px rgba(0,0,0,0.4); /* Bayangan lebih gelap */
+    
+ 	   /* Pastikan opacity 100% agar tidak transparan */
+ 	   opacity: 1; 
+ 	   display: inline-block;
 	}
 
         /* Mengurangi kecerahan foto agar terlihat tidak aktif */
@@ -1525,7 +1537,7 @@
                 <div class="product-info">
                     <span class="product-category">jamtangan</span>
                     <h3 class="product-title">Jam Cewek Cream</h3>
-                    <p class="product-price">Rp.180.000</p>
+                    <p class="product-price">Rp.140.000</p>
                     <small style="color: green; font-weight: bold; display: block; margin-top: 5px;">Harga masih bisa nego chat admin</small>
                     <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Jamtangan%20Cewek%20Cream" target="_blank" class="btn-wa">Beli via WA</a>
                 </div>
