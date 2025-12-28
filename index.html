@@ -566,39 +566,28 @@
             .hero-logo-img { width: 100px; height: 100px; }
         }
 
-/* --- STYLE UNTUK SOLDOUT (VERSI PAKSA) --- */
+        /* --- STYLE UNTUK SOLDOUT --- */
 
-.soldout-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 999; /* Diangkat ke paling atas */
+        /* Label/Hijab transparan merah di atas foto */
+        .soldout-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(230, 57, 70, 0.9); /* Merah transparan */
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            z-index: 2; /* Di atas foto */
+            text-transform: uppercase;
+        }
 
-    /* KODE WARNA PAKSA */
-    /* Coba ini jika yang di atas gagal */
-    span.soldout-badge, div.soldout-badge, a.soldout-badge {
-    background: #FF0000 !important;
-    color: #ffffff !important;
-}
-    
-    font-size: 0.85rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    padding: 5px 12px;
-    border-radius: 4px;
-    
-    /* Border dipastikan putih */
-    border: 2px solid #ffffff !important; 
-    
-    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
-    opacity: 1 !important; 
-    display: inline-block !important;
-}
-          /* Mengurangi kecerahan foto agar terlihat tidak aktif */
-          .product-card.soldout .product-image {
+        /* Mengurangi kecerahan foto agar terlihat tidak aktif */
+        .product-card.soldout .product-image {
             opacity: 0.7;
             filter: grayscale(100%); /* Foto jadi hitam putih */
-          }
+        }
 
         /* Tombol WhatsApp jadi abu-abu dan tidak bisa diklik */
         .btn-wa-soldout {
@@ -606,9 +595,9 @@
             color: #666;
             cursor: not-allowed;
             pointer-events: none; /* Mencegah klik */
-          }
-      </style>
-  </head>
+        }
+    </style>
+</head>
 <body>
 
 <!-- Structured Data untuk Google Maps -->
@@ -716,8 +705,9 @@
             <!-- Produk 1 (Soldout) -->
             <div class="product-card soldout" data-category="running">
                 <div class="product-image" onclick="openModal(this)">
-                <span class="soldout-badge">SOLDOUT</span>
-	            <img src="sepatu1.jpg" alt="NB Elite Size 40" loading="lazy">
+                    <!-- Badge Soldout -->
+                    <span class="soldout-badge">SOLDOUT</span>
+                    <img src="sepatu1.jpg" alt="NB Elite Size 40" loading="lazy">
                 </div>
                 <div class="product-info">
                     <span class="product-category">running</span>
@@ -885,14 +875,14 @@
             <!-- Produk 13 -->
             <div class="product-card" data-category="running">
                 <div class="product-image" onclick="openModal(this)">
-                    <img src="sepatu12.jpg" alt="910 Nineten Original Size 37" loading="lazy">
+                    <img src="sepatu12.jpg" alt="910 Nineten Size 37" loading="lazy">
                 </div>
                 <div class="product-info">
                     <span class="product-category">running</span>
-                    <h3 class="product-title">910 Nineten Original Size 37</h3>
+                    <h3 class="product-title">910 Nineten Size 37</h3>
                     <p class="product-price">Rp.490.000</p>
                     <small style="color: green; font-weight: bold; display: block; margin-top: 5px;">Harga masih bisa nego chat admin</small>
-                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20910%20Nineten%20Original%20Size%2037" target="_blank" class="btn-wa">Beli via WA</a>
+                    <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20910%20Nineten%20Size%2037" target="_blank" class="btn-wa">Beli via WA</a>
                 </div>
             </div>
 
@@ -904,7 +894,7 @@
                 <div class="product-info">
                     <span class="product-category">running</span>
                     <h3 class="product-title">Skechers Size 36</h3>
-                    <p class="product-price">Rp.300.000</p>
+                    <p class="product-price">Rp.320.000</p>
                     <small style="color: green; font-weight: bold; display: block; margin-top: 5px;">Harga masih bisa nego chat admin</small>
                     <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Skechers%20Size%2036" target="_blank" class="btn-wa">Beli via WA</a>
                 </div>
@@ -1534,7 +1524,7 @@
                 <div class="product-info">
                     <span class="product-category">jamtangan</span>
                     <h3 class="product-title">Jam Cewek Cream</h3>
-                    <p class="product-price">Rp.140.000</p>
+                    <p class="product-price">Rp.180.000</p>
                     <small style="color: green; font-weight: bold; display: block; margin-top: 5px;">Harga masih bisa nego chat admin</small>
                     <a href="https://wa.me/6281375861195?text=Halo%20Yusuf%20Store%2025,%20saya%20tertarik%20dengan%20Jamtangan%20Cewek%20Cream" target="_blank" class="btn-wa">Beli via WA</a>
                 </div>
