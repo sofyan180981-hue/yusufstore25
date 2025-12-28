@@ -566,37 +566,33 @@
             .hero-logo-img { width: 100px; height: 100px; }
         }
 
-        /* --- STYLE UNTUK SOLDOUT --- */
+/* --- STYLE UNTUK SOLDOUT (VERSI PAKSA) --- */
 
-            .soldout-badge {
-  	    position: absolute;
-	    top: 10px;
-	    right: 10px;
-	    z-index: 20; /* Pastikan di atas elemen lain */
+.soldout-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 999; /* Diangkat ke paling atas */
 
- 	     /* LATAR BELAKANG MERAH */
-   	    background-color: #D32F2F !important; 
+    /* KODE WARNA PAKSA */
+    /* Menggunakan 'background' saja lebih kuat daripada 'background-color' */
+    background: #FF0000 !important; 
     
-  	    /* Teks */
-  	    color: #ffffff !important; 
-
-  	    font-size: 0.85rem;
-  	    font-weight: 800; /* Lebih tebal */
- 	    text-transform: uppercase;
+    color: #ffffff !important; 
     
- 	    /* Bentuk & Border */
- 	    padding: 5px 12px;
-	    border-radius: 4px;
-
- 	    border: 2px solid #ffffff; /* Border putih biar kontras dengan background */
-
-	    box-shadow: 0 4px 6px rgba(0,0,0,0.4); /* Bayangan lebih gelap */
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 4px;
     
- 	   /* Pastikan opacity 100% agar tidak transparan */
- 	   opacity: 1; 
- 	   display: inline-block;
-	  }
-
+    /* Border dipastikan putih */
+    border: 2px solid #ffffff !important; 
+    
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    opacity: 1 !important; 
+    display: inline-block !important;
+}
           /* Mengurangi kecerahan foto agar terlihat tidak aktif */
           .product-card.soldout .product-image {
             opacity: 0.7;
@@ -716,7 +712,7 @@
         </div>
 
         <div class="products-grid">
-            <!-- Produk 1 (soldout) -->
+            <!-- Produk 1 (Soldout) -->
             <div class="product-card soldout" data-category="running">
                 <div class="product-image" onclick="openModal(this)">
                 <span class="soldout-badge">SOLDOUT</span>
