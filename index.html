@@ -569,20 +569,30 @@
         /* --- STYLE UNTUK SOLDOUT --- */
 
         /* Label/Hijab transparan merah di atas foto */
+               /* --- STYLE UNTUK SOLDOUT (VERSI PERBAIKAN) --- */
+
         .soldout-badge {
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: rgba(230, 57, 70, 0.9); /* Merah transparan */
+            z-index: 2; 
+            
+            /* WARNA MERAH SOLID (Tidak Transparan) */
+            background-color: #e63946; 
             color: white;
+            
             padding: 5px 10px;
             font-size: 0.8rem;
             font-weight: bold;
             border-radius: 4px;
-            z-index: 2; /* Di atas foto */
             text-transform: uppercase;
+            
+            /* --- INI KUNCI PEMBAHASANNYA --- */
+            /* Filter none memastikan warna merah tidak berubah jadi abu-abu */
+            filter: none !important; 
+            -webkit-filter: none !important; /* Untuk support browser lama/HP */
         }
-
+        
         /* Mengurangi kecerahan foto agar terlihat tidak aktif */
         .product-card.soldout .product-image {
             opacity: 0.7;
