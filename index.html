@@ -566,31 +566,20 @@
             .hero-logo-img { width: 100px; height: 100px; }
         }
 
-        /* --- STYLE UNTUK SOLDOUT --- */
-
-        /* Label/Hijab transparan merah di atas foto */
-               /* --- STYLE UNTUK SOLDOUT (VERSI PERBAIKAN) --- */
-
+        /* --- STYLE UNTUK SOLDOUT (FIXED) --- */
         .soldout-badge {
             position: absolute;
             top: 10px;
             right: 10px;
-            z-index: 2; 
-            
-            /* WARNA MERAH SOLID (Tidak Transparan) */
-            background-color: #e63946; 
+            z-index: 20; /* Di atas semua */
+            background-color: #e63946; /* Merah */
             color: white;
-            
             padding: 5px 10px;
             font-size: 0.8rem;
             font-weight: bold;
             border-radius: 4px;
             text-transform: uppercase;
-            
-            /* --- INI KUNCI PEMBAHASANNYA --- */
-            /* Filter none memastikan warna merah tidak berubah jadi abu-abu */
-            filter: none !important; 
-            -webkit-filter: none !important; /* Untuk support browser lama/HP */
+            border: 2px solid white;
         }
         
         /* Mengurangi kecerahan foto agar terlihat tidak aktif */
@@ -714,9 +703,9 @@
         <div class="products-grid">
             <!-- Produk 1 (Soldout) -->
             <div class="product-card soldout" data-category="running">
+                <!-- Badge Soldout DIPINDAHKAN KE SINI -->
+                <span class="soldout-badge">SOLDOUT</span>
                 <div class="product-image" onclick="openModal(this)">
-                    <!-- Badge Soldout -->
-                    <span class="soldout-badge">SOLDOUT</span>
                     <img src="sepatu1.jpg" alt="NB Elite Size 40" loading="lazy">
                 </div>
                 <div class="product-info">
@@ -910,10 +899,11 @@
                 </div>
             </div>
 
-            <!-- Produk 15 -->
+            <!-- Produk 15 (Soldout) -->
             <div class="product-card soldout" data-category="Casual">
+                <!-- Badge Soldout DIPINDAHKAN KE SINI -->
+                <span class="soldout-badge">SOLDOUT</span>
                 <div class="product-image" onclick="openModal(this)">
-		<span class="soldout-badge">SOLDOUT</span>
                     <img src="sepatu47.jpg" alt="Mizuno Size 41" loading="lazy">
                 </div>
                 <div class="product-info">
@@ -1122,8 +1112,9 @@
 
             <!-- Produk 30 (Soldout) -->
             <div class="product-card soldout" data-category="kaos">
+                <!-- Badge Soldout DIPINDAHKAN KE SINI -->
+                <span class="soldout-badge">SOLDOUT</span>
                 <div class="product-image" onclick="openModal(this)">
-                    <span class="soldout-badge">SOLDOUT</span>
                     <img src="kaos10.jpg" alt="Kaos TNF Abu" loading="lazy">
                 </div>
                 <div class="product-info">
@@ -1136,8 +1127,9 @@
 
             <!-- Produk 31 (Soldout) -->
             <div class="product-card soldout" data-category="kaos">
+                <!-- Badge Soldout DIPINDAHKAN KE SINI -->
+                <span class="soldout-badge">SOLDOUT</span>
                 <div class="product-image" onclick="openModal(this)">
-                    <span class="soldout-badge">SOLDOUT</span>
                     <img src="kaos11.jpg" alt="Kaos Adidas panjang" loading="lazy">
                 </div>
                 <div class="product-info">
@@ -1442,10 +1434,11 @@
                 </div>
             </div>
 
-            <!-- Produk 53 -->
+            <!-- Produk 53 (Soldout) -->
             <div class="product-card soldout" data-category="casual">
+                <!-- Badge Soldout DIPINDAHKAN KE SINI -->
+                <span class="soldout-badge">SOLDOUT</span>
                 <div class="product-image" onclick="openModal(this)">
-		<span class="soldout-badge">SOLDOUT</span>
                     <img src="sepatu48.jpg" alt="NB 1500 Size 40" loading="lazy">
                 </div>
                 <div class="product-info">
@@ -1756,7 +1749,7 @@
             <p>WA: 0813-7586-1195</p>
             <div class="social-links">
                 <a href="https://www.instagram.com/yusufstore_25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Instagram</a>
-	    <img src="https://visitor-badge.laobi.icu/badge?page_id=https://sofyan180981-hue.github.io/yusufstore25/&left_color=%23e63946&right_color=%231d3557&style=for-the-badge" />
+        <img src="https://visitor-badge.laobi.icu/badge?page_id=https://sofyan180981-hue.github.io/yusufstore25/&left_color=%23e63946&right_color=%231d3557&style=for-the-badge" />
             </div>
             <p style="margin-top: 20px; font-size: 0.8rem;">&copy; 2023 Yusuf Store 25. All Rights Reserved.</p>
         </div>
