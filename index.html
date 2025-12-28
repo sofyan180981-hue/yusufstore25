@@ -575,10 +575,11 @@
     z-index: 999; /* Diangkat ke paling atas */
 
     /* KODE WARNA PAKSA */
-    /* Menggunakan 'background' saja lebih kuat daripada 'background-color' */
-    background: #FF0000 !important; 
-    
-    color: #ffffff !important; 
+    /* Coba ini jika yang di atas gagal */
+    span.soldout-badge, div.soldout-badge, a.soldout-badge {
+    background: #FF0000 !important;
+    color: #ffffff !important;
+}
     
     font-size: 0.85rem;
     font-weight: 800;
