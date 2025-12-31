@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan</title>
+
+    <!-- Meta Tags untuk Preview Link (Media Sosial/WhatsApp) -->
+    <meta name="description" content="Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan sepatu Running, Casual, Futsal, dan Jam Tangan Original & Premium.">
+    <meta property="og:title" content="Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan">
+    <meta property="og:description" content="Temukan sepatu favoritmu di sini! Lokasi: Depan Tugu Salak. Klik untuk lihat katalog.">
+    <meta property="og:image" content="1000108714.jpg">
+    <meta property="og:type" content="website">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -1843,8 +1851,8 @@
 
         function searchProduct(query) {
             const lowerQ = query.toLowerCase();
-            const filtered = products.filter(p => 
-                p.name.toLowerCase().includes(lowerQ) || 
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(lowerQ) || 
                 p.brand.toLowerCase().includes(lowerQ) ||
                 p.category.toLowerCase().includes(lowerQ)
             );
