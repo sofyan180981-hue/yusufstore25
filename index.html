@@ -7,7 +7,7 @@
 
     <!-- Meta Tags LENGKAP untuk Preview Link (WA, FB, IG) -->
     <meta name="title" content="Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan">
-    <meta name="description" content="Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan sepatu Running, Casual, Futsal, dan Jam Tangan Original & Premium.">
+    <meta name="description" content="Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan sepatu Running, Casual, Futsal, basket, dan Jam Tangan Original & Premium.">
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">
@@ -27,7 +27,7 @@
 
     <!-- Google / Search Engine Tags (Schema.org) -->
     <meta itemprop="name" content="Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan">
-    <meta itemprop="description" content="Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan sepatu Running, Casual, Futsal, dan Jam Tangan Original & Premium.">
+    <meta itemprop="description" content="Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan sepatu Running, Casual, Futsal, Basket, dan Jam Tangan Original & Premium.">
     <meta itemprop="image" content="1000108714.jpg">
 
     <!-- Favicon (Ikon di Tab Browser & Fallback untuk Link Preview) -->
@@ -256,6 +256,7 @@
                             <button onclick="filterCategory('Running')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Running</button>
                             <button onclick="filterCategory('Casual')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Casual</button>
                             <button onclick="filterCategory('Futsal')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Futsal</button>
+                            <button onclick="filterCategory('Basket')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Basket</button>
                             <button onclick="filterCategory('Kaos')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Kaos</button>
                             <button onclick="filterCategory('Jam Tangan')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Jam Tangan</button>
                         </div>
@@ -681,6 +682,7 @@
                             <option value="Running">Running</option>
                             <option value="Casual">Casual</option>
                             <option value="Futsal">Futsal</option>
+			    <option value="Basket">Basket</option>
                             <option value="Kaos">Kaos</option>
                             <option value="Jam Tangan">Jam Tangan</option>
                         </select>
@@ -738,16 +740,127 @@
             { name: "Converse", logo: "converse.jpg" }, 
             { name: "Saucony", logo: "saucony.jpg" },
             { name: "Under Armour", logo: "logo_ua.jpg" },
-            { name: "Salomon", logo: "salomon.jpg" }, 
+            { name: "TNF", logo: "tnf.jpg" }, 
             { name: "Lacoste", logo: "lacoste.jpg" }, 
             { name: "Kanky", logo: "kanky.jpg" }, 
             { name: "DNY", logo: "dny.jpg" }, 
             { name: "Mills", logo: "mills.jpg" }, 
+            { name: "Ballerbro", logo: "balero.jpg" },
             { name: "No Brand", logo: "nobrand.jpg" }	   
         ];
 
         // DATA PRODUK
 let products = [
+    {
+        "id": 9662,
+        "name": "Under Armor Size 42",
+        "brand": "Under Armour",
+        "category": "Running",
+        "price": 400000,
+        "img": "sepatu101.jpg",
+        "sold": false,
+        "isOriginal": false,
+        "isPO": false
+    },
+    {
+        "id": 8640,
+        "name": "Adidas FOG Size 37",
+        "brand": "Adidas",
+        "category": "Casual",
+        "price": 300000,
+        "img": "sepatu100.jpg",
+        "sold": false,
+        "isOriginal": false,
+        "isPO": false
+    },
+    {
+        "id": 6863,
+        "name": "Kaos TNF Peta Indonesia Size",
+        "brand": "TNF",
+        "category": "Kaos",
+        "price": 170000,
+        "img": "kaos31.jpg","kaos33.jpg",
+        "sold": false,
+        "isOriginal": false,
+        "isPO": false
+    },
+    {
+        "id": 4564,
+        "name": "Kaos PUMA AC MILAN Size L",
+        "brand": "Puma",
+        "category": "Kaos",
+        "price": 170000,
+        "img": "kaos30.jpg","kaos32.jpg",
+        "sold": false,
+        "isOriginal": false,
+        "isPO": false
+    },
+    {
+        "id": 9332,
+        "name": "NB Rebel Size 40",
+        "brand": "New Balance",
+        "category": "Running",
+        "price": 380000,
+        "img": "sepatu99.jpg",
+        "sold": false,
+        "isOriginal": false,
+        "isPO": false
+    },
+    {
+        "id": 10027,
+        "name": "Under Armor Size 41",
+        "brand": "Under Armour",
+        "category": "Running",
+        "price": 400000,
+        "img": "sepatu98.jpg",
+        "sold": false,
+        "isOriginal": false,
+        "isPO": false
+    },
+    {
+        "id": 3302,
+        "name": "BALLERBRO BB PRO 1 SUMMER BLACK (36,37,38,39,40,41,42,43,44)",
+        "brand": "Ballerbro",
+        "category": "Basket",
+        "price": 520000,
+        "img": "sepatu97.jpg",
+        "sold": false,
+        "isOriginal": true,
+        "isPO": true
+    },
+    {
+        "id": 8187,
+        "name": "BALLERBRO BB STRONGZ (36,37,38,39,40,41,42,43,44)",
+        "brand": "Ballerbro",
+        "category": "Basket",
+        "price": 409000,
+        "img": "sepatu96.jpg",
+        "sold": false,
+        "isOriginal": true,
+        "isPO": true
+    },
+    {
+        "id": 9062,
+        "name": "BALLERBRO BB GRAFITI OK NAVY (38,39,40,41,42,43,44,45)",
+        "brand": "Ballerbro",
+        "category": "Basket",
+        "price": 409000,
+        "img": "sepatu95.jpg",
+        "sold": false,
+        "isOriginal": true,
+        "isPO": true
+    },
+    {
+        "id": 695,
+        "name": "BALLERBRO BB1 PUTIH (36,37,38,39,40,41,42,43,44)",
+        "brand": "Ballerbro",
+        "category": "Basket",
+        "price": 359000,
+        "img": "sepatu94.jpg",
+        "sold": false,
+        "isOriginal": true,
+        "isPO": true
+    },
     {
         "id": 3336,
         "name": "MILLS XYCLOPS SPEEDFREAK M2 (40,41,42,43,44,45)",
@@ -891,7 +1004,7 @@ let products = [
     },
     {
         "id": 5814,
-        "name": "910 HAZE 1.5 BIRU-TUA/HIJAU-TOSCA/PUTIH",
+        "name": "910 HAZE 1.5 HITAM MERAH KUNING (39,41,42,43,44)",
         "brand": "910 Nineten",
         "category": "Running",
         "price": 430000,
@@ -1938,7 +2051,7 @@ let products = [
     {
         "id": 3798,
         "name": "Kaos TNF Abu Size XL",
-        "brand": "No Brand",
+        "brand": "TNF",
         "category": "Kaos",
         "price": 150000,
         "img": "kaos10.jpg",
