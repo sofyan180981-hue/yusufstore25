@@ -634,9 +634,9 @@
 
     <!-- Image Modal (Zoom) -->
     <div id="imageModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/95 p-4" onclick="closeModal()">
-        <div class="relative w-full h-full flex items-center justify-center">
+        <div class="relative w-full h-full flex flex-col items-center justify-center p-4">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white text-3xl transition z-50">✕</button>
-            <img id="modalImg" src="" class="max-h-[85vh] max-w-full object-contain rounded shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-zinc-800">
+            <div id="modalGalleryContainer" class="flex gap-4 overflow-x-auto w-full max-w-4xl p-2 snap-x">
         </div>
     </div>
 
@@ -768,7 +768,7 @@ let products = [
         "brand": "Under Armour",
         "category": "Running",
         "price": 400000,
-        "img": "sepatu101.jpg",
+        "images": ["sepatu101.jpg","sepatu102.jpg"]
         "sold": false,
         "isOriginal": false,
         "isPO": false
@@ -2565,7 +2565,7 @@ let products = [
                 const card = `
                     <div class="product-card bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 overflow-hidden relative group hover:border-accent transition duration-300">
                         <div class="relative group cursor-pointer" onclick="openModal(${product.id})">
-                            <img src="${product.img}" alt="${product.name}" class="w-full h-40 md:h-56 object-cover ${imgStyle}">
+                           <img src="${product.images[0]}" alt="${product.name}" class="w-full h-40 md:h-56 object-cover ${imgStyle}">
                             
                             ${product.sold 
                                 ? '<div class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold shadow-md z-20">SOLD OUT</div>' 
@@ -2675,17 +2675,21 @@ let products = [
         }
         
         // MODAL LOGIC (Disederhanakan: Hanya Zoom Gambar)
-        function openModal(id) {
-            const product = products.find(p => p.id === id);
-            if(!product) return;
+function openModal(id) {
+    const product = products.find(p => p.id === id);
+    if(!product) return;
 
-            const imgElement = document.getElementById('modalImg');
-            imgElement.src = product.img;
-            imgElement.alt = product.name;
-            
-            // Animasi scale reset saat dibuka
-            imgElement.classList.remove('scale-100');
-            imgElement.classList.add('scale-95');
+    const container = document.getElementById('modalGalleryContainer');
+    container.innerHTML = ''; // Kosongkan isi lama
+
+    // Loop semua foto di array 'images'
+    product.images.forEach(imgSrc => {
+        // Buat elemen gambar baru
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.className = "h-[60vh] md:h-[80vh] w-auto object-contain rounded shadow border border-zinc-800 shrink-0 snap-center";
+        container.appendChild(img);
+    });
 
             document.getElementById('imageModal').classList.remove('hidden');
             
