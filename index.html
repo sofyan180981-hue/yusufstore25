@@ -672,6 +672,8 @@
         import { getFirestore, collection, addDoc, getDocs, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         // Import Firebase Storage
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+        // Import Firebase Auth (DITAMBAHKAN UNTUK PERMISSION)
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
         // Konfigurasi Firebase dari User
         const firebaseConfig = {
@@ -688,6 +690,16 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const storage = getStorage(app); // Inisialisasi Storage
+        const auth = getAuth(app); // Inisialisasi Auth
+
+        // Login Anonim Otomatis agar diizinkan upload oleh Firebase Rules
+        signInAnonymously(auth)
+            .then(() => {
+                console.log("Berhasil login anonim ke Firebase");
+            })
+            .catch((error) => {
+                console.error("Gagal login anonim:", error);
+            });
 
         // Global Variables
         let products = []; // Data sekarang kosong, akan diisi dari Firebase
