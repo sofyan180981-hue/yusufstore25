@@ -4,42 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan</title>
-
-    <!-- Meta Tags -->
     <meta name="title" content="Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan">
     <meta name="description" content="Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan sepatu Running, Casual, Futsal, basket, dan Jam Tangan Original & Premium.">
-
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="index.html">
     <meta property="og:title" content="Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan">
     <meta property="og:description" content="Temukan sepatu favoritmu di sini! Lokasi: Depan Tugu Salak. Klik untuk lihat katalog.">
     <meta property="og:image" content="1000108714.jpg">
-    <meta property="og:image:width" content="300">
-    <meta property="og:image:height" content="300">
-
-    <!-- Tailwind CSS -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                        display: ['Russo One', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: '#000000',
-                        accent: '#ccff00',
-                        secondary: '#18181b',
-                        cardbg: '#121212',
-                        mute: '#a1a1aa'
-                    }
+                    fontFamily: { sans: ['Poppins', 'sans-serif'], display: ['Russo One', 'sans-serif'] },
+                    colors: { primary: '#000000', accent: '#ccff00', secondary: '#18181b', cardbg: '#121212', mute: '#a1a1aa' }
                 }
             }
         }
@@ -48,42 +30,18 @@
         html { scroll-behavior: smooth; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        .brand-logo:hover { 
-            transform: scale(1.05); 
-            border-color: #ccff00;
-            box-shadow: 0 0 15px rgba(204, 255, 0, 0.3);
-        }
-        
+        .brand-logo:hover { transform: scale(1.05); border-color: #ccff00; box-shadow: 0 0 15px rgba(204, 255, 0, 0.3); }
         .product-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .product-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 10px 30px -10px rgba(204, 255, 0, 0.15); 
-            border-color: #ccff00;
-        }
-        
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(204, 255, 0, 0.15); border-color: #ccff00; }
         #imageModal, #adminModal, #testimoniModal { backdrop-filter: blur(8px); }
         .nav-link.active { color: #ccff00; font-weight: 700; text-shadow: 0 0 10px rgba(204, 255, 0, 0.3); }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
         .float-btn { animation: float 3s ease-in-out infinite; }
-        
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
         details[open] summary ~ * { animation: sweep .3s ease-in-out; }
-        @keyframes sweep {
-            0%    {opacity: 0; transform: translateY(-10px)}
-            100%  {opacity: 1; transform: translateY(0)}
-        }
-
-        ::selection {
-            background-color: #ccff00;
-            color: #000;
-        }
+        @keyframes sweep { 0% {opacity: 0; transform: translateY(-10px)} 100% {opacity: 1; transform: translateY(0)} }
+        ::selection { background-color: #ccff00; color: #000; }
     </style>
 </head>
 <body class="bg-primary text-gray-200 font-sans pt-16 md:pt-20 min-h-screen selection:bg-accent selection:text-black">
@@ -98,7 +56,6 @@
                     <p class="text-xs text-gray-400 font-mono">Padang Sidimpuan</p>
                 </div>
             </a>
-
             <div class="hidden md:flex items-center space-x-8 text-sm font-bold tracking-wide uppercase">
                 <a href="#" onclick="showSection('home-section'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Beranda</a>
                 <a href="#" onclick="showSection('catalog'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Katalog</a>
@@ -106,24 +63,15 @@
                 <a href="#" onclick="showSection('testimonials'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Testimoni</a>
                 <a href="#" onclick="showSection('sizeguide'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Size Guide</a>
             </div>
-
             <div class="hidden md:flex flex-1 mx-6 justify-end relative">
                 <input type="text" id="desktopSearch" placeholder="Cari sneakers..." class="w-48 lg:w-64 bg-zinc-900 border border-zinc-700 rounded-full py-2 px-4 text-sm text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition placeholder-gray-600" onkeyup="searchProduct(this.value); showSection('catalog');">
-                <button class="absolute right-3 top-2.5 text-gray-500 hover:text-accent">
-                    <i class="fas fa-search text-sm"></i>
-                </button>
+                <button class="absolute right-3 top-2.5 text-gray-500 hover:text-accent"><i class="fas fa-search text-sm"></i></button>
             </div>
-
             <div class="flex items-center gap-5">
-                <a href="https://www.instagram.com/yusufstore_25" target="_blank" class="text-gray-300 hover:text-accent text-2xl transition">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <button class="md:hidden text-2xl text-white hover:text-accent transition" onclick="toggleMenu()">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <a href="https://www.instagram.com/yusufstore_25" target="_blank" class="text-gray-300 hover:text-accent text-2xl transition"><i class="fab fa-instagram"></i></a>
+                <button class="md:hidden text-2xl text-white hover:text-accent transition" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
             </div>
         </div>
-
         <!-- Mobile Menu -->
         <div id="mobileMenu" class="hidden bg-zinc-900 border-t border-white/10 p-4 md:hidden text-white">
             <input type="text" placeholder="Cari barang..." class="w-full bg-black border border-zinc-700 p-2 rounded mb-4 focus:border-accent outline-none" onkeyup="searchProduct(this.value); showSection('catalog'); toggleMenu();">
@@ -138,63 +86,38 @@
         </div>
     </nav>
 
-    <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/6281375861195" target="_blank" class="fixed bottom-6 right-6 z-50 float-btn bg-accent hover:bg-white text-black w-14 h-14 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.4)] flex items-center justify-center text-3xl transition duration-300 border-2 border-black">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <a href="https://wa.me/6281375861195" target="_blank" class="fixed bottom-6 right-6 z-50 float-btn bg-accent hover:bg-white text-black w-14 h-14 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.4)] flex items-center justify-center text-3xl transition duration-300 border-2 border-black"><i class="fab fa-whatsapp"></i></a>
 
-    <!-- Main Content -->
     <main id="main-content">
         <!-- Home Section -->
         <div id="home-section" class="page-section">
             <section class="relative h-[350px] md:h-[450px] w-full overflow-hidden bg-black">
                 <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=2070&auto=format&fit=crop" alt="Esthetic Shoes" class="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition duration-700">
-                
                 <div class="absolute top-4 right-2 md:top-12 md:right-16 z-30 transform rotate-12 hover:rotate-0 transition duration-500 cursor-default">
                     <div class="bg-accent text-black font-black text-[10px] md:text-base px-2 py-1 md:px-4 md:py-2 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)] border-2 border-black text-center leading-tight uppercase animate-pulse">
                         Barang Ready<br><span class="text-red-600 font-extrabold">& Bisa PO!</span>
                     </div>
                 </div>
-
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-                
                 <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
                     <img src="1000108714.jpg" alt="Logo" class="w-24 h-24 md:w-32 md:h-32 mb-6 rounded-full border-4 border-accent shadow-[0_0_30px_rgba(204,255,0,0.3)] object-cover">
-
                     <div class="mb-4">
-                        <h2 class="text-3xl md:text-5xl font-display uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-accent to-white drop-shadow-[0_0_10px_rgba(204,255,0,0.5)] tracking-wider">
-                            Yusuf Store 25
-                        </h2>
-                        <p class="text-[10px] md:text-sm text-gray-300 font-mono mt-1 tracking-widest uppercase">
-                            Padang Sidimpuan Depan Tugu Salak
-                        </p>
+                        <h2 class="text-3xl md:text-5xl font-display uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-accent to-white drop-shadow-[0_0_10px_rgba(204,255,0,0.5)] tracking-wider">Yusuf Store 25</h2>
+                        <p class="text-[10px] md:text-sm text-gray-300 font-mono mt-1 tracking-widest uppercase">Padang Sidimpuan Depan Tugu Salak</p>
                     </div>
-                    
                     <div class="text-sm md:text-lg font-light text-gray-300 flex flex-col gap-1 items-center mb-8">
                         <p class="italic">"Biarkan gayamu bicara!"</p>
                         <p>"Mode yang cocok untuk setiap langkah Anda"</p>
                         <p class="text-accent font-medium mt-1">"Tampil percaya diri dengan sepatu Yusuf_Store25"</p>
                     </div>
-
-                    <button onclick="showSection('catalog')" class="bg-accent text-black font-extrabold py-3 px-10 rounded-full transition duration-300 hover:bg-white hover:scale-105 shadow-[0_0_20px_rgba(204,255,0,0.5)] uppercase tracking-widest text-xs md:text-sm">
-                        Belanja Sekarang
-                    </button>
+                    <button onclick="showSection('catalog')" class="bg-accent text-black font-extrabold py-3 px-10 rounded-full transition duration-300 hover:bg-white hover:scale-105 shadow-[0_0_20px_rgba(204,255,0,0.5)] uppercase tracking-widest text-xs md:text-sm">Belanja Sekarang</button>
                 </div>
             </section>
-
-            <!-- Brand Grid -->
             <section class="py-16 container mx-auto px-4">
                 <div class="text-center mb-12">
-                    <span class="inline-block border-b-2 border-accent pb-2">
-                        <h3 class="font-bold text-lg md:text-3xl text-white uppercase tracking-widest">
-                            Pilih Brand Favorit Mu
-                        </h3>
-                    </span>
+                    <span class="inline-block border-b-2 border-accent pb-2"><h3 class="font-bold text-lg md:text-3xl text-white uppercase tracking-widest">Pilih Brand Favorit Mu</h3></span>
                 </div>
-                
-                <div class="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-6" id="brandContainer">
-                    <!-- JS Generated -->
-                </div>
+                <div class="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-6" id="brandContainer"></div>
             </section>
         </div>
 
@@ -202,11 +125,7 @@
         <section id="catalog" class="page-section hidden py-10 min-h-screen">
             <div class="container mx-auto px-4">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8 bg-zinc-900 border border-zinc-800 p-4 rounded-xl gap-4 relative md:sticky md:top-24 z-40 shadow-xl">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-filter text-accent"></i>
-                        <h2 class="text-lg font-bold text-white uppercase tracking-wider">Katalog</h2>
-                    </div>
-                    
+                    <div class="flex items-center gap-2"><i class="fas fa-filter text-accent"></i><h2 class="text-lg font-bold text-white uppercase tracking-wider">Katalog</h2></div>
                     <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto items-center">
                         <select onchange="sortProducts(this.value)" class="bg-black text-gray-300 border border-zinc-700 rounded px-3 py-2 text-xs focus:border-accent outline-none w-full md:w-auto">
                             <option value="default">Urutkan</option>
@@ -224,202 +143,55 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-zinc-900/50 border-l-4 border-accent p-3 mb-8 text-xs text-gray-300">
-                    <i class="fas fa-truck mr-2"></i> Siap kirim ke seluruh Indonesia dengan packing aman!
-                </div>
-
-                <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                    <!-- Products injected here -->
-                </div>
-                
-                <div id="emptyState" class="hidden text-center py-20 text-gray-600">
-                    <i class="fas fa-box-open text-6xl mb-4"></i>
-                    <p>Barang tidak ditemukan.</p>
-                </div>
+                <div class="bg-zinc-900/50 border-l-4 border-accent p-3 mb-8 text-xs text-gray-300"><i class="fas fa-truck mr-2"></i> Siap kirim ke seluruh Indonesia dengan packing aman!</div>
+                <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"></div>
+                <div id="emptyState" class="hidden text-center py-20 text-gray-600"><i class="fas fa-box-open text-6xl mb-4"></i><p>Barang tidak ditemukan.</p></div>
             </div>
         </section>
 
-        <!-- Galeri, Testimoni, FAQ, SizeGuide, Location (Disingkat agar muat, konten sama) -->
+        <!-- Galeri Section -->
         <section id="gallery" class="page-section hidden py-16 container mx-auto px-4 bg-black">
-            <!-- Galeri Konten -->
             <div class="text-center mb-12">
                 <h2 class="text-2xl font-bold text-white mb-2 uppercase tracking-widest">Galeri Pembeli</h2>
                 <div class="h-1 w-20 bg-accent mx-auto rounded"></div>
                 <p class="text-gray-400 text-xs mt-4">Klik foto untuk melihat lebih jelas</p>
             </div>
             <div class="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-4">
-                 <div onclick="viewGalleryImage('pembeli1.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli1.jpg" alt="Galeri Pembeli 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli2.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli2.jpg" alt="Galeri Pembeli 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli3.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli3.jpg" alt="Galeri Pembeli 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli4.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli4.jpg" alt="Galeri Pembeli 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli5.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli5.jpg" alt="Galeri Pembeli 5" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli6.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli6.jpg" alt="Galeri Pembeli 6" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli7.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli7.jpg" alt="Galeri Pembeli 7" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli8.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli8.jpg" alt="Galeri Pembeli 8" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli9.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli9.jpg" alt="Galeri Pembeli 9" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli10.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli10.jpg" alt="Galeri Pembeli 10" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli11.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli11.jpg" alt="Galeri Pembeli 11" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli12.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli12.jpg" alt="Galeri Pembeli 12" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-              <div onclick="viewGalleryImage('pembeli17.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli17.jpg" alt="Galeri Pembeli 12" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-
-                <!-- VIDEO SECTION (NEW) -->
-                <!-- Menambahkan Video tanpa merubah CSS/JS yang ada. Menggunakan tag <video> standar -->
-                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700">
-                    <video class="w-full h-full object-cover" controls muted loop playsinline>
-                        <source src="video_review1.mp4" type="video/mp4">
-                        Video tidak support
-                    </video>
-                    <!-- Label Video -->
-                    <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">
-                        <i class="fas fa-play"></i> VIDEO
-                    </div>
-                </div>
-
-                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700">
-                    <video class="w-full h-full object-cover" controls muted loop playsinline>
-                        <source src="video_review2.mp4" type="video/mp4">
-                        Video tidak support
-                    </video>
-                      <!-- Label Video -->
-                      <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">
-                        <i class="fas fa-play"></i> VIDEO
-                    </div>
-                </div>
-
-                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700">
-                    <video class="w-full h-full object-cover" controls muted loop playsinline>
-                        <source src="video_review3.mp4" type="video/mp4">
-                        Video tidak support
-                    </video>
-                      <!-- Label Video -->
-                      <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">
-                        <i class="fas fa-play"></i> VIDEO
-                    </div>
-                </div>
-
-                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700">
-                    <video class="w-full h-full object-cover" controls muted loop playsinline>
-                        <source src="video_review4.mp4" type="video/mp4">
-                        Video tidak support
-                    </video>
-                      <!-- Label Video -->
-                      <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">
-                        <i class="fas fa-play"></i> VIDEO
-                    </div>
-                </div>
-
+                <!-- Loop gambar manual disederhanakan -->
+                <script>
+                    for(let i=1; i<=12; i++){
+                        document.write(`<div onclick="viewGalleryImage('pembeli${i}.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer"><img src="pembeli${i}.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fas fa-search-plus text-accent text-xl"></i></div></div>`);
+                    }
+                    // Tambahan manual
+                    document.write(`<div onclick="viewGalleryImage('pembeli17.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer"><img src="pembeli17.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fas fa-search-plus text-accent text-xl"></i></div></div>`);
+                </script>
+                <!-- Videos -->
+                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700"><video class="w-full h-full object-cover" controls muted loop playsinline><source src="video_review1.mp4" type="video/mp4"></video><div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none"><i class="fas fa-play"></i> VIDEO</div></div>
+                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700"><video class="w-full h-full object-cover" controls muted loop playsinline><source src="video_review2.mp4" type="video/mp4"></video><div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none"><i class="fas fa-play"></i> VIDEO</div></div>
+                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700"><video class="w-full h-full object-cover" controls muted loop playsinline><source src="video_review3.mp4" type="video/mp4"></video><div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none"><i class="fas fa-play"></i> VIDEO</div></div>
+                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700"><video class="w-full h-full object-cover" controls muted loop playsinline><source src="video_review4.mp4" type="video/mp4"></video><div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none"><i class="fas fa-play"></i> VIDEO</div></div>
+            </div>
         </section>
 
         <section id="testimonials" class="page-section hidden py-16 container mx-auto px-4 bg-zinc-900/30">
             <div class="text-center mb-12">
                 <h2 class="text-2xl font-bold text-white mb-4 uppercase tracking-widest">Kata Mereka</h2>
-                <button onclick="openTestiModal()" class="bg-transparent hover:bg-accent hover:text-black text-accent border border-accent px-6 py-2 rounded text-xs font-bold transition uppercase tracking-wide">
-                    <i class="fas fa-pen mr-2"></i>Tulis Ulasan
-                </button>
+                <button onclick="openTestiModal()" class="bg-transparent hover:bg-accent hover:text-black text-accent border border-accent px-6 py-2 rounded text-xs font-bold transition uppercase tracking-wide"><i class="fas fa-pen mr-2"></i>Tulis Ulasan</button>
             </div>
             <div id="testimoniGrid" class="grid md:grid-cols-3 gap-6">
-                <!-- Testimoni 1 -->
                 <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
-                    <div class="text-accent text-xs mb-4">★★★★★</div>
-                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">"Barang mendarat dengan aman di Medan. Kualitasnya oke banget untuk harga segini. Adminnya ramah poll!"</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&auto=format&fit=crop&q=60" alt="Rudi" class="w-10 h-10 rounded-full object-cover border border-zinc-700">
-                        <div>
-                            <p class="font-bold text-sm text-white">Rudi Hartono</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide">Medan</p>
-                        </div>
-                    </div>
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Barang mendarat dengan aman di Medan. Kualitasnya oke banget untuk harga segini. Adminnya ramah poll!"</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Rudi Hartono</p><p class="text-xs text-gray-500 uppercase tracking-wide">Medan</p></div></div>
                 </div>
-                <!-- Testimoni 2 -->
                 <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
-                    <div class="text-accent text-xs mb-4">★★★★★</div>
-                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">"Suka banget sama sepatunya, pas di kaki. Pengiriman cepet, packing rapih. Next order lagi disini."</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60" alt="Siti" class="w-10 h-10 rounded-full object-cover border border-zinc-700">
-                        <div>
-                            <p class="font-bold text-sm text-white">Siti Aminah</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide">Padang Sidimpuan</p>
-                        </div>
-                    </div>
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Suka banget sama sepatunya, pas di kaki. Pengiriman cepet, packing rapih. Next order lagi disini."</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Siti Aminah</p><p class="text-xs text-gray-500 uppercase tracking-wide">Padang Sidimpuan</p></div></div>
                 </div>
-                <!-- Testimoni 3 -->
                 <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
-                    <div class="text-accent text-xs mb-4">★★★★★</div>
-                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">"Awalnya ragu karena online, tapi pas sampe barangnya realpict. Thanks Yusuf Store!"</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Budi" class="w-10 h-10 rounded-full object-cover border border-zinc-700">
-                        <div>
-                            <p class="font-bold text-sm text-white">Ferdinand Sianturi</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide">P.Siantar</p>
-                        </div>
-                    </div>
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Awalnya ragu karena online, tapi pas sampe barangnya realpict. Thanks Yusuf Store!"</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Ferdinand Sianturi</p><p class="text-xs text-gray-500 uppercase tracking-wide">P.Siantar</p></div></div>
                 </div>
+            </div>
         </section>
 
         <section id="sizeguide" class="page-section hidden py-12 min-h-screen">
@@ -450,15 +222,11 @@
                         <input type="text" id="destination" required placeholder="Kecamatan Tujuan" class="w-full bg-black border border-zinc-700 rounded p-3 text-white text-sm">
                         <button type="submit" class="w-full bg-accent text-black font-bold py-3 rounded text-sm uppercase">Cek Ongkir</button>
                     </form>
-                    <div id="shippingResult" class="hidden mt-6 p-4 bg-accent/10 border border-accent/20 rounded text-sm text-accent">
-                        <p class="text-gray-300">Untuk tarif real-time ke <span id="destResult" class="font-bold text-white"></span>, silakan chat admin.</p>
-                    </div>
+                    <div id="shippingResult" class="hidden mt-6 p-4 bg-accent/10 border border-accent/20 rounded text-sm text-accent"><p class="text-gray-300">Untuk tarif real-time ke <span id="destResult" class="font-bold text-white"></span>, silakan chat admin.</p></div>
                 </section>
                 <section id="location" class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg md:col-span-1">
                     <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-white uppercase"><i class="fas fa-map-pin text-accent"></i> Lokasi</h3>
-                    <div class="w-full h-48 bg-zinc-800 rounded overflow-hidden grayscale hover:grayscale-0 transition duration-500">
-                        <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=1.3759020665545012,99.27329924966573&z=16&output=embed" allowfullscreen></iframe>
-                    </div>
+                    <div class="w-full h-48 bg-zinc-800 rounded overflow-hidden grayscale hover:grayscale-0 transition duration-500"><iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=1.3759020665545012,99.27329924966573&z=16&output=embed" allowfullscreen></iframe></div>
                 </section>
             </div>
         </div>
@@ -468,51 +236,28 @@
     <footer class="bg-black text-white pt-16 pb-8 border-t border-zinc-900">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <!-- Brand & Social -->
                 <div class="text-center md:text-left">
                     <h2 class="font-display font-bold text-2xl text-white mb-4 uppercase tracking-wider">Yusuf Store 25</h2>
-                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-                        Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan berbagai brand ternama seperti Adidas, Nike, New Balance, dan lainnya dengan kualitas terbaik.
-                    </p>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan berbagai brand ternama seperti Adidas, Nike, New Balance, dan lainnya dengan kualitas terbaik.</p>
                     <div class="flex justify-center md:justify-start gap-4">
-                        <a href="https://www.instagram.com/yusufstore_25" target="_blank" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-black transition">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://wa.me/6281375861195" target="_blank" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-black transition">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
+                        <a href="https://www.instagram.com/yusufstore_25" target="_blank" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-black transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/6281375861195" target="_blank" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-black transition"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
-
-                <!-- Contact & Address -->
                 <div class="text-center md:text-left">
                     <h3 class="font-bold text-lg text-white mb-4 uppercase tracking-wide">Alamat & Kontak</h3>
                     <ul class="space-y-4 text-sm text-gray-400">
-                        <li class="flex flex-col md:flex-row items-center md:items-start gap-3">
-                            <i class="fas fa-map-marker-alt text-accent mt-1"></i>
-                            <span>Depan Tugu Salak,<br>Padang Sidimpuan,<br>Sumatera Utara, Indonesia</span>
-                        </li>
-                        <li class="flex flex-col md:flex-row items-center md:items-start gap-3">
-                            <i class="fab fa-whatsapp text-accent mt-1"></i>
-                            <span>+62 813-7586-1195</span>
-                        </li>
-                        <li class="flex flex-col md:flex-row items-center md:items-start gap-3">
-                            <i class="fas fa-clock text-accent mt-1"></i>
-                            <span>Buka Setiap Hari: 10.00 - 22.00 WIB</span>
-                        </li>
+                        <li class="flex flex-col md:flex-row items-center md:items-start gap-3"><i class="fas fa-map-marker-alt text-accent mt-1"></i><span>Depan Tugu Salak,<br>Padang Sidimpuan,<br>Sumatera Utara, Indonesia</span></li>
+                        <li class="flex flex-col md:flex-row items-center md:items-start gap-3"><i class="fab fa-whatsapp text-accent mt-1"></i><span>+62 813-7586-1195</span></li>
+                        <li class="flex flex-col md:flex-row items-center md:items-start gap-3"><i class="fas fa-clock text-accent mt-1"></i><span>Buka Setiap Hari: 10.00 - 22.00 WIB</span></li>
                     </ul>
                 </div>
-
-                <!-- Maps -->
                 <div class="text-center md:text-left">
                      <h3 class="font-bold text-lg text-white mb-4 uppercase tracking-wide">Lokasi Kami</h3>
-                     <div class="w-full h-48 bg-zinc-800 rounded-lg overflow-hidden border border-zinc-800 grayscale hover:grayscale-0 transition duration-500">
-                        <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=1.3759020665545012,99.27329924966573&z=16&output=embed" allowfullscreen loading="lazy"></iframe>
-                     </div>
+                     <div class="w-full h-48 bg-zinc-800 rounded-lg overflow-hidden border border-zinc-800 grayscale hover:grayscale-0 transition duration-500"><iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=1.3759020665545012,99.27329924966573&z=16&output=embed" allowfullscreen loading="lazy"></iframe></div>
                      <a href="https://maps.google.com/maps?q=1.3759020665545012,99.27329924966573" target="_blank" class="inline-block mt-3 text-xs text-accent hover:text-white transition border-b border-accent pb-0.5">Buka di Google Maps <i class="fas fa-external-link-alt ml-1"></i></a>
                 </div>
             </div>
-
             <div class="border-t border-zinc-900 pt-8 text-center">
                 <p class="text-gray-500 text-sm">© 2025 Yusuf Store 25. All rights reserved.</p>
                 <a href="#" onclick="adminLogin(event)" class="hover:text-accent transition mt-2 inline-block text-[10px] uppercase tracking-widest text-gray-700">Admin Login</a>
@@ -522,1651 +267,216 @@
 
     <!-- Modals -->
     <div id="imageModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/95 p-4" onclick="closeModal()">
-        <div class="relative w-full h-full flex items-center justify-center">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white text-3xl z-50">✕</button>
-            <img id="modalImg" src="" class="max-h-[85vh] max-w-full object-contain rounded border border-zinc-800">
-        </div>
+        <div class="relative w-full h-full flex items-center justify-center"><button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white text-3xl z-50">✕</button><img id="modalImg" src="" class="max-h-[85vh] max-w-full object-contain rounded border border-zinc-800"></div>
     </div>
 
-    <!-- ADMIN MODAL (UPDATED FOR FIREBASE) -->
+    <!-- ADMIN MODAL -->
     <div id="adminModal" class="fixed inset-0 z-[90] hidden flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm">
         <div class="bg-zinc-900 border border-zinc-800 rounded-lg w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-6 border-b border-zinc-800 pb-4">
-                <h2 class="text-xl font-bold text-white uppercase tracking-wider">Admin Panel (Firebase)</h2>
-                <button onclick="closeAdmin()" class="text-gray-500 hover:text-red-500"><i class="fas fa-times"></i></button>
-            </div>
-
+            <div class="flex justify-between items-center mb-6 border-b border-zinc-800 pb-4"><h2 class="text-xl font-bold text-white uppercase tracking-wider">Admin Panel</h2><button onclick="closeAdmin()" class="text-gray-500 hover:text-red-500"><i class="fas fa-times"></i></button></div>
             <div class="flex mb-6 bg-black rounded p-1">
                 <button onclick="showAdminTab('add')" id="tabAdd" class="flex-1 py-2 rounded text-xs font-bold uppercase bg-zinc-800 text-white transition">Input</button>
                 <button onclick="showAdminTab('list')" id="tabList" class="flex-1 py-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition">Kelola</button>
             </div>
-
-            <!-- Add/Edit Section -->
             <div id="adminAddSection">
-                <div id="editModeNotice" class="hidden mb-4 bg-yellow-900/30 border border-yellow-700 text-yellow-200 px-4 py-2 rounded text-sm flex justify-between items-center">
-                    <span><i class="fas fa-edit mr-2"></i>Mode Edit Produk</span>
-                    <button onclick="cancelEdit()" class="text-xs bg-yellow-700 hover:bg-yellow-600 px-2 py-1 rounded">Batal</button>
-                </div>
-
+                <div id="editModeNotice" class="hidden mb-4 bg-yellow-900/30 border border-yellow-700 text-yellow-200 px-4 py-2 rounded text-sm flex justify-between items-center"><span><i class="fas fa-edit mr-2"></i>Mode Edit Produk</span><button onclick="cancelEdit()" class="text-xs bg-yellow-700 hover:bg-yellow-600 px-2 py-1 rounded">Batal</button></div>
                 <form id="addProductForm" onsubmit="addProductToFirebase(event)" class="space-y-4">
                     <input type="text" id="addName" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Nama Produk">
-                    
                     <div class="grid grid-cols-2 gap-4">
                         <select id="addBrand" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none"></select>
                         <select id="addCategory" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none">
-                            <option value="Running">Running</option>
-                            <option value="Casual">Casual</option>
-                            <option value="Futsal">Futsal</option>
-                            <option value="Basket">Basket</option>
-                            <option value="Kaos">Kaos</option>
-                            <option value="Jam Tangan">Jam Tangan</option>
+                            <option value="Running">Running</option><option value="Casual">Casual</option><option value="Futsal">Futsal</option><option value="Basket">Basket</option><option value="Kaos">Kaos</option><option value="Jam Tangan">Jam Tangan</option>
                         </select>
                     </div>
-
-                    <!-- New: Stock Type Selection -->
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="space-y-1">
-                            <label class="text-[10px] text-gray-500 font-bold uppercase ml-1">Status Ketersediaan</label>
-                            <select id="addStockType" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none">
-                                <option value="ready">Ready Stock</option>
-                                <option value="po">Pre-Order (PO)</option>
-                            </select>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[10px] text-gray-500 font-bold uppercase ml-1">Label Tambahan</label>
-                            <div class="flex flex-col justify-center h-[46px] gap-2 px-2">
-                                <label class="flex items-center gap-2 text-xs text-gray-400 cursor-pointer hover:text-white transition"><input type="checkbox" id="addIsOriginal" class="accent-accent"> Original</label>
-                                <label class="flex items-center gap-2 text-xs text-gray-400 cursor-pointer hover:text-red-500 transition"><input type="checkbox" id="addIsSold" class="accent-red-500"> Sold Out</label>
-                            </div>
-                        </div>
+                        <div class="space-y-1"><label class="text-[10px] text-gray-500 font-bold uppercase ml-1">Status Ketersediaan</label><select id="addStockType" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none"><option value="ready">Ready Stock</option><option value="po">Pre-Order (PO)</option></select></div>
+                        <div class="space-y-1"><label class="text-[10px] text-gray-500 font-bold uppercase ml-1">Label Tambahan</label><div class="flex flex-col justify-center h-[46px] gap-2 px-2"><label class="flex items-center gap-2 text-xs text-gray-400 cursor-pointer hover:text-white transition"><input type="checkbox" id="addIsOriginal" class="accent-accent"> Original</label><label class="flex items-center gap-2 text-xs text-gray-400 cursor-pointer hover:text-red-500 transition"><input type="checkbox" id="addIsSold" class="accent-red-500"> Sold Out</label></div></div>
                     </div>
-
                     <input type="number" id="addPrice" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Harga Jual">
                     <input type="number" id="addOriginalPrice" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Harga Coret (Opsional)">
-                    
-                    <!-- INPUT FILE UNTUK UPLOAD KE FIREBASE -->
-                    <div class="space-y-2">
-                        <label class="text-xs text-gray-500 font-bold uppercase">Foto Produk <span id="imgReqText">(Wajib)</span></label>
-                        <input type="file" id="addImgFile" accept="image/*" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-xs focus:border-accent outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent file:text-black hover:file:bg-white transition">
-                        <p id="editImgHint" class="text-[10px] text-gray-500 hidden">*Kosongkan jika tidak ingin mengubah foto saat edit.</p>
-                    </div>
-                    
-                    <div class="flex gap-2">
-                        <button type="submit" id="btnSubmit" class="flex-1 bg-white text-black font-bold py-3 rounded hover:bg-accent transition uppercase text-xs tracking-widest mt-2">
-                            <span id="btnText">Upload & Simpan</span>
-                        </button>
-                        <button type="button" id="cancelEditBtn" onclick="cancelEdit()" class="hidden w-20 bg-zinc-800 text-white border border-zinc-700 font-bold py-3 rounded hover:bg-red-900 transition uppercase text-xs tracking-widest mt-2">
-                            Batal
-                        </button>
-                    </div>
+                    <div class="space-y-2"><label class="text-xs text-gray-500 font-bold uppercase">Foto Produk <span id="imgReqText">(Wajib)</span></label><input type="file" id="addImgFile" accept="image/*" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-xs focus:border-accent outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent file:text-black hover:file:bg-white transition"><p id="editImgHint" class="text-[10px] text-gray-500 hidden">*Kosongkan jika tidak ingin mengubah foto saat edit.</p></div>
+                    <div class="flex gap-2"><button type="submit" id="btnSubmit" class="flex-1 bg-white text-black font-bold py-3 rounded hover:bg-accent transition uppercase text-xs tracking-widest mt-2"><span id="btnText">Upload & Simpan</span></button><button type="button" id="cancelEditBtn" onclick="cancelEdit()" class="hidden w-20 bg-zinc-800 text-white border border-zinc-700 font-bold py-3 rounded hover:bg-red-900 transition uppercase text-xs tracking-widest mt-2">Batal</button></div>
                 </form>
             </div>
-
-            <!-- List Section -->
             <div id="adminListSection" class="hidden">
-                <!-- Search Box -->
-                <div class="mb-4">
-                    <input type="text" id="adminSearchInput" onkeyup="renderAdminProductList()" placeholder="Cari produk untuk diedit/hapus..." class="w-full bg-black border border-zinc-700 rounded p-2 text-sm text-white focus:border-accent outline-none">
-                </div>
+                <div class="mb-4"><input type="text" id="adminSearchInput" onkeyup="renderAdminProductList()" placeholder="Cari produk..." class="w-full bg-black border border-zinc-700 rounded p-2 text-sm text-white focus:border-accent outline-none"></div>
                 <div id="adminProductListContainer" class="space-y-2 max-h-[300px] overflow-y-auto pr-2"></div>
             </div>
         </div>
     </div>
 
-    <!-- FIREBASE LOGIC -->
     <script type="module">
-        // GUNAKAN VERSI STABIL (v10.12.4) AGAR LEBIH KOMPATIBEL
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-        // Storage tidak lagi digunakan untuk menghindari error billing
         
-        // Konfigurasi Firebase Anda
-        const firebaseConfig = {
-            apiKey: "AIzaSyC-76DURrn1anKUwwf0seh6vxyjKX-GV8Q",
-            authDomain: "yusus-store.firebaseapp.com",
-            projectId: "yusus-store",
-            storageBucket: "yusus-store.firebasestorage.app",
-            messagingSenderId: "115210326402",
-            appId: "1:115210326402:web:58555cc684a29fabaeff9b",
-            measurementId: "G-299QHZE8CP"
-        };
-
-        // Initialize Firebase
+        const firebaseConfig = { apiKey: "AIzaSyC-76DURrn1anKUwwf0seh6vxyjKX-GV8Q", authDomain: "yusus-store.firebaseapp.com", projectId: "yusus-store", storageBucket: "yusus-store.firebasestorage.app", messagingSenderId: "115210326402", appId: "1:115210326402:web:58555cc684a29fabaeff9b", measurementId: "G-299QHZE8CP" };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        signInAnonymously(auth).then(() => console.log("Connected")).catch((e) => console.error(e));
 
-        // Login Otomatis di Latar Belakang
-        signInAnonymously(auth).then(() => {
-            console.log("Connected to Firebase");
-        }).catch((error) => {
-            console.error("Auth Error:", error);
-        });
-
-        // --- DATA ---
-        // Data Statis (Bawaan)
-        const staticProducts = [
-    {
-        "id": 9969,
-        "name": "Adidas Samba Cordura Size 43",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 200000,
-        "img": "sepatu70.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "isPO": false
-    },
-    {
-        "id": 9662,
-        "name": "Under Armor Size 42",
-        "brand": "Under Armour",
-        "category": "Running",
-        "price": 400000,
-        "img": "sepatu101.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "isPO": false
-    },
-    {
-        "id": 8640,
-        "name": "Adidas FOG Size 37",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 300000,
-        "img": "sepatu100.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "isPO": false
-    },
-    {
-        "id": 6863,
-        "name": "Kaos TNF Peta Indonesia Size",
-        "brand": "TNF",
-        "category": "Kaos",
-        "price": 170000,
-        "img": "kaos31.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "isPO": false
-    },
-    {
-        "id": 4564,
-        "name": "Kaos PUMA AC MILAN Size L",
-        "brand": "Puma",
-        "category": "Kaos",
-        "price": 170000,
-        "img": "kaos30.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "isPO": false
-    },
-    {
-        "id": 9332,
-        "name": "NB Rebel Size 40",
-        "brand": "New Balance",
-        "category": "Running",
-        "price": 380000,
-        "img": "sepatu99.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "isPO": false
-    },
-    {
-        "id": 10027,
-        "name": "Under Armor Size 41",
-        "brand": "Under Armour",
-        "category": "Running",
-        "price": 400000,
-        "img": "sepatu98.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "isPO": false
-    },
-    {
-        "id": 3302,
-        "name": "BALLERBRO BB PRO 1 SUMMER BLACK (36,37,38,39,40,41,42,43,44)",
-        "brand": "Ballerbro",
-        "category": "Basket",
-        "price": 520000,
-        "img": "sepatu97.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true
-    },
-    {
-        "id": 8187,
-        "name": "BALLERBRO BB STRONGZ (36,37,38,39,40,41,42,43,44)",
-        "brand": "Ballerbro",
-        "category": "Basket",
-        "price": 409000,
-        "img": "sepatu96.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true
-    },
-    {
-        "id": 9062,
-        "name": "BALLERBRO BB GRAFITI OK NAVY (38,39,40,41,42,43,44,45)",
-        "brand": "Ballerbro",
-        "category": "Basket",
-        "price": 409000,
-        "img": "sepatu95.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true
-    },
-    {
-        "id": 695,
-        "name": "BALLERBRO BB1 PUTIH (36,37,38,39,40,41,42,43,44)",
-        "brand": "Ballerbro",
-        "category": "Basket",
-        "price": 359000,
-        "img": "sepatu94.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true
-    },
-    {
-        "id": 3336,
-        "name": "MILLS XYCLOPS SPEEDFREAK M2 (40,41,42,43,44,45)",
-        "brand": "Mills",
-        "category": "Futsal",
-        "price": 425000,
-        "img": "sepatu93.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 449000
-    },
-    {
-        "id": 9537,
-        "name": "MILLS SPECTER BLACK WHITE (39,40,41,42,43,44)",
-        "brand": "Mills",
-        "category": "Running",
-        "price": 312000,
-        "img": "sepatu91.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 329000
-    },
-    {
-        "id": 2430,
-        "name": "KANKY YUGA IKEBANA KHAKI (37,39)",
-        "brand": "Kanky",
-        "category": "Running",
-        "price": 228800,
-        "img": "sepatu92.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true
-    },
-    {
-        "id": 9858,
-        "name": "KANKY CHAKRA DEEP GREEN (42,43,44)",
-        "brand": "Kanky",
-        "category": "Running",
-        "price": 268800,
-        "img": "sepatu90.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true
-    },
-    {
-        "id": 5564,
-        "name": "KANKY SUPREME  (42,43)",
-        "brand": "Kanky",
-        "category": "Running",
-        "price": 268800,
-        "img": "sepatu89.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true
-    },
-    {
-        "id": 4455,
-        "name": "CATALYST LIBERTE V5 IN NAVY (39,40,41,42,43,44)",
-        "brand": "Ortuseight",
-        "category": "Futsal",
-        "price": 575000,
-        "img": "sepatu87.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 649000
-    },
-    {
-        "id": 1505,
-        "name": "CATALYST LIBERTE V5 IN JR (33,34,35,36)",
-        "brand": "Ortuseight",
-        "category": "Futsal",
-        "price": 330000,
-        "img": "sepatu88.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 349000
-    },
-    {
-        "id": 3564,
-        "name": "JOGOSALA RADIANT ARMY (38,39,40,41,42,43,44)",
-        "brand": "Ortuseight",
-        "category": "Futsal",
-        "price": 520000,
-        "img": "sepatu86.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 549000
-    },
-    {
-        "id": 4224,
-        "name": "HYPERSONIC 2.0 SAGE GREEN (39,40,41,42,43,44,45)",
-        "brand": "Ortuseight",
-        "category": "Running",
-        "price": 1430000,
-        "img": "sepatu85.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 1599000
-    },
-    {
-        "id": 7371,
-        "name": "HYPERBLAST 2.1 SACRAMENTO LIME (39,40,41,42,43)",
-        "brand": "Ortuseight",
-        "category": "Running",
-        "price": 730000,
-        "img": "sepatu84.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 749
-    },
-    {
-        "id": 2425,
-        "name": "SPECS ACCELERATOR ILLUZION 4 PRO GRAY (39,40,41,42,43,44)",
-        "brand": "Specs",
-        "category": "Futsal",
-        "price": 584000,
-        "img": "sepatu83.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 649800
-    },
-    {
-        "id": 7060,
-        "name": "SPECS ACCELERATOR ALPHA FURY PRO IN-SHADOW PURPLE (41,42,43,44)",
-        "brand": "Specs",
-        "category": "Futsal",
-        "price": 660000,
-        "img": "sepatu82.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 699800
-    },
-    {
-        "id": 5814,
-        "name": "910 HAZE 1.5 HITAM MERAH KUNING (39,41,42,43,44)",
-        "brand": "910 Nineten",
-        "category": "Running",
-        "price": 430000,
-        "img": "sepatu80.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 449900
-    },
-    {
-        "id": 9620,
-        "name": "910 HAZE 1.5 BIRU-TUA/HIJAU-TOSCA/PUTIH (39,41,42,43,44)",
-        "brand": "910 Nineten",
-        "category": "Running",
-        "price": 430000,
-        "img": "sepatu81.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "isPO": true,
-        "originalPrice": 449900
-    },
-    {
-        "id": 4999,
-        "name": "Asics Megic Speed Size 43",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu22.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 9160,
-        "name": "Adidas Samba Kids Size 34",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 170000,
-        "img": "sepatu79.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 7901,
-        "name": "Kaos Adidas Sepatu Size XXL",
-        "brand": "Adidas",
-        "category": "Kaos",
-        "price": 180000,
-        "img": "Kaos29.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 484,
-        "name": "Kaos New Balance Size XL",
-        "brand": "New Balance",
-        "category": "Kaos",
-        "price": 170000,
-        "img": "Kaos28.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 9553,
-        "name": "Kaos Philipp Plein Size L",
-        "brand": "No Brand",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "Kaos27.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 1082,
-        "name": "Kaos Lacoste Size XL",
-        "brand": "Lacoste",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "Kaos26.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 3864,
-        "name": "Kaos Adidas Biru Panjang Size L",
-        "brand": "Adidas",
-        "category": "Kaos",
-        "price": 180000,
-        "img": "kaos25.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 5048,
-        "name": "Le Coq Size 42",
-        "brand": "Le Coq",
-        "category": "Casual",
-        "price": 330000,
-        "img": "sepatu78.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 8708,
-        "name": "DNY Model Onitsuka size 36",
-        "brand": "DNY",
-        "category": "Casual",
-        "price": 200000,
-        "img": "sepatu77.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 587,
-        "name": "NIke SKT 24 Size 43 (Minus)",
-        "brand": "Nike",
-        "category": "Running",
-        "price": 230000,
-        "img": "sepatu76.jpg",
-        "sold": true,
-        "isOriginal": false,
-        "originalPrice": 300000
-    },
-    {
-        "id": 4961,
-        "name": "Adidas Adizero EvoSL Size 41",
-        "brand": "Adidas",
-        "category": "Running",
-        "price": 420000,
-        "img": "sepatu75.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 7904,
-        "name": "DNY size 36",
-        "brand": "DNY",
-        "category": "Casual",
-        "price": 180000,
-        "img": "sepatu74.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 9953,
-        "name": "Kaos Blue Size XL",
-        "brand": "No Brand",
-        "category": "Kaos",
-        "price": 130000,
-        "img": "Kaos24.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 2552,
-        "name": "Kaos Lacoste Size XL",
-        "brand": "Lacoste",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "Kaos23.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 3802,
-        "name": "Kaos MLB Hijau Size XL",
-        "brand": "No Brand",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "Kaos22.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 1528,
-        "name": "kaos Uniqlo One Piece Size L",
-        "brand": "No Brand",
-        "category": "Kaos",
-        "price": 170000,
-        "img": "Kaos21.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 684,
-        "name": "Kaos FENDI Biru Size XL",
-        "brand": "No Brand",
-        "category": "Kaos",
-        "price": 170000,
-        "img": "Kaos20.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 1695,
-        "name": "Kaos Burberry Size XL",
-        "brand": "No Brand",
-        "category": "Kaos",
-        "price": 170000,
-        "img": "Kaos19.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 1029,
-        "name": "Kaos Uniqlo Cream Size XL",
-        "brand": "No Brand",
-        "category": "Kaos",
-        "price": 180000,
-        "img": "Kaos18.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 5126,
-        "name": "Kaos Adidas Panjang Size XL",
-        "brand": "Adidas",
-        "category": "Kaos",
-        "price": 180000,
-        "img": "kaos17.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 4825,
-        "name": "Puma Nitro Size 43",
-        "brand": "Puma",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu11.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 1767,
-        "name": "Nike Vaporfly Size 42",
-        "brand": "Nike",
-        "category": "Running",
-        "price": 420000,
-        "img": "sepatu66.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 9814,
-        "name": "Nike Vaporfly Size 40",
-        "brand": "Nike",
-        "category": "Running",
-        "price": 420000,
-        "img": "sepatu66.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 5760,
-        "name": "NB Casual (Lokal) Size 40,41",
-        "brand": "New Balance",
-        "category": "Casual",
-        "price": 200000,
-        "img": "sepatu73.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 9476,
-        "name": "Nike Vaformax Size 40",
-        "brand": "Nike",
-        "category": "Running",
-        "price": 200000,
-        "img": "sepatu72.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 7485,
-        "name": "Adidas Samba Sumatra Coklat Size 41",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 200000,
-        "img": "sepatu71.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 3979,
-        "name": "Adidas Samba Size 42",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 200000,
-        "img": "sepatu70.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 7892,
-        "name": "asisc Running (Lokal) Size 39,40",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 170000,
-        "img": "sepatu69.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 8945,
-        "name": "Asics Novablast (Lokal) Size 39",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 200000,
-        "img": "sepatu68.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 7224,
-        "name": "Adidas Adizero Boston 12 Size 43",
-        "brand": "Adidas",
-        "category": "Running",
-        "price": 300000,
-        "img": "sepatu67.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 380000
-    },
-    {
-        "id": 6530,
-        "name": "Eiger Original Size 40",
-        "brand": "No Brand",
-        "category": "Casual",
-        "price": 800000,
-        "img": "sepatu32.jpg",
-        "sold": false,
-        "isOriginal": true
-    },
-    {
-        "id": 2043,
-        "name": "910 Nineten Original Size 37",
-        "brand": "910 Nineten",
-        "category": "Running",
-        "price": 499000,
-        "img": "sepatu12.jpg",
-        "sold": false,
-        "isOriginal": true
-    },
-    {
-        "id": 1248,
-        "name": "Nike Alphafly 3 Size 43",
-        "brand": "Nike",
-        "category": "Running",
-        "price": 450000,
-        "img": "sepatu44.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 16,
-        "name": "NB Elite Size 40",
-        "brand": "New Balance",
-        "category": "Running",
-        "price": 400000,
-        "img": "sepatu1.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 7638,
-        "name": "Hugo Boss Size 41",
-        "brand": "No Brand",
-        "category": "Casual",
-        "price": 400000,
-        "img": "sepatu33.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 6917,
-        "name": "Under Armor Size 40",
-        "brand": "Under Armour",
-        "category": "Running",
-        "price": 400000,
-        "img": "sepatu26.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 7091,
-        "name": "Hugo Boss Size 40",
-        "brand": "No Brand",
-        "category": "Casual",
-        "price": 400000,
-        "img": "sepatu10.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 2674,
-        "name": "Mizuno Size 41",
-        "brand": "No Brand",
-        "category": "Casual",
-        "price": 390000,
-        "img": "sepatu47.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 2722,
-        "name": "Puma Nitro Elite Size 42",
-        "brand": "Puma",
-        "category": "Running",
-        "price": 385000,
-        "img": "sepatu62.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 2799,
-        "name": "Puma Nitro Elite Size 41",
-        "brand": "Puma",
-        "category": "Running",
-        "price": 385000,
-        "img": "sepatu61.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 9452,
-        "name": "Puma Nitro Elite Size 41",
-        "brand": "Puma",
-        "category": "Running",
-        "price": 385000,
-        "img": "sepatu60.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 7085,
-        "name": "NB 1500 Size 40",
-        "brand": "New Balance",
-        "category": "Casual",
-        "price": 380000,
-        "img": "sepatu48.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 14,
-        "name": "Adidas Adizero Pro 4 Size 39",
-        "brand": "Adidas",
-        "category": "Running",
-        "price": 380000,
-        "originalPrice": 450000,
-        "img": "sepatu7.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 5729,
-        "name": "Lacoste Size 42",
-        "brand": "Lacoste",
-        "category": "Casual",
-        "price": 360000,
-        "img": "sepatu45.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 400000
-    },
-    {
-        "id": 7888,
-        "name": "Nike Struktur 25 Size 43",
-        "brand": "Nike",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu42.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 8842,
-        "name": "Saucony Size 43",
-        "brand": "Saucony",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu41.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 7899,
-        "name": "Asic Novablast 3 Size 39",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu36.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 7709,
-        "name": "NB 8010 Size 42",
-        "brand": "New Balance",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu29.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 3295,
-        "name": "NB Elit Size 37",
-        "brand": "New Balance",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu28.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 6166,
-        "name": "Asics Magic Speed Size 45",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu22.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 2116,
-        "name": "Puma Nitro Size 42",
-        "brand": "Puma",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu11.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 5103,
-        "name": "Puma Nitro Size 41",
-        "brand": "Puma",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu9.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 1562,
-        "name": "Adidas Ultra Boost Size 41",
-        "brand": "Adidas",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu8.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 4135,
-        "name": "Asics Magic Speed Size 36",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu4.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 13,
-        "name": "Adidas Ultra Boost Size 42",
-        "brand": "Adidas",
-        "category": "Running",
-        "price": 350000,
-        "img": "sepatu6.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 9639,
-        "name": "Swiss Army 9205",
-        "brand": "No Brand",
-        "category": "Jam Tangan",
-        "price": 320000,
-        "img": "jamtangan1.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 3934,
-        "name": "Hoka Full Black Size 41",
-        "brand": "Hoka",
-        "category": "Running",
-        "price": 320000,
-        "img": "sepatu50.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 2326,
-        "name": "Hoka Toska Size 38",
-        "brand": "Hoka",
-        "category": "Running",
-        "price": 320000,
-        "img": "sepatu31.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 8375,
-        "name": "Le Coq Size 43",
-        "brand": "Le Coq",
-        "category": "Casual",
-        "price": 300000,
-        "img": "sepatu63.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 2717,
-        "name": "Puma Speetcat Size 37",
-        "brand": "Puma",
-        "category": "Casual",
-        "price": 300000,
-        "img": "sepatu52.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 9227,
-        "name": "NIke Air Zoom Size 43",
-        "brand": "Nike",
-        "category": "Running",
-        "price": 300000,
-        "img": "sepatu43.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 3322,
-        "name": "Nike Vomero Size 43",
-        "brand": "Nike",
-        "category": "Running",
-        "price": 300000,
-        "img": "sepatu46.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 4945,
-        "name": "Asics Dark Green Size 41",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 300000,
-        "img": "sepatu25.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 7807,
-        "name": "Asics Biru Size 39",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 300000,
-        "img": "sepatu24.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 6845,
-        "name": "Asics Abu Size 41",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 300000,
-        "img": "sepatu23.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 6341,
-        "name": "Skechers Size 43",
-        "brand": "Skechers",
-        "category": "Running",
-        "price": 300000,
-        "img": "sepatu16.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 4006,
-        "name": "Puma Suede Size 40",
-        "brand": "Puma",
-        "category": "Casual",
-        "price": 300000,
-        "img": "sepatu15.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 3543,
-        "name": "Skechers Black Purple Size 36",
-        "brand": "Skechers",
-        "category": "Running",
-        "price": 300000,
-        "img": "sepatu13.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 5469,
-        "name": "Nike Pegasus Size 39",
-        "brand": "Nike",
-        "category": "Running",
-        "price": 300000,
-        "img": "sepatu3.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 5898,
-        "name": "Le Coq Size 40",
-        "brand": "Le Coq",
-        "category": "Casual",
-        "price": 300000,
-        "img": "sepatu2.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 8750,
-        "name": "MIRAGE IN Silver Size 40",
-        "brand": "Ortuseight",
-        "category": "Futsal",
-        "price": 299000,
-        "img": "sepatu27.jpg",
-        "sold": false,
-        "isOriginal": true
-    },
-    {
-        "id": 5713,
-        "name": "Adidas SL72 Size 39,40",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 290000,
-        "img": "sepatu5.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 1335,
-        "name": "Onitsuka Yellow Size 38",
-        "brand": "Onitsuka",
-        "category": "Casual",
-        "price": 280000,
-        "img": "sepatu64.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 1333,
-        "name": "Asics Megic Speed Size 36",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 280000,
-        "img": "Asics36.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 300000
-    },
-    {
-        "id": 458,
-        "name": "Asics Tokyo Size 38",
-        "brand": "Asics",
-        "category": "Running",
-        "price": 280000,
-        "img": "sepatu14.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 320000
-    },
-    {
-        "id": 8141,
-        "name": "Jam Cewek Antroid 2 tali",
-        "brand": "No Brand",
-        "category": "Jam Tangan",
-        "price": 250000,
-        "img": "jamtangan6.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 108,
-        "name": "Onitsuka Tiger Size 40",
-        "brand": "Onitsuka",
-        "category": "Casual",
-        "price": 250000,
-        "img": "sepatu54.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 8022,
-        "name": "NIke SB Dua Warna Size 41,43",
-        "brand": "Nike",
-        "category": "Casual",
-        "price": 250000,
-        "img": "sepatu38.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 4276,
-        "name": "Adidas Samba Jane Putih Size 39",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 250000,
-        "img": "sepatu20.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 9392,
-        "name": "Adidas Samba Jane Size 38",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 250000,
-        "img": "sepatu19.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 337,
-        "name": "Onitsuka Mexico 66 Size 38",
-        "brand": "Onitsuka",
-        "category": "Casual",
-        "price": 250000,
-        "img": "sepatu18.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 8907,
-        "name": "Onitsuka Blue Red Size 38",
-        "brand": "Onitsuka",
-        "category": "Casual",
-        "price": 250000,
-        "img": "sepatu17.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 6558,
-        "name": "Nike Putih Size 36",
-        "brand": "Nike",
-        "category": "Running",
-        "price": 240000,
-        "img": "sepatu51.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 270000
-    },
-    {
-        "id": 9768,
-        "name": "Onitsuka Tokuten size 41",
-        "brand": "Onitsuka",
-        "category": "Casual",
-        "price": 230000,
-        "img": "Onitsuka.Jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 6602,
-        "name": "Evans Jayden Ori",
-        "brand": "No Brand",
-        "category": "Jam Tangan",
-        "price": 230000,
-        "img": "jamtangan4.jpg",
-        "sold": false,
-        "isOriginal": true,
-        "originalPrice": 300000
-    },
-    {
-        "id": 5823,
-        "name": "Nike Putih Size 36",
-        "brand": "Nike",
-        "category": "Casual",
-        "price": 230000,
-        "img": "sepatu53.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 270000
-    },
-    {
-        "id": 7042,
-        "name": "Adidas Samba Size 39",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 220000,
-        "img": "sepatu39.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 796,
-        "name": "Nike Cewek Size 39",
-        "brand": "Nike",
-        "category": "Casual",
-        "price": 220000,
-        "img": "sepatu40.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 2435,
-        "name": "NIke Futsal Size 37",
-        "brand": "Nike",
-        "category": "Futsal",
-        "price": 220000,
-        "img": "sepatu37.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 8784,
-        "name": "On Cloud Size 41",
-        "brand": "On Cloud",
-        "category": "Running",
-        "price": 200000,
-        "img": "sepatu59.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 300000
-    },
-    {
-        "id": 9342,
-        "name": "Converse Cewek Size 37",
-        "brand": "Converse",
-        "category": "Casual",
-        "price": 200000,
-        "img": "sepatu57.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 3626,
-        "name": "Adidas Samba Kuning Size 40",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 200000,
-        "img": "sepatu49.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 8889,
-        "name": "Specs Stabilo Size 42",
-        "brand": "Specs",
-        "category": "Futsal",
-        "price": 200000,
-        "img": "sepatu34.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 7263,
-        "name": "DNY size 37",
-        "brand": "DNY",
-        "category": "Casual",
-        "price": 180000,
-        "img": "sepatu65.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 5111,
-        "name": "G-shock Kuning",
-        "brand": "No Brand",
-        "category": "Jam Tangan",
-        "price": 180000,
-        "img": "jamtangan2.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 230000
-    },
-    {
-        "id": 3420,
-        "name": "Kaos Adidas panjang Size XL",
-        "brand": "Adidas",
-        "category": "Kaos",
-        "price": 180000,
-        "img": "kaos11.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 7930,
-        "name": "Adidas Colektor Size 41",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 180000,
-        "img": "sepatu55.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 270000
-    },
-    {
-        "id": 9844,
-        "name": "Adidas Futsal Size 38,39",
-        "brand": "Adidas",
-        "category": "Futsal",
-        "price": 160000,
-        "img": "sepatu35.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 1738,
-        "name": "Kaos NIke Biru Tua Size XL",
-        "brand": "Nike",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "kaos16.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 4744,
-        "name": "Jam Cewek MK",
-        "brand": "No Brand",
-        "category": "Jam Tangan",
-        "price": 150000,
-        "img": "jamtangan5.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 9957,
-        "name": "Kaos Puma Putih Size L",
-        "brand": "Puma",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "kaos13.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 3798,
-        "name": "Kaos TNF Abu Size XL",
-        "brand": "TNF",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "kaos10.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 7078,
-        "name": "Kaos Puma Ferarri Size L",
-        "brand": "Puma",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "kaos9.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 3301,
-        "name": "Kaos Puma MLB Size L",
-        "brand": "Puma",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "kaos8.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 5238,
-        "name": "Kaos Gucci Sieze M",
-        "brand": "No Brand",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "kaos6.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 1127,
-        "name": "Kaos Gucci Size M",
-        "brand": "No Brand",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "kaos5.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 7637,
-        "name": "Kaos Puma Ferrari Size L",
-        "brand": "Puma",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "kaos4.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 3042,
-        "name": "Kaos Under Armour",
-        "brand": "Under Armour Size M",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "kaos3.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 4291,
-        "name": "Kaos Nike Jordan Sieze L",
-        "brand": "Nike",
-        "category": "Kaos",
-        "price": 150000,
-        "img": "kaos2.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 6475,
-        "name": "Jam Cewek Cream",
-        "brand": "No Brand",
-        "category": "Jam Tangan",
-        "price": 140000,
-        "img": "jamtangan3.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 1564,
-        "name": "Jam Cewek Silver",
-        "brand": "No Brand",
-        "category": "Jam Tangan",
-        "price": 130000,
-        "img": "jamtangan8.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 6067,
-        "name": "Kaos Hijau Army Size L",
-        "brand": "No Brand",
-        "category": "Kaos",
-        "price": 130000,
-        "img": "kaos12.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 5354,
-        "name": "Adidas Samba Putih (Minus)  Size 39",
-        "brand": "Adidas",
-        "category": "Casual",
-        "price": 130000,
-        "img": "sepatu21.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 220000
-    },
-    {
-        "id": 6215,
-        "name": "Kaos NIke Jordan 23 Size XL",
-        "brand": "Nike",
-        "category": "Kaos",
-        "price": 120000,
-        "img": "kaos15.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 3691,
-        "name": "Kaos NIke Jordan 23 Size L",
-        "brand": "Nike",
-        "category": "Kaos",
-        "price": 120000,
-        "img": "kaos14.jpg",
-        "sold": true,
-        "isOriginal": false
-    },
-    {
-        "id": 6232,
-        "name": "G-shock Casio",
-        "brand": "No Brand",
-        "category": "Jam Tangan",
-        "price": 120000,
-        "img": "jamtangan7.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 6023,
-        "name": "Kaos Adidas Cream Size L",
-        "brand": "Adidas",
-        "category": "Kaos",
-        "price": 120000,
-        "img": "kaos7.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 6708,
-        "name": "Kaos Puma Size M",
-        "brand": "Puma",
-        "category": "Kaos",
-        "price": 100000,
-        "img": "kaos1.jpg",
-        "sold": false,
-        "isOriginal": false
-    },
-    {
-        "id": 335,
-        "name": "Converse Cewek Size 38",
-        "brand": "Converse",
-        "category": "Casual",
-        "price": 80000,
-        "img": "sepatu58.jpg",
-        "sold": false,
-        "isOriginal": false,
-        "originalPrice": 200000
-    }
-];
+        // Data Produk yang dipadatkan (1 baris per produk) agar tidak memakan banyak tempat
+        const staticProducts=[
+            {id:9969,name:"Adidas Samba Cordura Size 43",brand:"Adidas",category:"Casual",price:200000,img:"sepatu70.jpg",sold:false,isOriginal:false,isPO:false},
+            {id:9662,name:"Under Armor Size 42",brand:"Under Armour",category:"Running",price:400000,img:"sepatu101.jpg",sold:false,isOriginal:false,isPO:false},
+            {id:8640,name:"Adidas FOG Size 37",brand:"Adidas",category:"Casual",price:300000,img:"sepatu100.jpg",sold:false,isOriginal:false,isPO:false},
+            {id:6863,name:"Kaos TNF Peta Indonesia Size",brand:"TNF",category:"Kaos",price:170000,img:"kaos31.jpg",sold:false,isOriginal:false,isPO:false},
+            {id:4564,name:"Kaos PUMA AC MILAN Size L",brand:"Puma",category:"Kaos",price:170000,img:"kaos30.jpg",sold:false,isOriginal:false,isPO:false},
+            {id:9332,name:"NB Rebel Size 40",brand:"New Balance",category:"Running",price:380000,img:"sepatu99.jpg",sold:false,isOriginal:false,isPO:false},
+            {id:10027,name:"Under Armor Size 41",brand:"Under Armour",category:"Running",price:400000,img:"sepatu98.jpg",sold:false,isOriginal:false,isPO:false},
+            {id:3302,name:"BALLERBRO BB PRO 1 SUMMER BLACK (36,37,38,39,40,41,42,43,44)",brand:"Ballerbro",category:"Basket",price:520000,img:"sepatu97.jpg",sold:false,isOriginal:true,isPO:true},
+            {id:8187,name:"BALLERBRO BB STRONGZ (36,37,38,39,40,41,42,43,44)",brand:"Ballerbro",category:"Basket",price:409000,img:"sepatu96.jpg",sold:false,isOriginal:true,isPO:true},
+            {id:9062,name:"BALLERBRO BB GRAFITI OK NAVY (38,39,40,41,42,43,44,45)",brand:"Ballerbro",category:"Basket",price:409000,img:"sepatu95.jpg",sold:false,isOriginal:true,isPO:true},
+            {id:695,name:"BALLERBRO BB1 PUTIH (36,37,38,39,40,41,42,43,44)",brand:"Ballerbro",category:"Basket",price:359000,img:"sepatu94.jpg",sold:false,isOriginal:true,isPO:true},
+            {id:3336,name:"MILLS XYCLOPS SPEEDFREAK M2 (40,41,42,43,44,45)",brand:"Mills",category:"Futsal",price:425000,img:"sepatu93.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:449000},
+            {id:9537,name:"MILLS SPECTER BLACK WHITE (39,40,41,42,43,44)",brand:"Mills",category:"Running",price:312000,img:"sepatu91.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:329000},
+            {id:2430,name:"KANKY YUGA IKEBANA KHAKI (37,39)",brand:"Kanky",category:"Running",price:228800,img:"sepatu92.jpg",sold:false,isOriginal:true,isPO:true},
+            {id:9858,name:"KANKY CHAKRA DEEP GREEN (42,43,44)",brand:"Kanky",category:"Running",price:268800,img:"sepatu90.jpg",sold:false,isOriginal:true,isPO:true},
+            {id:5564,name:"KANKY SUPREME  (42,43)",brand:"Kanky",category:"Running",price:268800,img:"sepatu89.jpg",sold:false,isOriginal:true,isPO:true},
+            {id:4455,name:"CATALYST LIBERTE V5 IN NAVY (39,40,41,42,43,44)",brand:"Ortuseight",category:"Futsal",price:575000,img:"sepatu87.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:649000},
+            {id:1505,name:"CATALYST LIBERTE V5 IN JR (33,34,35,36)",brand:"Ortuseight",category:"Futsal",price:330000,img:"sepatu88.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:349000},
+            {id:3564,name:"JOGOSALA RADIANT ARMY (38,39,40,41,42,43,44)",brand:"Ortuseight",category:"Futsal",price:520000,img:"sepatu86.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:549000},
+            {id:4224,name:"HYPERSONIC 2.0 SAGE GREEN (39,40,41,42,43,44,45)",brand:"Ortuseight",category:"Running",price:1430000,img:"sepatu85.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:1599000},
+            {id:7371,name:"HYPERBLAST 2.1 SACRAMENTO LIME (39,40,41,42,43)",brand:"Ortuseight",category:"Running",price:730000,img:"sepatu84.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:749},
+            {id:2425,name:"SPECS ACCELERATOR ILLUZION 4 PRO GRAY (39,40,41,42,43,44)",brand:"Specs",category:"Futsal",price:584000,img:"sepatu83.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:649800},
+            {id:7060,name:"SPECS ACCELERATOR ALPHA FURY PRO IN-SHADOW PURPLE (41,42,43,44)",brand:"Specs",category:"Futsal",price:660000,img:"sepatu82.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:699800},
+            {id:5814,name:"910 HAZE 1.5 HITAM MERAH KUNING (39,41,42,43,44)",brand:"910 Nineten",category:"Running",price:430000,img:"sepatu80.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:449900},
+            {id:9620,name:"910 HAZE 1.5 BIRU-TUA/HIJAU-TOSCA/PUTIH (39,41,42,43,44)",brand:"910 Nineten",category:"Running",price:430000,img:"sepatu81.jpg",sold:false,isOriginal:true,isPO:true,originalPrice:449900},
+            {id:4999,name:"Asics Megic Speed Size 43",brand:"Asics",category:"Running",price:350000,img:"sepatu22.jpg",sold:false,isOriginal:false},
+            {id:9160,name:"Adidas Samba Kids Size 34",brand:"Adidas",category:"Casual",price:170000,img:"sepatu79.jpg",sold:false,isOriginal:false},
+            {id:7901,name:"Kaos Adidas Sepatu Size XXL",brand:"Adidas",category:"Kaos",price:180000,img:"Kaos29.jpg",sold:false,isOriginal:false},
+            {id:484,name:"Kaos New Balance Size XL",brand:"New Balance",category:"Kaos",price:170000,img:"Kaos28.jpg",sold:false,isOriginal:false},
+            {id:9553,name:"Kaos Philipp Plein Size L",brand:"No Brand",category:"Kaos",price:150000,img:"Kaos27.jpg",sold:false,isOriginal:false},
+            {id:1082,name:"Kaos Lacoste Size XL",brand:"Lacoste",category:"Kaos",price:150000,img:"Kaos26.jpg",sold:false,isOriginal:false},
+            {id:3864,name:"Kaos Adidas Biru Panjang Size L",brand:"Adidas",category:"Kaos",price:180000,img:"kaos25.jpg",sold:false,isOriginal:false},
+            {id:5048,name:"Le Coq Size 42",brand:"Le Coq",category:"Casual",price:330000,img:"sepatu78.jpg",sold:false,isOriginal:false},
+            {id:8708,name:"DNY Model Onitsuka size 36",brand:"DNY",category:"Casual",price:200000,img:"sepatu77.jpg",sold:false,isOriginal:false},
+            {id:587,name:"NIke SKT 24 Size 43 (Minus)",brand:"Nike",category:"Running",price:230000,img:"sepatu76.jpg",sold:true,isOriginal:false,originalPrice:300000},
+            {id:4961,name:"Adidas Adizero EvoSL Size 41",brand:"Adidas",category:"Running",price:420000,img:"sepatu75.jpg",sold:false,isOriginal:false},
+            {id:7904,name:"DNY size 36",brand:"DNY",category:"Casual",price:180000,img:"sepatu74.jpg",sold:true,isOriginal:false},
+            {id:9953,name:"Kaos Blue Size XL",brand:"No Brand",category:"Kaos",price:130000,img:"Kaos24.jpg",sold:false,isOriginal:false},
+            {id:2552,name:"Kaos Lacoste Size XL",brand:"Lacoste",category:"Kaos",price:150000,img:"Kaos23.jpg",sold:false,isOriginal:false},
+            {id:3802,name:"Kaos MLB Hijau Size XL",brand:"No Brand",category:"Kaos",price:150000,img:"Kaos22.jpg",sold:false,isOriginal:false},
+            {id:1528,name:"kaos Uniqlo One Piece Size L",brand:"No Brand",category:"Kaos",price:170000,img:"Kaos21.jpg",sold:false,isOriginal:false},
+            {id:684,name:"Kaos FENDI Biru Size XL",brand:"No Brand",category:"Kaos",price:170000,img:"Kaos20.jpg",sold:false,isOriginal:false},
+            {id:1695,name:"Kaos Burberry Size XL",brand:"No Brand",category:"Kaos",price:170000,img:"Kaos19.jpg",sold:false,isOriginal:false},
+            {id:1029,name:"Kaos Uniqlo Cream Size XL",brand:"No Brand",category:"Kaos",price:180000,img:"Kaos18.jpg",sold:false,isOriginal:false},
+            {id:5126,name:"Kaos Adidas Panjang Size XL",brand:"Adidas",category:"Kaos",price:180000,img:"kaos17.jpg",sold:false,isOriginal:false},
+            {id:4825,name:"Puma Nitro Size 43",brand:"Puma",category:"Running",price:350000,img:"sepatu11.jpg",sold:true,isOriginal:false},
+            {id:1767,name:"Nike Vaporfly Size 42",brand:"Nike",category:"Running",price:420000,img:"sepatu66.jpg",sold:true,isOriginal:false},
+            {id:9814,name:"Nike Vaporfly Size 40",brand:"Nike",category:"Running",price:420000,img:"sepatu66.jpg",sold:false,isOriginal:false},
+            {id:5760,name:"NB Casual (Lokal) Size 40,41",brand:"New Balance",category:"Casual",price:200000,img:"sepatu73.jpg",sold:false,isOriginal:false},
+            {id:9476,name:"Nike Vaformax Size 40",brand:"Nike",category:"Running",price:200000,img:"sepatu72.jpg",sold:false,isOriginal:false},
+            {id:7485,name:"Adidas Samba Sumatra Coklat Size 41",brand:"Adidas",category:"Casual",price:200000,img:"sepatu71.jpg",sold:false,isOriginal:false},
+            {id:3979,name:"Adidas Samba Size 42",brand:"Adidas",category:"Casual",price:200000,img:"sepatu70.jpg",sold:true,isOriginal:false},
+            {id:7892,name:"asisc Running (Lokal) Size 39,40",brand:"Asics",category:"Running",price:170000,img:"sepatu69.jpg",sold:true,isOriginal:false},
+            {id:8945,name:"Asics Novablast (Lokal) Size 39",brand:"Asics",category:"Running",price:200000,img:"sepatu68.jpg",sold:true,isOriginal:false},
+            {id:7224,name:"Adidas Adizero Boston 12 Size 43",brand:"Adidas",category:"Running",price:300000,img:"sepatu67.jpg",sold:false,isOriginal:false,originalPrice:380000},
+            {id:6530,name:"Eiger Original Size 40",brand:"No Brand",category:"Casual",price:800000,img:"sepatu32.jpg",sold:false,isOriginal:true},
+            {id:2043,name:"910 Nineten Original Size 37",brand:"910 Nineten",category:"Running",price:499000,img:"sepatu12.jpg",sold:false,isOriginal:true},
+            {id:1248,name:"Nike Alphafly 3 Size 43",brand:"Nike",category:"Running",price:450000,img:"sepatu44.jpg",sold:false,isOriginal:false},
+            {id:16,name:"NB Elite Size 40",brand:"New Balance",category:"Running",price:400000,img:"sepatu1.jpg",sold:true,isOriginal:false},
+            {id:7638,name:"Hugo Boss Size 41",brand:"No Brand",category:"Casual",price:400000,img:"sepatu33.jpg",sold:true,isOriginal:false},
+            {id:6917,name:"Under Armor Size 40",brand:"Under Armour",category:"Running",price:400000,img:"sepatu26.jpg",sold:true,isOriginal:false},
+            {id:7091,name:"Hugo Boss Size 40",brand:"No Brand",category:"Casual",price:400000,img:"sepatu10.jpg",sold:false,isOriginal:false},
+            {id:2674,name:"Mizuno Size 41",brand:"No Brand",category:"Casual",price:390000,img:"sepatu47.jpg",sold:true,isOriginal:false},
+            {id:2722,name:"Puma Nitro Elite Size 42",brand:"Puma",category:"Running",price:385000,img:"sepatu62.jpg",sold:true,isOriginal:false},
+            {id:2799,name:"Puma Nitro Elite Size 41",brand:"Puma",category:"Running",price:385000,img:"sepatu61.jpg",sold:false,isOriginal:false},
+            {id:9452,name:"Puma Nitro Elite Size 41",brand:"Puma",category:"Running",price:385000,img:"sepatu60.jpg",sold:false,isOriginal:false},
+            {id:7085,name:"NB 1500 Size 40",brand:"New Balance",category:"Casual",price:380000,img:"sepatu48.jpg",sold:true,isOriginal:false},
+            {id:14,name:"Adidas Adizero Pro 4 Size 39",brand:"Adidas",category:"Running",price:380000,originalPrice:450000,img:"sepatu7.jpg",sold:false,isOriginal:false},
+            {id:5729,name:"Lacoste Size 42",brand:"Lacoste",category:"Casual",price:360000,img:"sepatu45.jpg",sold:false,isOriginal:false,originalPrice:400000},
+            {id:7888,name:"Nike Struktur 25 Size 43",brand:"Nike",category:"Running",price:350000,img:"sepatu42.jpg",sold:false,isOriginal:false},
+            {id:8842,name:"Saucony Size 43",brand:"Saucony",category:"Running",price:350000,img:"sepatu41.jpg",sold:false,isOriginal:false},
+            {id:7899,name:"Asic Novablast 3 Size 39",brand:"Asics",category:"Running",price:350000,img:"sepatu36.jpg",sold:true,isOriginal:false},
+            {id:7709,name:"NB 8010 Size 42",brand:"New Balance",category:"Running",price:350000,img:"sepatu29.jpg",sold:false,isOriginal:false},
+            {id:3295,name:"NB Elit Size 37",brand:"New Balance",category:"Running",price:350000,img:"sepatu28.jpg",sold:false,isOriginal:false},
+            {id:6166,name:"Asics Magic Speed Size 45",brand:"Asics",category:"Running",price:350000,img:"sepatu22.jpg",sold:true,isOriginal:false},
+            {id:2116,name:"Puma Nitro Size 42",brand:"Puma",category:"Running",price:350000,img:"sepatu11.jpg",sold:false,isOriginal:false},
+            {id:5103,name:"Puma Nitro Size 41",brand:"Puma",category:"Running",price:350000,img:"sepatu9.jpg",sold:false,isOriginal:false},
+            {id:1562,name:"Adidas Ultra Boost Size 41",brand:"Adidas",category:"Running",price:350000,img:"sepatu8.jpg",sold:false,isOriginal:false},
+            {id:4135,name:"Asics Magic Speed Size 36",brand:"Asics",category:"Running",price:350000,img:"sepatu4.jpg",sold:false,isOriginal:false},
+            {id:13,name:"Adidas Ultra Boost Size 42",brand:"Adidas",category:"Running",price:350000,img:"sepatu6.jpg",sold:false,isOriginal:false},
+            {id:9639,name:"Swiss Army 9205",brand:"No Brand",category:"Jam Tangan",price:320000,img:"jamtangan1.jpg",sold:false,isOriginal:false},
+            {id:3934,name:"Hoka Full Black Size 41",brand:"Hoka",category:"Running",price:320000,img:"sepatu50.jpg",sold:false,isOriginal:false},
+            {id:2326,name:"Hoka Toska Size 38",brand:"Hoka",category:"Running",price:320000,img:"sepatu31.jpg",sold:false,isOriginal:false},
+            {id:8375,name:"Le Coq Size 43",brand:"Le Coq",category:"Casual",price:300000,img:"sepatu63.jpg",sold:true,isOriginal:false},
+            {id:2717,name:"Puma Speetcat Size 37",brand:"Puma",category:"Casual",price:300000,img:"sepatu52.jpg",sold:false,isOriginal:false},
+            {id:9227,name:"NIke Air Zoom Size 43",brand:"Nike",category:"Running",price:300000,img:"sepatu43.jpg",sold:false,isOriginal:false},
+            {id:3322,name:"Nike Vomero Size 43",brand:"Nike",category:"Running",price:300000,img:"sepatu46.jpg",sold:true,isOriginal:false},
+            {id:4945,name:"Asics Dark Green Size 41",brand:"Asics",category:"Running",price:300000,img:"sepatu25.jpg",sold:false,isOriginal:false},
+            {id:7807,name:"Asics Biru Size 39",brand:"Asics",category:"Running",price:300000,img:"sepatu24.jpg",sold:true,isOriginal:false},
+            {id:6845,name:"Asics Abu Size 41",brand:"Asics",category:"Running",price:300000,img:"sepatu23.jpg",sold:false,isOriginal:false},
+            {id:6341,name:"Skechers Size 43",brand:"Skechers",category:"Running",price:300000,img:"sepatu16.jpg",sold:false,isOriginal:false},
+            {id:4006,name:"Puma Suede Size 40",brand:"Puma",category:"Casual",price:300000,img:"sepatu15.jpg",sold:false,isOriginal:false},
+            {id:3543,name:"Skechers Black Purple Size 36",brand:"Skechers",category:"Running",price:300000,img:"sepatu13.jpg",sold:false,isOriginal:false},
+            {id:5469,name:"Nike Pegasus Size 39",brand:"Nike",category:"Running",price:300000,img:"sepatu3.jpg",sold:true,isOriginal:false},
+            {id:5898,name:"Le Coq Size 40",brand:"Le Coq",category:"Casual",price:300000,img:"sepatu2.jpg",sold:false,isOriginal:false},
+            {id:8750,name:"MIRAGE IN Silver Size 40",brand:"Ortuseight",category:"Futsal",price:299000,img:"sepatu27.jpg",sold:false,isOriginal:true},
+            {id:5713,name:"Adidas SL72 Size 39,40",brand:"Adidas",category:"Casual",price:290000,img:"sepatu5.jpg",sold:true,isOriginal:false},
+            {id:1335,name:"Onitsuka Yellow Size 38",brand:"Onitsuka",category:"Casual",price:280000,img:"sepatu64.jpg",sold:false,isOriginal:false},
+            {id:1333,name:"Asics Megic Speed Size 36",brand:"Asics",category:"Running",price:280000,img:"Asics36.jpg",sold:false,isOriginal:false,originalPrice:300000},
+            {id:458,name:"Asics Tokyo Size 38",brand:"Asics",category:"Running",price:280000,img:"sepatu14.jpg",sold:false,isOriginal:false,originalPrice:320000},
+            {id:8141,name:"Jam Cewek Antroid 2 tali",brand:"No Brand",category:"Jam Tangan",price:250000,img:"jamtangan6.jpg",sold:false,isOriginal:false},
+            {id:108,name:"Onitsuka Tiger Size 40",brand:"Onitsuka",category:"Casual",price:250000,img:"sepatu54.jpg",sold:false,isOriginal:false},
+            {id:8022,name:"NIke SB Dua Warna Size 41,43",brand:"Nike",category:"Casual",price:250000,img:"sepatu38.jpg",sold:false,isOriginal:false},
+            {id:4276,name:"Adidas Samba Jane Putih Size 39",brand:"Adidas",category:"Casual",price:250000,img:"sepatu20.jpg",sold:false,isOriginal:false},
+            {id:9392,name:"Adidas Samba Jane Size 38",brand:"Adidas",category:"Casual",price:250000,img:"sepatu19.jpg",sold:false,isOriginal:false},
+            {id:337,name:"Onitsuka Mexico 66 Size 38",brand:"Onitsuka",category:"Casual",price:250000,img:"sepatu18.jpg",sold:false,isOriginal:false},
+            {id:8907,name:"Onitsuka Blue Red Size 38",brand:"Onitsuka",category:"Casual",price:250000,img:"sepatu17.jpg",sold:false,isOriginal:false},
+            {id:6558,name:"Nike Putih Size 36",brand:"Nike",category:"Running",price:240000,img:"sepatu51.jpg",sold:false,isOriginal:false,originalPrice:270000},
+            {id:9768,name:"Onitsuka Tokuten size 41",brand:"Onitsuka",category:"Casual",price:230000,img:"Onitsuka.Jpg",sold:false,isOriginal:false},
+            {id:6602,name:"Evans Jayden Ori",brand:"No Brand",category:"Jam Tangan",price:230000,img:"jamtangan4.jpg",sold:false,isOriginal:true,originalPrice:300000},
+            {id:5823,name:"Nike Putih Size 36",brand:"Nike",category:"Casual",price:230000,img:"sepatu53.jpg",sold:false,isOriginal:false,originalPrice:270000},
+            {id:7042,name:"Adidas Samba Size 39",brand:"Adidas",category:"Casual",price:220000,img:"sepatu39.jpg",sold:false,isOriginal:false},
+            {id:796,name:"Nike Cewek Size 39",brand:"Nike",category:"Casual",price:220000,img:"sepatu40.jpg",sold:false,isOriginal:false},
+            {id:2435,name:"NIke Futsal Size 37",brand:"Nike",category:"Futsal",price:220000,img:"sepatu37.jpg",sold:true,isOriginal:false},
+            {id:8784,name:"On Cloud Size 41",brand:"On Cloud",category:"Running",price:200000,img:"sepatu59.jpg",sold:false,isOriginal:false,originalPrice:300000},
+            {id:9342,name:"Converse Cewek Size 37",brand:"Converse",category:"Casual",price:200000,img:"sepatu57.jpg",sold:true,isOriginal:false},
+            {id:3626,name:"Adidas Samba Kuning Size 40",brand:"Adidas",category:"Casual",price:200000,img:"sepatu49.jpg",sold:true,isOriginal:false},
+            {id:8889,name:"Specs Stabilo Size 42",brand:"Specs",category:"Futsal",price:200000,img:"sepatu34.jpg",sold:true,isOriginal:false},
+            {id:7263,name:"DNY size 37",brand:"DNY",category:"Casual",price:180000,img:"sepatu65.jpg",sold:false,isOriginal:false},
+            {id:5111,name:"G-shock Kuning",brand:"No Brand",category:"Jam Tangan",price:180000,img:"jamtangan2.jpg",sold:false,isOriginal:false,originalPrice:230000},
+            {id:3420,name:"Kaos Adidas panjang Size XL",brand:"Adidas",category:"Kaos",price:180000,img:"kaos11.jpg",sold:true,isOriginal:false},
+            {id:7930,name:"Adidas Colektor Size 41",brand:"Adidas",category:"Casual",price:180000,img:"sepatu55.jpg",sold:false,isOriginal:false,originalPrice:270000},
+            {id:9844,name:"Adidas Futsal Size 38,39",brand:"Adidas",category:"Futsal",price:160000,img:"sepatu35.jpg",sold:false,isOriginal:false},
+            {id:1738,name:"Kaos NIke Biru Tua Size XL",brand:"Nike",category:"Kaos",price:150000,img:"kaos16.jpg",sold:true,isOriginal:false},
+            {id:4744,name:"Jam Cewek MK",brand:"No Brand",category:"Jam Tangan",price:150000,img:"jamtangan5.jpg",sold:false,isOriginal:false},
+            {id:9957,name:"Kaos Puma Putih Size L",brand:"Puma",category:"Kaos",price:150000,img:"kaos13.jpg",sold:false,isOriginal:false},
+            {id:3798,name:"Kaos TNF Abu Size XL",brand:"TNF",category:"Kaos",price:150000,img:"kaos10.jpg",sold:true,isOriginal:false},
+            {id:7078,name:"Kaos Puma Ferarri Size L",brand:"Puma",category:"Kaos",price:150000,img:"kaos9.jpg",sold:false,isOriginal:false},
+            {id:3301,name:"Kaos Puma MLB Size L",brand:"Puma",category:"Kaos",price:150000,img:"kaos8.jpg",sold:false,isOriginal:false},
+            {id:5238,name:"Kaos Gucci Sieze M",brand:"No Brand",category:"Kaos",price:150000,img:"kaos6.jpg",sold:false,isOriginal:false},
+            {id:1127,name:"Kaos Gucci Size M",brand:"No Brand",category:"Kaos",price:150000,img:"kaos5.jpg",sold:false,isOriginal:false},
+            {id:7637,name:"Kaos Puma Ferrari Size L",brand:"Puma",category:"Kaos",price:150000,img:"kaos4.jpg",sold:false,isOriginal:false},
+            {id:3042,name:"Kaos Under Armour",brand:"Under Armour Size M",category:"Kaos",price:150000,img:"kaos3.jpg",sold:false,isOriginal:false},
+            {id:4291,name:"Kaos Nike Jordan Sieze L",brand:"Nike",category:"Kaos",price:150000,img:"kaos2.jpg",sold:false,isOriginal:false},
+            {id:6475,name:"Jam Cewek Cream",brand:"No Brand",category:"Jam Tangan",price:140000,img:"jamtangan3.jpg",sold:false,isOriginal:false},
+            {id:1564,name:"Jam Cewek Silver",brand:"No Brand",category:"Jam Tangan",price:130000,img:"jamtangan8.jpg",sold:false,isOriginal:false},
+            {id:6067,name:"Kaos Hijau Army Size L",brand:"No Brand",category:"Kaos",price:130000,img:"kaos12.jpg",sold:false,isOriginal:false},
+            {id:5354,name:"Adidas Samba Putih (Minus)  Size 39",brand:"Adidas",category:"Casual",price:130000,img:"sepatu21.jpg",sold:false,isOriginal:false,originalPrice:220000},
+            {id:6215,name:"Kaos NIke Jordan 23 Size XL",brand:"Nike",category:"Kaos",price:120000,img:"kaos15.jpg",sold:true,isOriginal:false},
+            {id:3691,name:"Kaos NIke Jordan 23 Size L",brand:"Nike",category:"Kaos",price:120000,img:"kaos14.jpg",sold:true,isOriginal:false},
+            {id:6232,name:"G-shock Casio",brand:"No Brand",category:"Jam Tangan",price:120000,img:"jamtangan7.jpg",sold:false,isOriginal:false},
+            {id:6023,name:"Kaos Adidas Cream Size L",brand:"Adidas",category:"Kaos",price:120000,img:"kaos7.jpg",sold:false,isOriginal:false},
+            {id:6708,name:"Kaos Puma Size M",brand:"Puma",category:"Kaos",price:100000,img:"kaos1.jpg",sold:false,isOriginal:false},
+            {id:335,name:"Converse Cewek Size 38",brand:"Converse",category:"Casual",price:80000,img:"sepatu58.jpg",sold:false,isOriginal:false,originalPrice:200000}
+        ];
 
         let allProducts = [...staticProducts];
         let currentCategory = 'all';
-        let editingId = null; // Global variable untuk mode edit
+        let editingId = null;
 
-        // Listen to Firestore Updates
         const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
         onSnapshot(q, (snapshot) => {
             const firebaseProducts = [];
-            snapshot.forEach((doc) => {
-                firebaseProducts.push({ id: doc.id, ...doc.data(), isFirebase: true });
-            });
-            // Gabungkan: Firebase (terbaru di atas) + Static
+            snapshot.forEach((doc) => firebaseProducts.push({ id: doc.id, ...doc.data(), isFirebase: true }));
             allProducts = [...firebaseProducts, ...staticProducts];
-            // Render ulang
-            if(currentCategory === 'all') {
-                renderProducts(allProducts);
-            } else {
-                filterCategory(currentCategory);
-            }
-            // Jika sedang membuka modal admin, refresh list admin
-            if(!document.getElementById('adminModal').classList.contains('hidden')) {
-                renderAdminProductList();
-            }
+            if(currentCategory === 'all') renderProducts(allProducts); else filterCategory(currentCategory);
+            if(!document.getElementById('adminModal').classList.contains('hidden')) renderAdminProductList();
         });
 
-        // --- GLOBAL FUNCTIONS ---
-
-        // FUNGSI KOMPRES GAMBAR (Wajib ada agar muat di Database Gratisan)
         function compressImage(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -2176,15 +486,10 @@
                     img.src = event.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        const MAX_WIDTH = 600; // Perkecil lebar maksimal jadi 600px
-                        const scaleSize = MAX_WIDTH / img.width;
-                        canvas.width = MAX_WIDTH;
-                        canvas.height = img.height * scaleSize;
-                        
+                        const MAX_WIDTH = 600; const scaleSize = MAX_WIDTH / img.width;
+                        canvas.width = MAX_WIDTH; canvas.height = img.height * scaleSize;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        
-                        // Kompres jadi JPEG kualitas 0.7 (cukup bagus tapi size kecil)
                         resolve(canvas.toDataURL('image/jpeg', 0.7)); 
                     }
                 }
@@ -2199,24 +504,15 @@
             const fileInput = document.getElementById('addImgFile');
             const file = fileInput.files[0];
 
-            // Validasi File saat Mode Tambah (Bukan Edit)
-            if (!editingId && !file) {
-                alert("Pilih foto produk terlebih dahulu!");
-                return;
-            }
+            if (!editingId && !file) { alert("Pilih foto produk terlebih dahulu!"); return; }
 
-            btnSubmit.disabled = true;
-            btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
+            btnSubmit.disabled = true; btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
             btnText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
 
             try {
                 if (!auth.currentUser) await signInAnonymously(auth);
-
                 let base64Img = null;
-                // Jika ada file baru, kompres. Jika tidak (mode edit tanpa ganti foto), biarkan null.
-                if (file) {
-                    base64Img = await compressImage(file);
-                }
+                if (file) base64Img = await compressImage(file);
 
                 const productData = {
                     name: document.getElementById('addName').value,
@@ -2226,128 +522,77 @@
                     originalPrice: document.getElementById('addOriginalPrice').value ? parseInt(document.getElementById('addOriginalPrice').value) : null,
                     sold: document.getElementById('addIsSold').checked,
                     isOriginal: document.getElementById('addIsOriginal').checked,
-                    isPO: document.getElementById('addStockType').value === 'po', // Updated Logic
+                    isPO: document.getElementById('addStockType').value === 'po',
                     createdAt: new Date().toISOString()
                 };
-
-                // Jika ada gambar baru, masukkan ke data.
-                if (base64Img) {
-                    productData.img = base64Img;
-                }
+                if (base64Img) productData.img = base64Img;
 
                 if (editingId) {
-                    // --- MODE UPDATE ---
                     const productRef = doc(db, "products", editingId);
-                    // Hapus createdAt dari update agar tidak berubah urutannya (opsional)
                     delete productData.createdAt; 
-                    
                     await updateDoc(productRef, productData);
                     alert("Produk berhasil diperbarui!");
-                    cancelEdit(); // Reset form mode
+                    cancelEdit();
                 } else {
-                    // --- MODE CREATE ---
                     if (!base64Img) throw new Error("Gambar wajib diupload untuk produk baru");
                     await addDoc(collection(db, "products"), productData);
                     alert("Produk baru berhasil ditambahkan!");
                     document.getElementById('addProductForm').reset();
                 }
-
                 showAdminTab('list');
-
-            } catch (error) {
-                console.error("Error saving product: ", error);
-                alert("Gagal: " + error.message);
-            } finally {
-                btnSubmit.disabled = false;
-                btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
-                btnText.innerHTML = editingId ? 'Update Produk' : 'Upload & Simpan';
-            }
+            } catch (error) { console.error("Error: ", error); alert("Gagal: " + error.message); } 
+            finally { btnSubmit.disabled = false; btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed'); btnText.innerHTML = editingId ? 'Update Produk' : 'Upload & Simpan'; }
         }
 
         window.renderAdminProductList = function() {
             const container = document.getElementById('adminProductListContainer');
             const searchQuery = document.getElementById('adminSearchInput').value.toLowerCase();
-            
-            // Filter berdasarkan search input
             const filteredProducts = allProducts.filter(p => p.name.toLowerCase().includes(searchQuery));
 
-            if (filteredProducts.length === 0) {
-                container.innerHTML = '<p class="text-center text-gray-400 py-4">Produk tidak ditemukan.</p>';
-                return;
-            }
+            if (filteredProducts.length === 0) { container.innerHTML = '<p class="text-center text-gray-400 py-4">Produk tidak ditemukan.</p>'; return; }
 
             container.innerHTML = filteredProducts.map(p => {
-                // Determine Badge Style & Text
-                let badgeClass = 'bg-green-100 text-green-600';
-                let badgeText = 'RDY';
-                
-                if (p.sold) {
-                    badgeClass = 'bg-red-100 text-red-600';
-                    badgeText = 'SOLD';
-                } else if (p.isPO) {
-                    badgeClass = 'bg-yellow-100 text-yellow-600';
-                    badgeText = 'PO';
-                }
+                let badgeClass = 'bg-green-100 text-green-600', badgeText = 'RDY';
+                if (p.sold) { badgeClass = 'bg-red-100 text-red-600'; badgeText = 'SOLD'; } 
+                else if (p.isPO) { badgeClass = 'bg-yellow-100 text-yellow-600'; badgeText = 'PO'; }
 
                 return `
                 <div class="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-200 text-sm hover:bg-gray-100 transition">
                     <div class="flex items-center gap-2 overflow-hidden flex-1">
                         <img src="${p.img}" class="w-10 h-10 rounded object-cover bg-gray-200 border border-gray-300">
-                        <div class="truncate">
-                            <div class="font-bold text-gray-800 truncate w-24 md:w-36 ${p.sold ? 'line-through text-gray-400' : ''}">${p.name}</div>
-                            <div class="text-[10px] text-gray-500 font-mono">${p.brand} - ${formatRupiah(p.price)}</div>
-                        </div>
+                        <div class="truncate"><div class="font-bold text-gray-800 truncate w-24 md:w-36 ${p.sold ? 'line-through text-gray-400' : ''}">${p.name}</div><div class="text-[10px] text-gray-500 font-mono">${p.brand} - ${formatRupiah(p.price)}</div></div>
                     </div>
                     <div class="flex items-center gap-1">
-                        <button onclick="toggleSold('${p.id}', ${p.isFirebase})" class="${badgeClass} border px-2 py-1 rounded text-[10px] font-bold w-12 text-center" title="Klik untuk ubah SOLD/READY (Status PO diedit via tombol pensil)">
-                            ${badgeText}
-                        </button>
-                        ${p.isFirebase ? 
-                            `
-                            <button onclick="editProduct('${p.id}')" class="bg-yellow-100 text-yellow-600 border border-yellow-200 p-2 rounded hover:bg-yellow-200 transition" title="Edit Produk"><i class="fas fa-pencil-alt text-xs"></i></button>
-                            <button onclick="deleteProduct('${p.id}', true)" class="bg-red-100 text-red-500 border border-red-200 p-2 rounded hover:bg-red-200 transition" title="Hapus Permanen"><i class="fas fa-trash-alt text-xs"></i></button>
-                            ` : 
-                            `<button disabled class="text-gray-300 p-2" title="Produk Statis (Tidak bisa diedit)"><i class="fas fa-lock"></i></button>`
-                        }
+                        <button onclick="toggleSold('${p.id}', ${p.isFirebase})" class="${badgeClass} border px-2 py-1 rounded text-[10px] font-bold w-12 text-center">${badgeText}</button>
+                        ${p.isFirebase ? `<button onclick="editProduct('${p.id}')" class="bg-yellow-100 text-yellow-600 border border-yellow-200 p-2 rounded hover:bg-yellow-200 transition"><i class="fas fa-pencil-alt text-xs"></i></button><button onclick="deleteProduct('${p.id}', true)" class="bg-red-100 text-red-500 border border-red-200 p-2 rounded hover:bg-red-200 transition"><i class="fas fa-trash-alt text-xs"></i></button>` : `<button disabled class="text-gray-300 p-2"><i class="fas fa-lock"></i></button>`}
                     </div>
-                </div>
-            `}).join('');
+                </div>`
+            }).join('');
         }
 
         window.editProduct = function(id) {
             const p = allProducts.find(x => x.id == id);
             if(!p) return;
-
             editingId = id;
-            
-            // Isi Form dengan data produk
             document.getElementById('addName').value = p.name;
             document.getElementById('addBrand').value = p.brand;
             document.getElementById('addCategory').value = p.category;
             document.getElementById('addPrice').value = p.price;
             document.getElementById('addOriginalPrice').value = p.originalPrice || '';
-            
-            // Set Stock Type & Checkboxes
             document.getElementById('addStockType').value = p.isPO ? 'po' : 'ready';
             document.getElementById('addIsOriginal').checked = p.isOriginal;
             document.getElementById('addIsSold').checked = p.sold;
-
-            // UI Updates untuk Mode Edit
             document.getElementById('btnText').innerText = "Update Produk";
             document.getElementById('cancelEditBtn').classList.remove('hidden');
             document.getElementById('editModeNotice').classList.remove('hidden');
             document.getElementById('editImgHint').classList.remove('hidden');
             document.getElementById('imgReqText').innerText = "(Opsional)";
-            
-            // Pindah ke tab Input
             showAdminTab('add');
         }
 
         window.cancelEdit = function() {
             editingId = null;
             document.getElementById('addProductForm').reset();
-            
-            // Reset UI ke Mode Tambah
             document.getElementById('btnText').innerText = "Upload & Simpan";
             document.getElementById('cancelEditBtn').classList.add('hidden');
             document.getElementById('editModeNotice').classList.add('hidden');
@@ -2356,219 +601,73 @@
         }
 
         window.toggleSold = async function(id, isFirebase) {
-            if (isFirebase) {
-                const p = allProducts.find(x => x.id == id);
-                const productRef = doc(db, "products", id);
-                await updateDoc(productRef, { sold: !p.sold });
-            } else {
-                alert("Fitur edit status hanya untuk produk yang diupload ke Firebase.");
-            }
+            if (isFirebase) { const p = allProducts.find(x => x.id == id); await updateDoc(doc(db, "products", id), { sold: !p.sold }); } 
+            else alert("Fitur edit status hanya untuk produk yang diupload ke Firebase.");
         }
 
         window.deleteProduct = async function(id, isFirebase) {
-            if (isFirebase && confirm("Yakin ingin menghapus permanen dari Firebase?")) {
-                await deleteDoc(doc(db, "products", id));
-            }
+            if (isFirebase && confirm("Yakin ingin menghapus permanen dari Firebase?")) await deleteDoc(doc(db, "products", id));
         }
-
-        // --- STANDARD FUNCTIONS ---
 
         window.renderProducts = function(data) {
             const grid = document.getElementById('productGrid');
             const empty = document.getElementById('emptyState');
             grid.innerHTML = '';
-            
-            if (data.length === 0) {
-                empty.classList.remove('hidden');
-                return;
-            } else {
-                empty.classList.add('hidden');
-            }
+            if (data.length === 0) { empty.classList.remove('hidden'); return; } else empty.classList.add('hidden');
 
             data.forEach(product => {
                 const imgStyle = product.sold ? 'grayscale opacity-75' : '';
                 const contentStyle = product.sold ? 'opacity-60' : '';
-                
                 let btnAction;
-                if (product.sold) {
-                    btnAction = `<button disabled class="w-full bg-gray-400 text-white py-2 rounded font-bold cursor-not-allowed text-sm">TERJUAL / SOLD</button>`;
-                } else if (product.isPO) {
-                    btnAction = `<a href="https://wa.me/6281375861195?text=Halo Yusuf Store 25, saya mau pesan PO ${product.name}" target="_blank" class="block w-full text-center bg-yellow-500 text-black py-2 rounded font-bold text-sm"><i class="fab fa-whatsapp"></i> Pesan PO</a>`;
-                } else {
-                    btnAction = `<a href="https://wa.me/6281375861195?text=Halo Yusuf Store 25, saya mau beli ${product.name}" target="_blank" class="block w-full text-center bg-green-600 text-white py-2 rounded font-bold text-sm"><i class="fab fa-whatsapp"></i> Beli via WA</a>`;
-                }
+                if (product.sold) btnAction = `<button disabled class="w-full bg-gray-400 text-white py-2 rounded font-bold cursor-not-allowed text-sm">TERJUAL / SOLD</button>`;
+                else if (product.isPO) btnAction = `<a href="https://wa.me/6281375861195?text=Halo Yusuf Store 25, saya mau pesan PO ${product.name}" target="_blank" class="block w-full text-center bg-yellow-500 text-black py-2 rounded font-bold text-sm"><i class="fab fa-whatsapp"></i> Pesan PO</a>`;
+                else btnAction = `<a href="https://wa.me/6281375861195?text=Halo Yusuf Store 25, saya mau beli ${product.name}" target="_blank" class="block w-full text-center bg-green-600 text-white py-2 rounded font-bold text-sm"><i class="fab fa-whatsapp"></i> Beli via WA</a>`;
 
                 let priceDisplay = `<span class="text-accent font-bold text-sm md:text-lg border border-accent px-2 py-1 rounded">${formatRupiah(product.price)}</span>`;
                 if (product.originalPrice && product.originalPrice > product.price) {
                     const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
-                    priceDisplay = `
-                        <div class="flex flex-col">
-                            <span class="text-[10px] text-gray-400 line-through">${formatRupiah(product.originalPrice)}</span>
-                            <div class="flex items-center gap-2">
-                                ${priceDisplay}
-                                <span class="text-[10px] bg-red-100 text-red-600 px-1 rounded font-bold">-${discount}%</span>
-                            </div>
-                        </div>`;
+                    priceDisplay = `<div class="flex flex-col"><span class="text-[10px] text-gray-400 line-through">${formatRupiah(product.originalPrice)}</span><div class="flex items-center gap-2">${priceDisplay}<span class="text-[10px] bg-red-100 text-red-600 px-1 rounded font-bold">-${discount}%</span></div></div>`;
                 }
 
-                const card = `
-                    <div class="product-card bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 overflow-hidden relative group hover:border-accent transition duration-300">
-                        <div class="relative group cursor-pointer" onclick="openModal('${product.id}')">
-                            <img src="${product.img}" alt="${product.name}" class="w-full h-40 md:h-56 object-cover ${imgStyle}">
-                            ${product.sold ? '<div class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold z-20">SOLD OUT</div>' : (product.isPO ? '<div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold z-20">PRE-ORDER</div>' : '')}
-                        </div>
-                        <div class="p-3 md:p-4 ${contentStyle} text-gray-300">
-                            <div class="flex justify-between items-start"><p class="text-xs text-gray-500 uppercase font-semibold">${product.brand}</p>${product.isOriginal && !product.sold ? '<span class="text-[10px] bg-accent text-black px-2 py-0.5 rounded font-bold">ORI</span>' : ''}</div>
-                            <h3 class="font-bold text-sm md:text-base text-white line-clamp-2 leading-tight mb-2">${product.name}</h3>
-                            <div class="flex items-center justify-between mb-3">${priceDisplay}</div>
-                            <div class="mt-3">${btnAction}</div>
-                        </div>
-                    </div>`;
-                grid.innerHTML += card;
+                grid.innerHTML += `<div class="product-card bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 overflow-hidden relative group hover:border-accent transition duration-300">
+                        <div class="relative group cursor-pointer" onclick="openModal('${product.id}')"><img src="${product.img}" alt="${product.name}" class="w-full h-40 md:h-56 object-cover ${imgStyle}">${product.sold ? '<div class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold z-20">SOLD OUT</div>' : (product.isPO ? '<div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold z-20">PRE-ORDER</div>' : '')}</div>
+                        <div class="p-3 md:p-4 ${contentStyle} text-gray-300"><div class="flex justify-between items-start"><p class="text-xs text-gray-500 uppercase font-semibold">${product.brand}</p>${product.isOriginal && !product.sold ? '<span class="text-[10px] bg-accent text-black px-2 py-0.5 rounded font-bold">ORI</span>' : ''}</div><h3 class="font-bold text-sm md:text-base text-white line-clamp-2 leading-tight mb-2">${product.name}</h3><div class="flex items-center justify-between mb-3">${priceDisplay}</div><div class="mt-3">${btnAction}</div></div></div>`;
             });
         }
 
         window.formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
-
-        window.adminLogin = function(e) {
-            e.preventDefault();
-            const password = prompt("Masukkan Password Admin:");
-            if (password === "admin123") {
-                document.getElementById('adminModal').classList.remove('hidden');
-                renderAdminProductList();
-            } else if (password !== null) alert("Password salah!");
-        }
-
+        window.adminLogin = function(e) { e.preventDefault(); const password = prompt("Masukkan Password Admin:"); if (password === "admin123") { document.getElementById('adminModal').classList.remove('hidden'); renderAdminProductList(); } else if (password !== null) alert("Password salah!"); }
         window.closeAdmin = function() { document.getElementById('adminModal').classList.add('hidden'); }
-
         window.showAdminTab = function(tabName) {
-            const addSec = document.getElementById('adminAddSection');
-            const listSec = document.getElementById('adminListSection');
-            const tabAdd = document.getElementById('tabAdd');
-            const tabList = document.getElementById('tabList');
-            if (tabName === 'add') {
-                addSec.classList.remove('hidden'); listSec.classList.add('hidden');
-                tabAdd.className = "flex-1 py-2 rounded-lg bg-slate-900 text-white font-bold text-xs uppercase";
-                tabList.className = "flex-1 py-2 rounded-lg bg-gray-200 text-gray-600 font-bold text-xs uppercase";
-            } else {
-                addSec.classList.add('hidden'); listSec.classList.remove('hidden');
-                tabList.className = "flex-1 py-2 rounded-lg bg-slate-900 text-white font-bold text-xs uppercase";
-                tabAdd.className = "flex-1 py-2 rounded-lg bg-gray-200 text-gray-600 font-bold text-xs uppercase";
-                renderAdminProductList();
-            }
+            const addSec = document.getElementById('adminAddSection'), listSec = document.getElementById('adminListSection'), tabAdd = document.getElementById('tabAdd'), tabList = document.getElementById('tabList');
+            if (tabName === 'add') { addSec.classList.remove('hidden'); listSec.classList.add('hidden'); tabAdd.className = "flex-1 py-2 rounded-lg bg-slate-900 text-white font-bold text-xs uppercase"; tabList.className = "flex-1 py-2 rounded-lg bg-gray-200 text-gray-600 font-bold text-xs uppercase"; } 
+            else { addSec.classList.add('hidden'); listSec.classList.remove('hidden'); tabList.className = "flex-1 py-2 rounded-lg bg-slate-900 text-white font-bold text-xs uppercase"; tabAdd.className = "flex-1 py-2 rounded-lg bg-gray-200 text-gray-600 font-bold text-xs uppercase"; renderAdminProductList(); }
         }
-
         window.filterCategory = function(category) {
-            currentCategory = category;
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-accent', 'text-white');
-                btn.classList.add('bg-white/10', 'text-white', 'border', 'border-white/20');
-            });
-            if(event && event.target) {
-                event.target.classList.remove('bg-white/10', 'border');
-                event.target.classList.add('bg-accent', 'text-black');
-            }
-            if (category === 'all') {
-                renderProducts(allProducts);
-            } else {
-                const filtered = allProducts.filter(p => p.category === currentCategory);
-                renderProducts(filtered);
-            }
+            currentCategory = category; document.querySelectorAll('.cat-btn').forEach(btn => { btn.classList.remove('bg-accent', 'text-white'); btn.classList.add('bg-white/10', 'text-white', 'border', 'border-white/20'); });
+            if(event && event.target) { event.target.classList.remove('bg-white/10', 'border'); event.target.classList.add('bg-accent', 'text-black'); }
+            if (category === 'all') renderProducts(allProducts); else renderProducts(allProducts.filter(p => p.category === currentCategory));
         }
-
-        window.filterByBrand = function(brandName) {
-            showSection('catalog');
-            const filtered = allProducts.filter(p => p.brand === brandName);
-            renderProducts(filtered);
-        }
-
-        window.searchProduct = function(query) {
-            const lowerQ = query.toLowerCase();
-            const filtered = allProducts.filter(p => 
-                p.name.toLowerCase().includes(lowerQ) || 
-                p.brand.toLowerCase().includes(lowerQ) ||
-                p.category.toLowerCase().includes(lowerQ)
-            );
-            renderProducts(filtered);
-        }
-
+        window.filterByBrand = function(brandName) { showSection('catalog'); renderProducts(allProducts.filter(p => p.brand === brandName)); }
+        window.searchProduct = function(query) { const lowerQ = query.toLowerCase(); renderProducts(allProducts.filter(p => p.name.toLowerCase().includes(lowerQ) || p.brand.toLowerCase().includes(lowerQ) || p.category.toLowerCase().includes(lowerQ))); }
         window.sortProducts = function(order) {
-            let sorted = [...allProducts];
-            if (currentCategory !== 'all') sorted = sorted.filter(p => p.category === currentCategory);
-            
-            if (order === 'low') sorted.sort((a, b) => a.price - b.price);
-            else if (order === 'high') sorted.sort((a, b) => b.price - a.price);
-            
+            let sorted = [...allProducts]; if (currentCategory !== 'all') sorted = sorted.filter(p => p.category === currentCategory);
+            if (order === 'low') sorted.sort((a, b) => a.price - b.price); else if (order === 'high') sorted.sort((a, b) => b.price - a.price);
             renderProducts(sorted);
         }
-
-        window.showSection = function(sectionId) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
-            document.getElementById(sectionId).classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-
-        window.openModal = function(id) {
-            // Loose comparison (==) because Firebase IDs are strings, static IDs are numbers
-            const product = allProducts.find(p => p.id == id); 
-            if(!product) return;
-            const img = document.getElementById('modalImg');
-            img.src = product.img;
-            document.getElementById('imageModal').classList.remove('hidden');
-        }
-
+        window.showSection = function(sectionId) { document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden')); document.getElementById(sectionId).classList.remove('hidden'); window.scrollTo(0, 0); }
+        window.openModal = function(id) { const product = allProducts.find(p => p.id == id); if(!product) return; document.getElementById('modalImg').src = product.img; document.getElementById('imageModal').classList.remove('hidden'); }
         window.closeModal = function() { document.getElementById('imageModal').classList.add('hidden'); }
         window.viewGalleryImage = function(src) { document.getElementById('modalImg').src = src; document.getElementById('imageModal').classList.remove('hidden'); }
         window.toggleMenu = function() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
         
         window.populateBrandOptions = function() {
-            // EDIT DI SINI: Ganti URL dengan nama file gambar di komputer/HP Anda
-            // Pastikan file gambar ada di folder yang sama dengan index.html
-            const brands = [
-                { name: "Adidas", logo: "logo_adidas.jpg" },
-                { name: "Nike", logo: "logo_nike.jpg" },
-                { name: "Onitsuka", logo: "logo_Onitsuka.jpg" },
-                { name: "New Balance", logo: "logo_nb.jpg" },
-                { name: "On Cloud", logo: "logo_oncloud.jpg" },
-                { name: "Puma", logo: "puma.jpg" },
-                { name: "Ortuseight", logo: "logo_ortus.jpg" },
-                { name: "910 Nineten", logo: "logo_910.jpg" },
-                { name: "Skechers", logo: "logo_Skechers.jpg" },
-                { name: "Hoka", logo: "logo_hoka.jpg" },
-                { name: "Asics", logo: "logo_Asics.jpg" },
-                { name: "Specs", logo: "logo_specs.jpg" },
-                { name: "Le Coq", logo: "lecoq.jpg" },
-                { name: "Converse", logo: "converse.jpg" },
-                { name: "Saucony", logo: "saucony.jpg" },
-                { name: "Under Armour", logo: "logo_ua.jpg" },
-                { name: "TNF", logo: "tnf.jpg" },
-                { name: "Lacoste", logo: "lacoste.jpg" },
-                { name: "Kanky", logo: "kanky.jpg" },
-                { name: "DNY", logo: "dny.jpg" },
-                { name: "Mills", logo: "mills.jpg" },
-                { name: "Ballerbro", logo: "balero.jpg" },
-                { name: "No Brand", logo: "nobrand.jpg" }
-            ];
-
-            // Populate Dropdown untuk Admin (Hanya Nama)
+            const brands = [{name:"Adidas",logo:"logo_adidas.jpg"},{name:"Nike",logo:"logo_nike.jpg"},{name:"Onitsuka",logo:"logo_Onitsuka.jpg"},{name:"New Balance",logo:"logo_nb.jpg"},{name:"On Cloud",logo:"logo_oncloud.jpg"},{name:"Puma",logo:"puma.jpg"},{name:"Ortuseight",logo:"logo_ortus.jpg"},{name:"910 Nineten",logo:"logo_910.jpg"},{name:"Skechers",logo:"logo_Skechers.jpg"},{name:"Hoka",logo:"logo_hoka.jpg"},{name:"Asics",logo:"logo_Asics.jpg"},{name:"Specs",logo:"logo_specs.jpg"},{name:"Le Coq",logo:"lecoq.jpg"},{name:"Converse",logo:"converse.jpg"},{name:"Saucony",logo:"saucony.jpg"},{name:"Under Armour",logo:"logo_ua.jpg"},{name:"TNF",logo:"tnf.jpg"},{name:"Lacoste",logo:"lacoste.jpg"},{name:"Kanky",logo:"kanky.jpg"},{name:"DNY",logo:"dny.jpg"},{name:"Mills",logo:"mills.jpg"},{name:"Ballerbro",logo:"balero.jpg"},{name:"No Brand",logo:"nobrand.jpg"}];
             document.getElementById('addBrand').innerHTML = brands.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
-            
-            // Populate Grid untuk User (Gambar Logo)
-            document.getElementById('brandContainer').innerHTML = brands.map(b => `
-                <div onclick="filterByBrand('${b.name}')" class="brand-logo cursor-pointer bg-white p-2 rounded-lg flex items-center justify-center h-16 md:h-20 shadow-lg border border-gray-200 hover:bg-accent transition group overflow-hidden relative">
-                    <img src="${b.logo}" alt="${b.name}" class="max-h-full max-w-full object-contain group-hover:scale-110 transition duration-300 z-10 relative">
-                    <!-- Text Fallback jika gambar gagal load (opsional, disembunyikan jika gambar ada) -->
-                    <span class="absolute text-[10px] text-gray-300 font-bold opacity-0">${b.name}</span>
-                </div>
-            `).join('');
+            document.getElementById('brandContainer').innerHTML = brands.map(b => `<div onclick="filterByBrand('${b.name}')" class="brand-logo cursor-pointer bg-white p-2 rounded-lg flex items-center justify-center h-16 md:h-20 shadow-lg border border-gray-200 hover:bg-accent transition group overflow-hidden relative"><img src="${b.logo}" alt="${b.name}" class="max-h-full max-w-full object-contain group-hover:scale-110 transition duration-300 z-10 relative"><span class="absolute text-[10px] text-gray-300 font-bold opacity-0">${b.name}</span></div>`).join('');
         }
 
-        // Init
-        window.onload = () => {
-            populateBrandOptions();
-            renderProducts(staticProducts);
-            showSection('home-section');
-        }
+        window.onload = () => { populateBrandOptions(); renderProducts(staticProducts); showSection('home-section'); }
     </script>
 </body>
 </html>
