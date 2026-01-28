@@ -15,6 +15,7 @@
     <meta property="og:title" content="Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan">
     <meta property="og:description" content="Temukan sepatu favoritmu di sini! Lokasi: Depan Tugu Salak. Klik untuk lihat katalog.">
     <meta property="og:image" content="1000108714.jpg">
+    <!-- Menambahkan dimensi gambar agar lebih mudah terbaca oleh WA -->
     <meta property="og:image:width" content="300">
     <meta property="og:image:height" content="300">
 
@@ -29,7 +30,7 @@
     <meta itemprop="description" content="Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan sepatu Running, Casual, Futsal, Basket, dan Jam Tangan Original & Premium.">
     <meta itemprop="image" content="1000108714.jpg">
 
-    <!-- Favicon -->
+    <!-- Favicon (Ikon di Tab Browser & Fallback untuk Link Preview) -->
     <link rel="icon" href="1000108714.jpg" type="image/jpeg">
     <link rel="shortcut icon" href="1000108714.jpg" type="image/jpeg">
 
@@ -37,7 +38,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
+    <!-- Google Fonts (Menambahkan Russo One untuk Judul) -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
     
     <script>
@@ -46,14 +47,14 @@
                 extend: {
                     fontFamily: {
                         sans: ['Poppins', 'sans-serif'],
-                        display: ['Russo One', 'sans-serif'],
+                        display: ['Russo One', 'sans-serif'], // Font baru untuk judul
                     },
                     colors: {
-                        primary: '#000000',
-                        accent: '#ccff00',
-                        secondary: '#18181b',
-                        cardbg: '#121212',
-                        mute: '#a1a1aa'
+                        primary: '#000000',   // Hitam Pekat
+                        accent: '#ccff00',    // Neon Lime / Green Streetwear
+                        secondary: '#18181b', // Zinc 900
+                        cardbg: '#121212',    // Dark Grey untuk kartu
+                        mute: '#a1a1aa'       // Abu-abu teks
                     }
                 }
             }
@@ -73,7 +74,7 @@
         
         .brand-logo:hover { 
             transform: scale(1.05); 
-            border-color: #ccff00; 
+            border-color: #ccff00; /* Neon border on hover */
             box-shadow: 0 0 15px rgba(204, 255, 0, 0.3);
         }
         
@@ -112,47 +113,23 @@
         }
     </style>
 </head>
+<!-- Body Dark Streetwear -->
 <body class="bg-primary text-gray-200 font-sans pt-16 md:pt-20 min-h-screen selection:bg-accent selection:text-black">
 
-    <!-- Error Banner (Permission Denied) -->
-    <div id="errorBanner" class="hidden fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-        <div class="bg-red-900 border-2 border-red-500 rounded-xl p-6 max-w-lg text-white shadow-2xl relative">
-            <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                <i class="fas fa-lock text-red-300"></i> Akses Database Ditolak
-            </h3>
-            <p class="mb-4 text-sm leading-relaxed">
-                Firebase memblokir akses karena aturan keamanan (Security Rules). Anda harus mengizinkan akses di Firebase Console.
-            </p>
-            <div class="bg-black/50 p-4 rounded-lg mb-4 text-xs font-mono border border-white/10">
-                <p class="text-gray-400 mb-2">// Buka Firebase Console > Firestore Database > Rules</p>
-                <p class="text-green-400">rules_version = '2';</p>
-                <p class="text-green-400">service cloud.firestore {</p>
-                <p class="text-green-400">&nbsp;&nbsp;match /databases/{database}/documents {</p>
-                <p class="text-green-400">&nbsp;&nbsp;&nbsp;&nbsp;match /{document=**} {</p>
-                <p class="text-yellow-400">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow read, write: if true;</p>
-                <p class="text-green-400">&nbsp;&nbsp;&nbsp;&nbsp;}</p>
-                <p class="text-green-400">&nbsp;&nbsp;}</p>
-                <p class="text-green-400">}</p>
-            </div>
-            <button onclick="document.getElementById('errorBanner').classList.add('hidden')" class="w-full bg-white text-red-900 font-bold py-3 rounded hover:bg-gray-200 transition">
-                Saya Mengerti, Tutup Pesan Ini
-            </button>
-        </div>
-    </div>
-
-    <!-- Navbar -->
+    <!-- Navbar (Dark & Transparan) -->
     <nav class="bg-black/90 backdrop-blur-md border-b border-white/10 fixed w-full z-50 top-0">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Logo -->
             <a href="#" class="flex items-center gap-2 group" onclick="showSection('home-section'); resetFilter(); return false;">
                 <img src="1000108714.jpg" alt="Logo Yusuf Store 25" class="h-10 w-10 md:h-12 md:w-12 object-cover rounded-full border-2 border-transparent group-hover:border-accent transition duration-300">
+                
                 <div class="hidden md:block">
                     <h1 class="font-display font-bold text-xl leading-none text-white tracking-wide group-hover:text-accent transition">Yusuf Store 25</h1>
                     <p class="text-xs text-gray-400 font-mono">Padang Sidimpuan</p>
                 </div>
             </a>
 
-            <!-- Desktop Navigation -->
+            <!-- Desktop Navigation Links -->
             <div class="hidden md:flex items-center space-x-8 text-sm font-bold tracking-wide uppercase">
                 <a href="#" onclick="showSection('home-section'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Beranda</a>
                 <a href="#" onclick="showSection('catalog'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Katalog</a>
@@ -161,7 +138,7 @@
                 <a href="#" onclick="showSection('sizeguide'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Size Guide</a>
             </div>
 
-            <!-- Search Bar -->
+            <!-- Search Bar (Desktop - Dark Style) -->
             <div class="hidden md:flex flex-1 mx-6 justify-end relative">
                 <input type="text" id="desktopSearch" placeholder="Cari sneakers..." class="w-48 lg:w-64 bg-zinc-900 border border-zinc-700 rounded-full py-2 px-4 text-sm text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition placeholder-gray-600" onkeyup="searchProduct(this.value); showSection('catalog');">
                 <button class="absolute right-3 top-2.5 text-gray-500 hover:text-accent">
@@ -194,7 +171,7 @@
         </div>
     </nav>
 
-    <!-- FLOATING WHATSAPP BUTTON -->
+    <!-- FLOATING WHATSAPP BUTTON (Neon Style) -->
     <a href="https://wa.me/6281375861195?text=Halo Admin Yusuf Store 25, saya mau tanya sepatu..." target="_blank" class="fixed bottom-6 right-6 z-50 float-btn bg-accent hover:bg-white text-black w-14 h-14 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.4)] flex items-center justify-center text-3xl transition duration-300 border-2 border-black">
         <i class="fab fa-whatsapp"></i>
     </a>
@@ -207,6 +184,8 @@
             <section class="relative h-[350px] md:h-[450px] w-full overflow-hidden bg-black">
                 <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=2070&auto=format&fit=crop" alt="Esthetic Shoes" class="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition duration-700">
                 
+                <!-- STIKER INFO (BARU - ADJUSTED MOBILE POSITION) -->
+                <!-- Diubah: top-4 right-2 untuk mobile agar lebih ke pojok dan tidak kena logo, font dan padding diperkecil di mobile -->
                 <div class="absolute top-4 right-2 md:top-12 md:right-16 z-30 transform rotate-12 hover:rotate-0 transition duration-500 cursor-default">
                     <div class="bg-accent text-black font-black text-[10px] md:text-base px-2 py-1 md:px-4 md:py-2 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)] border-2 border-black text-center leading-tight uppercase animate-pulse">
                         Barang Ready<br><span class="text-red-600 font-extrabold">& Bisa PO!</span>
@@ -218,6 +197,7 @@
                 <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
                     <img src="1000108714.jpg" alt="Logo Yusuf Store 25" class="w-24 h-24 md:w-32 md:h-32 mb-6 rounded-full border-4 border-accent shadow-[0_0_30px_rgba(204,255,0,0.3)] object-cover">
 
+                    <!-- JUDUL TOKO DIPERBARUI FONTYA -->
                     <div class="mb-4">
                         <h2 class="text-3xl md:text-5xl font-display uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-accent to-white drop-shadow-[0_0_10px_rgba(204,255,0,0.5)] tracking-wider">
                             Yusuf Store 25
@@ -258,6 +238,7 @@
         <!-- Catalog Section -->
         <section id="catalog" class="page-section hidden py-10 min-h-screen">
             <div class="container mx-auto px-4">
+                <!-- Filter Bar (UPDATED: Relative on mobile, Sticky on Desktop) -->
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8 bg-zinc-900 border border-zinc-800 p-4 rounded-xl gap-4 relative md:sticky md:top-24 z-40 shadow-xl">
                     <div class="flex items-center gap-2">
                         <i class="fas fa-filter text-accent"></i>
@@ -286,12 +267,9 @@
                     <i class="fas fa-truck mr-2"></i> Siap kirim ke seluruh Indonesia dengan packing aman!
                 </div>
 
+                <!-- Product Grid -->
                 <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                     <!-- Products will be injected here -->
-                    <div class="col-span-full text-center text-gray-500 py-10">
-                        <i class="fas fa-circle-notch fa-spin text-2xl text-accent"></i>
-                        <p class="mt-2 text-xs">Memuat produk...</p>
-                    </div>
                 </div>
                 
                 <div id="emptyState" class="hidden text-center py-20 text-gray-600">
@@ -301,16 +279,16 @@
             </div>
         </section>
 
-        <!-- Galeri Pembeli Section -->
+        <!-- Galeri Pembeli Section (KEMBALI ADA & UPDATE: KOLOM KECIL & ZOOM & VIDEO) -->
         <section id="gallery" class="page-section hidden py-16 container mx-auto px-4 bg-black">
             <div class="text-center mb-12">
                 <h2 class="text-2xl font-bold text-white mb-2 uppercase tracking-widest">Galeri Pembeli</h2>
                 <div class="h-1 w-20 bg-accent mx-auto rounded"></div>
                 <p class="text-gray-400 text-xs mt-4">Klik foto untuk melihat lebih jelas</p>
             </div>
-            
+            <!-- Grid diubah: mobile 3 kolom, desktop 6 kolom (lebih kecil & padat) -->
             <div class="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-4">
-                <!-- Foto 1-12 (Manual HTML) -->
+                <!-- Foto 1-12 -->
                 <div onclick="viewGalleryImage('pembeli1.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
                     <img src="pembeli1.jpg" alt="Galeri Pembeli 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -390,12 +368,14 @@
                     </div>
                 </div>
 
-                <!-- VIDEO SECTION -->
+                <!-- VIDEO SECTION (NEW) -->
+                <!-- Menambahkan Video tanpa merubah CSS/JS yang ada. Menggunakan tag <video> standar -->
                 <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700">
                     <video class="w-full h-full object-cover" controls muted loop playsinline>
                         <source src="video_review1.mp4" type="video/mp4">
                         Video tidak support
                     </video>
+                    <!-- Label Video -->
                     <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">
                         <i class="fas fa-play"></i> VIDEO
                     </div>
@@ -406,6 +386,7 @@
                         <source src="video_review2.mp4" type="video/mp4">
                         Video tidak support
                     </video>
+                      <!-- Label Video -->
                       <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">
                         <i class="fas fa-play"></i> VIDEO
                     </div>
@@ -416,6 +397,7 @@
                         <source src="video_review3.mp4" type="video/mp4">
                         Video tidak support
                     </video>
+                      <!-- Label Video -->
                       <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">
                         <i class="fas fa-play"></i> VIDEO
                     </div>
@@ -426,6 +408,7 @@
                         <source src="video_review4.mp4" type="video/mp4">
                         Video tidak support
                     </video>
+                      <!-- Label Video -->
                       <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">
                         <i class="fas fa-play"></i> VIDEO
                     </div>
@@ -651,11 +634,9 @@
 
     <!-- Image Modal (Zoom) -->
     <div id="imageModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/95 p-4" onclick="closeModal()">
-        <div class="relative w-full h-full flex flex-col items-center justify-center p-4">
+        <div class="relative w-full h-full flex items-center justify-center">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white text-3xl transition z-50">✕</button>
-            <div id="modalGalleryContainer" class="flex gap-4 overflow-x-auto w-full max-w-4xl p-2 snap-x items-center h-full">
-                <!-- Gambar akan masuk disini lewat JS -->
-            </div>
+            <img id="modalImg" src="" class="max-h-[85vh] max-w-full object-contain rounded shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-zinc-800">
         </div>
     </div>
 
@@ -693,7 +674,7 @@
 
             <!-- Add Section -->
             <div id="adminAddSection">
-                <form id="addProductForm" onsubmit="handleFirebaseAddProduct(event)" class="space-y-4">
+                <form id="addProductForm" onsubmit="generateProductCode(event)" class="space-y-4">
                     <input type="text" id="addName" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Nama Produk">
                     <div class="grid grid-cols-2 gap-4">
                         <select id="addBrand" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none"></select>
@@ -701,7 +682,7 @@
                             <option value="Running">Running</option>
                             <option value="Casual">Casual</option>
                             <option value="Futsal">Futsal</option>
-                            <option value="Basket">Basket</option>
+			    <option value="Basket">Basket</option>
                             <option value="Kaos">Kaos</option>
                             <option value="Jam Tangan">Jam Tangan</option>
                         </select>
@@ -713,6 +694,7 @@
                         <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer">
                             <input type="checkbox" id="addIsSold" class="accent-red-500"> Sold Out
                         </label>
+                        <!-- Checkbox Baru PO -->
                         <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer">
                             <input type="checkbox" id="addIsPO" class="accent-yellow-500"> Pre-Order (PO)
                         </label>
@@ -721,617 +703,538 @@
                     <input type="number" id="addOriginalPrice" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Harga Coret (Opsional)">
                     <input type="text" id="addImg" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Nama File Gambar (ex: sepatu1.jpg)">
                     
-                    <button type="submit" class="w-full bg-white text-black font-bold py-3 rounded hover:bg-accent transition uppercase text-xs tracking-widest mt-2">Tambah ke Database</button>
+                    <button type="submit" class="w-full bg-white text-black font-bold py-3 rounded hover:bg-accent transition uppercase text-xs tracking-widest mt-2">Generate Kode</button>
                 </form>
-                
-                <div class="mt-8 border-t border-zinc-800 pt-4">
-                    <h4 class="text-white font-bold mb-2">Migrasi Data</h4>
-                    <p class="text-xs text-gray-500 mb-2">Klik tombol ini hanya SEKALI untuk mengupload data lokal ke Firebase jika database kosong.</p>
-                    <button onclick="seedDatabase()" class="w-full bg-zinc-800 text-white font-bold py-2 rounded border border-zinc-700 hover:bg-zinc-700 transition uppercase text-xs">Upload Data Awal</button>
-                </div>
             </div>
 
             <!-- List Section -->
             <div id="adminListSection" class="hidden">
                 <div id="adminProductListContainer" class="space-y-2 max-h-[300px] overflow-y-auto pr-2"></div>
             </div>
+
+            <!-- Result Code -->
+            <div id="codeResultArea" class="mt-6 bg-black border border-zinc-800 p-4 rounded hidden">
+                <p class="text-green-500 text-xs font-bold mb-2">Kode Berhasil!</p>
+                <textarea id="generatedCode" rows="4" class="w-full bg-zinc-900 text-gray-400 text-[10px] p-2 rounded border-none font-mono" readonly></textarea>
+                <button onclick="copyToClipboard()" class="w-full bg-green-600 text-white py-2 rounded mt-2 text-xs font-bold uppercase">Copy Code</button>
+            </div>
         </div>
     </div>
 
     <!-- Script Logic -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    // --- 1. IMPORT FIREBASE ---
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, addDoc, deleteDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Konfigurasi Firebase Yusuf Store
-        const firebaseConfig = {
-          apiKey: "AIzaSyC-76DURrn1anKUwwf0seh6vxyjKX-GV8Q",
-          authDomain: "yusus-store.firebaseapp.com",
-          projectId: "yusus-store",
-          storageBucket: "yusus-store.firebasestorage.app",
-          messagingSenderId: "115210326402",
-          appId: "1:115210326402:web:58555cc684a29fabaeff9b",
-          measurementId: "G-299QHZE8CP"
-        };
+    // --- 2. KONFIGURASI FIREBASE ANDA ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyC-76DURrn1anKUwwf0seh6vxyjKX-GV8Q",
+        authDomain: "yusus-store.firebaseapp.com",
+        projectId: "yusus-store",
+        storageBucket: "yusus-store.firebasestorage.app",
+        messagingSenderId: "115210326402",
+        appId: "1:115210326402:web:58555cc684a29fabaeff9b",
+        measurementId: "G-299QHZE8CP"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        
-        let products = []; // Ini akan diisi dari Firebase
-        
-        // Data Awal untuk Migrasi (Hardcoded)
-        const initialProducts = [
-            {
-                "id": 6428,
-                "name": "Onitsuka Size 36",
-                "brand": "Onitsuka",
-                "category": "Casual",
-                "price": 250000,
-                "img": "sepatu103.jpg",
-                "sold": false,
-                "isOriginal": false,
-                "isPO": false
-            },
-            {
-                "id": 9969,
-                "name": "Adidas Samba Cordura Size 43",
-                "brand": "Adidas",
-                "category": "Casual",
-                "price": 200000,
-                "img": "sepatu70.jpg",
-                "sold": false,
-                "isOriginal": false,
-                "isPO": false
-            },
-            {
-                "id": 9662,
-                "name": "Under Armor Size 42",
-                "brand": "Under Armour",
-                "category": "Running",
-                "price": 400000,
-                "images": [
-                    "sepatu101.jpg",
-                    "sepatu102.jpg"
-                ],
-                "sold": false,
-                "isOriginal": false,
-                "isPO": false
-            },
-            // ... (Data produk lainnya disingkat agar file tidak terlalu panjang, tapi logika seedDatabase akan menggunakan array ini)
-            // Silakan salin data produk lengkap dari kode sebelumnya ke sini jika ingin fitur Seed bekerja sempurna untuk semua item
-        ];
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const productsCollection = collection(db, "products");
 
-        // --- AUTH & INIT ---
-        async function initApp() {
-            try {
-                // Login sebagai tamu (Anonymous) untuk akses database
-                await signInAnonymously(auth);
-            } catch (error) {
-                console.error("Auth Error", error);
-                alert("Gagal terhubung ke Database: " + error.message);
-            }
-        }
+    // --- 3. VARIABEL GLOBAL ---
+    let products = []; // Data akan diisi dari Firebase
+    let currentCategory = 'all';
 
-        initApp();
+    // Data Brands (Tetap statis tidak apa-apa)
+    const brands = [
+        { name: "Adidas", logo: "logo_adidas.jpg" },
+        { name: "Nike", logo: "logo_nike.jpg" },
+        { name: "Onitsuka", logo: "logo_Onitsuka.jpg" },
+        { name: "New Balance", logo: "logo_nb.jpg" },
+        { name: "On Cloud", logo: "logo_oncloud.jpg" },
+        { name: "Puma", logo: "puma.jpg" },
+        { name: "Ortuseight", logo: "logo_ortus.jpg" },
+        { name: "910 Nineten", logo: "logo_910.jpg" },
+        { name: "Skechers", logo: "logo_Skechers.jpg" },
+        { name: "Hoka", logo: "logo_hoka.jpg" },
+        { name: "Asics", logo: "logo_Asics.jpg" },
+        { name: "Specs", logo: "logo_specs.jpg" },
+        { name: "Le Coq", logo: "lecoq.jpg" },
+        { name: "Converse", logo: "converse.jpg" }, 
+        { name: "Saucony", logo: "saucony.jpg" },
+        { name: "Under Armour", logo: "logo_ua.jpg" },
+        { name: "TNF", logo: "tnf.jpg" }, 
+        { name: "Lacoste", logo: "lacoste.jpg" }, 
+        { name: "Kanky", logo: "kanky.jpg" }, 
+        { name: "DNY", logo: "dny.jpg" }, 
+        { name: "Mills", logo: "mills.jpg" }, 
+        { name: "Ballerbro", logo: "balero.jpg" },
+        { name: "No Brand", logo: "nobrand.jpg" }     
+    ];
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log("Connected to Firebase");
-                // Listen to Products with error handling
-                try {
-                    // MENGGUNAKAN ROOT COLLECTION 'products' AGAR LEBIH MUDAH DIATUR
-                    const q = collection(db, 'products');
-                    
-                    onSnapshot(q, (snapshot) => {
-                        products = snapshot.docs.map(doc => ({ firebaseId: doc.id, ...doc.data() }));
-                        renderProducts(products);
-                        renderAdminProductList();
-                        document.getElementById('errorBanner').classList.add('hidden'); // Hide banner on success
-                    }, (error) => {
-                        console.error("Error fetching products:", error);
-                        if (error.code === 'permission-denied') {
-                            document.getElementById('errorBanner').classList.remove('hidden');
-                        }
-                    });
-                } catch(e) {
-                    console.error("Init Error:", e);
-                }
-            }
-        });
+    // --- 4. FUNGSI LOAD DATA DARI FIREBASE ---
+    async function fetchProducts() {
+        const grid = document.getElementById('productGrid');
+        // Tampilkan loading spinner sederhana
+        if(grid) grid.innerHTML = '<div class="col-span-full text-center text-white py-10 animate-pulse">Sedang mengambil data terbaru...</div>';
 
-        // --- ADMIN FUNCTIONS (FIREBASE) ---
-
-        window.handleFirebaseAddProduct = async (e) => {
-            e.preventDefault();
-            
-            const user = auth.currentUser;
-            if(!user) { alert("Belum terkoneksi ke database."); return; }
-
-            const name = document.getElementById('addName').value;
-            const brand = document.getElementById('addBrand').value;
-            const category = document.getElementById('addCategory').value;
-            const price = document.getElementById('addPrice').value;
-            const originalPrice = document.getElementById('addOriginalPrice').value;
-            const img = document.getElementById('addImg').value;
-            const isOriginal = document.getElementById('addIsOriginal').checked;
-            const isSold = document.getElementById('addIsSold').checked;
-            const isPO = document.getElementById('addIsPO').checked;
-            
-            const newId = Math.floor(Math.random() * 10000) + 100;
-
-            const newProduct = { 
-                id: newId, 
-                name: name, 
-                brand: brand, 
-                category: category, 
-                price: parseInt(price), 
-                img: img, 
-                sold: isSold,
-                isOriginal: isOriginal,
-                isPO: isPO,
-                createdAt: new Date().toISOString()
-            };
-
-            if(originalPrice) {
-                newProduct.originalPrice = parseInt(originalPrice);
-            }
-
-            try {
-                await addDoc(collection(db, 'products'), newProduct);
-                alert("Produk berhasil ditambahkan ke Firebase!");
-                document.getElementById('addProductForm').reset();
-                window.showAdminTab('list');
-            } catch (err) {
-                console.error("Error adding doc:", err);
-                if (err.code === 'permission-denied') {
-                    document.getElementById('errorBanner').classList.remove('hidden');
-                    alert("Gagal: Izin ditolak. Cek Rules Database.");
-                } else {
-                    alert("Gagal menambah produk: " + err.message);
-                }
-            }
-        }
-
-        window.toggleSoldFirebase = async (firebaseId, currentStatus) => {
-            if (!auth.currentUser) return;
-            try {
-                const docRef = doc(db, 'products', firebaseId);
-                await updateDoc(docRef, { sold: !currentStatus });
-            } catch (err) {
-                console.error("Error updating sold status:", err);
-                if (err.code === 'permission-denied') document.getElementById('errorBanner').classList.remove('hidden');
-            }
-        }
-
-        window.togglePOFirebase = async (firebaseId, currentStatus) => {
-            if (!auth.currentUser) return;
-            try {
-                const docRef = doc(db, 'products', firebaseId);
-                await updateDoc(docRef, { isPO: !currentStatus });
-            } catch (err) {
-                console.error("Error updating PO status:", err);
-                if (err.code === 'permission-denied') document.getElementById('errorBanner').classList.remove('hidden');
-            }
-        }
-
-        window.deleteProductFirebase = async (firebaseId) => {
-            if (!auth.currentUser) return;
-            if(confirm("Yakin ingin menghapus produk ini dari Database?")) {
-                try {
-                    await deleteDoc(doc(db, 'products', firebaseId));
-                } catch (err) {
-                    console.error("Error deleting doc:", err);
-                    if (err.code === 'permission-denied') {
-                        document.getElementById('errorBanner').classList.remove('hidden');
-                    }
-                    alert("Gagal menghapus.");
-                }
-            }
-        }
-
-        window.seedDatabase = async () => {
-            if (!auth.currentUser) return;
-            if(products.length > 0) {
-                const c = confirm("Database sudah berisi " + products.length + " produk. Yakin ingin menambah data duplikat?");
-                if(!c) return;
-            }
-            
-            const batchPromises = initialProducts.map(p => {
-                return addDoc(collection(db, 'products'), p);
+        try {
+            const snapshot = await getDocs(productsCollection);
+            products = [];
+            snapshot.forEach(doc => {
+                products.push({ id: doc.id, ...doc.data() });
             });
 
-            try {
-                await Promise.all(batchPromises);
-                alert("Berhasil mengupload " + batchPromises.length + " data ke Firebase!");
-            } catch (err) {
-                console.error("Seed error:", err);
-                if (err.code === 'permission-denied') {
-                    document.getElementById('errorBanner').classList.remove('hidden');
-                    alert("Gagal Upload: Izin Ditolak. Pastikan Rules Database sudah diset ke 'allow read, write: if true;'");
-                } else {
-                    alert("Terjadi kesalahan saat upload.");
-                }
+            // Urutkan produk (Opsional: yang terbaru di atas jika ada timestamp, atau default)
+            // products.sort((a, b) => b.price - a.price); 
+
+            window.renderProducts(products); // Render ke layar
+            window.renderAdminProductList(); // Render ke admin jika sedang buka
+        } catch (error) {
+            console.error("Error:", error);
+            if(grid) grid.innerHTML = '<div class="col-span-full text-center text-red-500">Gagal memuat data. Periksa koneksi internet.</div>';
+        }
+    }
+
+    // --- 5. FUNGSI RENDER TAMPILAN (SAMA DENGAN KODE LAMA TAPI DISESUAIKAN) ---
+    
+    // Format Rupiah
+    window.formatRupiah = (number) => {
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+    }
+
+    // Render Brands
+    window.renderBrands = () => {
+        const container = document.getElementById('brandContainer');
+        const colors = ['bg-red-50 border-red-200 text-red-800', 'bg-blue-50 border-blue-200 text-blue-800', 'bg-green-50 border-green-200 text-green-800', 'bg-purple-50 border-purple-200 text-purple-800'];
+        
+        container.innerHTML = brands.map((brandObj, index) => {
+            const colorTheme = colors[index % colors.length];
+            if (brandObj.logo) {
+                return `<div onclick="filterByBrand('${brandObj.name}')" class="brand-logo cursor-pointer bg-white p-2 rounded-lg flex items-center justify-center h-20 shadow-lg transition-all duration-300 group hover:bg-white hover:border-accent hover:shadow-2xl hover:-translate-y-1"><img src="${brandObj.logo}" alt="${brandObj.name}" class="max-h-full max-w-full object-contain"></div>`;
+            } else {
+                return `<div onclick="filterByBrand('${brandObj.name}')" class="brand-logo cursor-pointer border ${colorTheme} p-3 rounded-lg flex flex-col items-center justify-center h-20 shadow-lg transition-all duration-300 group hover:bg-white hover:border-accent hover:shadow-2xl hover:-translate-y-1"><span class="font-bold text-xs md:text-sm text-center group-hover:text-accent transition-colors">${brandObj.name}</span></div>`;
             }
+        }).join('');
+    }
+
+    // Populate Brand di Admin
+    window.populateBrandOptions = () => {
+        const brandSelect = document.getElementById('addBrand');
+        if (brandSelect) brandSelect.innerHTML = brands.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
+    }
+
+    // RENDER PRODUCTS
+    window.renderProducts = (data) => {
+        const grid = document.getElementById('productGrid');
+        const empty = document.getElementById('emptyState');
+        grid.innerHTML = '';
+
+        if (!data || data.length === 0) {
+            empty.classList.remove('hidden'); return;
+        } else {
+            empty.classList.add('hidden');
         }
 
-        // --- GLOBAL EXPORTS FOR HTML ONCLICK ---
-        // Karena module script memiliki scope terisolasi, kita perlu menempelkan fungsi ke window
-        
-        window.renderAdminProductList = () => {
-            const container = document.getElementById('adminProductListContainer');
-            if (products.length === 0) {
-                container.innerHTML = '<p class="text-center text-gray-400 py-4">Belum ada produk di database.</p>';
-                return;
+        data.forEach(product => {
+            const imgStyle = product.sold ? 'grayscale opacity-75' : '';
+            const contentStyle = product.sold ? 'opacity-60' : '';
+            
+            // Logika Tombol & Pesan WA
+            let btnAction;
+            if (product.sold) {
+                btnAction = `<button disabled class="w-full bg-gray-400 text-white py-2 rounded font-bold cursor-not-allowed text-sm">TERJUAL / SOLD</button>`;
+            } else if (product.isPO) {
+                btnAction = `<a href="https://wa.me/6281375861195?text=Halo Yusuf Store 25, saya mau pesan Pre-Order (PO) ${product.name} Brand ${product.brand} apakah bisa?" target="_blank" class="block w-full text-center bg-yellow-500 hover:bg-yellow-600 text-black py-2 rounded font-bold text-sm transition"><i class="fab fa-whatsapp"></i> Pesan PO</a>`;
+            } else {
+                btnAction = `<a href="https://wa.me/6281375861195?text=Halo Yusuf Store 25, saya mau beli ${product.name} Brand ${product.brand} apakah masih ada?" target="_blank" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white py-2 rounded font-bold text-sm transition"><i class="fab fa-whatsapp"></i> Beli via WA</a>`;
             }
 
-            container.innerHTML = products.map(p => {
-                const imgShow = p.images ? p.images[0] : p.img;
-                return `
-                <div class="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-200 text-sm hover:bg-gray-100 transition">
-                    <div class="flex items-center gap-2 overflow-hidden flex-1">
-                        <img src="${imgShow}" class="w-10 h-10 rounded object-cover bg-gray-200 border border-gray-300">
-                        <div class="truncate">
-                            <div class="font-bold text-gray-800 truncate w-24 md:w-40 ${p.sold ? 'line-through text-gray-400' : ''}">${p.name}</div>
-                            <div class="text-[10px] text-gray-500 font-mono">${p.brand} • ${new Intl.NumberFormat('id-ID').format(p.price)}</div>
+            // Logika Nego Text
+            let negoTextHTML = '';
+            if (!product.sold) {
+                if (product.isOriginal) negoTextHTML = '<p class="text-[10px] text-blue-600 font-semibold mt-1"><i class="fas fa-check-circle"></i> Harga Resmi</p>';
+                else if (product.isPO) negoTextHTML = '<p class="text-[10px] text-yellow-600 italic mt-1 font-bold">Barang Pre-Order</p>';
+                else negoTextHTML = '<p class="text-[10px] text-green-600 italic mt-1">Harga masih bisa nego chat admin</p>';
+            }
+
+            // Logika Harga Coret
+            let priceDisplay = '';
+            if (product.originalPrice && product.originalPrice > product.price) {
+                const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+                priceDisplay = `<div class="flex flex-col"><span class="text-[10px] text-gray-400 line-through">${window.formatRupiah(product.originalPrice)}</span><div class="flex items-center gap-2"><span class="text-accent font-bold text-sm md:text-lg border border-accent px-2 py-1 rounded">${window.formatRupiah(product.price)}</span><span class="text-[10px] bg-red-100 text-red-600 px-1 rounded font-bold">-${discount}%</span></div></div>`;
+            } else {
+                priceDisplay = `<span class="text-accent font-bold text-sm md:text-lg border border-accent px-2 py-1 rounded">${window.formatRupiah(product.price)}</span>`;
+            }
+
+            // ID produk firebase adalah string, jadi harus pakai tanda kutip di onclick
+            const card = `
+                <div class="product-card bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 overflow-hidden relative group hover:border-accent transition duration-300">
+                    <div class="relative group cursor-pointer" onclick="openModal('${product.id}')">
+                        <img src="${product.img}" alt="${product.name}" class="w-full h-40 md:h-56 object-cover ${imgStyle}">
+                        ${product.sold ? '<div class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold shadow-md z-20">SOLD OUT</div>' : (product.isPO ? '<div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold shadow-md z-20">PRE-ORDER</div>' : '')}
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center z-10">
+                            <span class="opacity-0 group-hover:opacity-100 bg-white text-black text-xs px-3 py-1 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition"><i class="fas fa-search-plus"></i> Detail</span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="togglePOFirebase('${p.firebaseId}', ${p.isPO})" class="${p.isPO ? 'bg-yellow-100 text-yellow-600 border-yellow-200' : 'bg-gray-200 text-gray-500 border-gray-300'} border px-2 py-1 rounded text-[10px] font-bold w-12 text-center transition hover:shadow-sm">
-                            ${p.isPO ? 'PO' : 'RDY'}
-                        </button>
-                        <button onclick="toggleSoldFirebase('${p.firebaseId}', ${p.sold})" class="${p.sold ? 'bg-red-100 text-red-600 border-red-200' : 'bg-green-100 text-green-600 border-green-200'} border px-2 py-1 rounded text-[10px] font-bold w-16 text-center transition hover:shadow-sm">
-                            ${p.sold ? 'SOLD' : 'READY'}
-                        </button>
-                        <button onclick="deleteProductFirebase('${p.firebaseId}')" class="text-gray-400 hover:text-red-500 hover:bg-red-50 p-2 rounded transition">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
+                    <div class="p-3 md:p-4 ${contentStyle} text-gray-300">
+                        <div class="flex justify-between items-start"><p class="text-xs text-gray-500 uppercase font-semibold tracking-wider">${product.brand}</p>${product.isOriginal && !product.sold ? '<span class="text-[10px] bg-accent text-black px-2 py-0.5 rounded font-bold">ORI</span>' : ''}</div>
+                        <h3 class="font-bold text-sm md:text-base text-white line-clamp-2 leading-tight mb-2">${product.name}</h3>
+                        <div class="flex items-center justify-between mb-3">${priceDisplay}</div>
+                        ${negoTextHTML}
+                        <div class="mt-3">${btnAction}</div>
+                    </div>
+                </div>`;
+            grid.innerHTML += card;
+        });
+    }
+
+    // --- 6. FUNGSI ADMIN FIREBASE ---
+
+    // Generate Code (SEKARANG JADI SIMPAN KE FIREBASE)
+    window.generateProductCode = async (e) => {
+        e.preventDefault();
+        const btn = e.target.querySelector('button');
+        const oldText = btn.innerText;
+        btn.innerText = "Menyimpan ke Cloud...";
+        btn.disabled = true;
+
+        const newProduct = {
+            name: document.getElementById('addName').value,
+            brand: document.getElementById('addBrand').value,
+            category: document.getElementById('addCategory').value,
+            price: parseInt(document.getElementById('addPrice').value),
+            img: document.getElementById('addImg').value,
+            sold: document.getElementById('addIsSold').checked,
+            isOriginal: document.getElementById('addIsOriginal').checked,
+            isPO: document.getElementById('addIsPO').checked
+        };
+        const originalPrice = document.getElementById('addOriginalPrice').value;
+        if(originalPrice) newProduct.originalPrice = parseInt(originalPrice);
+
+        try {
+            await addDoc(productsCollection, newProduct);
+            alert("SUKSES! Produk tersimpan di Firebase.");
+            document.getElementById('addProductForm').reset();
+            fetchProducts();
+            window.showAdminTab('list');
+        } catch(err) {
+            alert("Error: " + err.message);
+        } finally {
+            btn.innerText = oldText;
+            btn.disabled = false;
+        }
+    }
+
+    // Render List Admin
+    window.renderAdminProductList = () => {
+        const container = document.getElementById('adminProductListContainer');
+        if(!container) return;
+        if (products.length === 0) {
+            container.innerHTML = '<p class="text-center text-gray-400 py-4">Belum ada produk.</p>'; return;
+        }
+        container.innerHTML = products.map(p => `
+            <div class="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-200 text-sm hover:bg-gray-100 transition">
+                <div class="flex items-center gap-2 overflow-hidden flex-1">
+                    <img src="${p.img}" class="w-10 h-10 rounded object-cover bg-gray-200 border border-gray-300">
+                    <div class="truncate">
+                        <div class="font-bold text-gray-800 truncate w-24 md:w-40 ${p.sold ? 'line-through text-gray-400' : ''}">${p.name}</div>
+                        <div class="text-[10px] text-gray-500 font-mono">${p.brand} • ${window.formatRupiah(p.price)}</div>
                     </div>
                 </div>
-            `}).join('');
+                <div class="flex items-center gap-2">
+                    <button onclick="togglePO('${p.id}')" class="${p.isPO ? 'bg-yellow-100 text-yellow-600 border-yellow-200' : 'bg-gray-200 text-gray-500 border-gray-300'} border px-2 py-1 rounded text-[10px] font-bold w-12 text-center transition">${p.isPO ? 'PO' : 'RDY'}</button>
+                    <button onclick="toggleSold('${p.id}')" class="${p.sold ? 'bg-red-100 text-red-600 border-red-200' : 'bg-green-100 text-green-600 border-green-200'} border px-2 py-1 rounded text-[10px] font-bold w-16 text-center transition">${p.sold ? 'SOLD' : 'READY'}</button>
+                    <button onclick="deleteProduct('${p.id}')" class="text-gray-400 hover:text-red-500 hover:bg-red-50 p-2 rounded transition"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>`).join('');
+    }
+
+    // Delete Product
+    window.deleteProduct = async (id) => {
+        if(confirm("Yakin hapus permanen?")) {
+            try {
+                await deleteDoc(doc(db, "products", id));
+                fetchProducts();
+            } catch(e) { alert("Gagal hapus: " + e.message); }
+        }
+    }
+
+    // Toggle Sold
+    window.toggleSold = async (id) => {
+        const p = products.find(x => x.id === id);
+        if(p) {
+            try { await updateDoc(doc(db, "products", id), { sold: !p.sold }); fetchProducts(); } catch(e){alert(e.message)}
+        }
+    }
+    // Toggle PO
+    window.togglePO = async (id) => {
+        const p = products.find(x => x.id === id);
+        if(p) {
+            try { await updateDoc(doc(db, "products", id), { isPO: !p.isPO }); fetchProducts(); } catch(e){alert(e.message)}
+        }
+    }
+
+    // --- 7. NAVIGASI & FILTER UI ---
+    window.showSection = (id) => {
+        document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
+        const el = document.getElementById(id);
+        if(el) el.classList.remove('hidden');
+        window.scrollTo(0, 0);
+    }
+    window.filterCategory = (cat) => {
+        currentCategory = cat;
+        // Reset UI buttons
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.classList.remove('bg-accent', 'text-black', 'shadow-lg'); // Perbaikan warna teks agar kontras
+            btn.classList.add('bg-white/10', 'text-white', 'border', 'border-white/20');
+        });
+        if(event && event.target) {
+            event.target.classList.remove('bg-white/10', 'text-white', 'border', 'border-white/20');
+            event.target.classList.add('bg-accent', 'text-black', 'shadow-lg');
         }
 
-        // --- Helper Functions (Same as before but moved to window scope where needed) ---
-        const brands = [
-            { name: "Adidas", logo: "logo_adidas.jpg" },
-            { name: "Nike", logo: "logo_nike.jpg" },
-            { name: "Onitsuka", logo: "logo_Onitsuka.jpg" },
-            { name: "New Balance", logo: "logo_nb.jpg" },
-            { name: "On Cloud", logo: "logo_oncloud.jpg" },
-            { name: "Puma", logo: "puma.jpg" },
-            { name: "Ortuseight", logo: "logo_ortus.jpg" },
-            { name: "910 Nineten", logo: "logo_910.jpg" },
-            { name: "Skechers", logo: "logo_Skechers.jpg" },
-            { name: "Hoka", logo: "logo_hoka.jpg" },
-            { name: "Asics", logo: "logo_Asics.jpg" },
-            { name: "Specs", logo: "logo_specs.jpg" },
-            { name: "Le Coq", logo: "lecoq.jpg" },
-            { name: "Converse", logo: "converse.jpg" }, 
-            { name: "Saucony", logo: "saucony.jpg" },
-            { name: "Under Armour", logo: "logo_ua.jpg" },
-            { name: "TNF", logo: "tnf.jpg" }, 
-            { name: "Lacoste", logo: "lacoste.jpg" }, 
-            { name: "Kanky", logo: "kanky.jpg" }, 
-            { name: "DNY", logo: "dny.jpg" }, 
-            { name: "Mills", logo: "mills.jpg" }, 
-            { name: "Ballerbro", logo: "balero.jpg" },
-            { name: "No Brand", logo: "nobrand.jpg" }      
+        if(cat === 'all') window.renderProducts(products);
+        else window.renderProducts(products.filter(p => p.category === cat));
+    }
+    window.filterByBrand = (brand) => {
+        window.showSection('catalog');
+        window.renderProducts(products.filter(p => p.brand === brand));
+    }
+    window.searchProduct = (val) => {
+        const q = val.toLowerCase();
+        window.renderProducts(products.filter(p => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)));
+    }
+    window.sortProducts = (order) => {
+        let sorted = [...products];
+        if (order === 'low') sorted.sort((a, b) => a.price - b.price);
+        if (order === 'high') sorted.sort((a, b) => b.price - a.price);
+        window.renderProducts(sorted);
+    }
+
+    // Admin & Modal Controls
+    window.adminLogin = (e) => {
+        e.preventDefault();
+        const p = prompt("Password Admin:");
+        if(p === "admin123") {
+            document.getElementById('adminModal').classList.remove('hidden');
+            window.renderAdminProductList();
+            
+            // Tambahkan Tombol MIGRASI DATA di Admin Panel
+            const container = document.getElementById('adminModal').querySelector('.bg-zinc-900');
+            if(!document.getElementById('btnMigrasi')) {
+                const btnMigrasi = document.createElement('button');
+                btnMigrasi.id = 'btnMigrasi';
+                btnMigrasi.className = 'w-full bg-blue-600 text-white py-2 mt-4 rounded font-bold text-xs uppercase';
+                btnMigrasi.innerHTML = "⚠️ UPLOAD DATA LAMA KE FIREBASE (KLIK SEKALI SAJA)";
+                btnMigrasi.onclick = window.uploadDataAwal;
+                container.appendChild(btnMigrasi);
+            }
+        } else if (p !== null) alert("Salah!");
+    }
+    window.closeAdmin = () => document.getElementById('adminModal').classList.add('hidden');
+    window.showAdminTab = (tab) => {
+        document.getElementById('adminAddSection').classList.toggle('hidden', tab !== 'add');
+        document.getElementById('adminListSection').classList.toggle('hidden', tab !== 'list');
+        if(tab==='list') window.renderAdminProductList();
+    }
+    window.openModal = (id) => {
+        const p = products.find(x => x.id === id);
+        if(p) {
+            const img = document.getElementById('modalImg');
+            img.src = p.img;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+    }
+    window.viewGalleryImage = (src) => {
+        document.getElementById('modalImg').src = src;
+        document.getElementById('imageModal').classList.remove('hidden');
+    }
+    window.closeModal = () => document.getElementById('imageModal').classList.add('hidden');
+    window.toggleMenu = () => document.getElementById('mobileMenu').classList.toggle('hidden');
+    
+    // --- 8. DATA MIGRATION (DATA LAMA ANDA) ---
+    // Fungsi ini dipanggil tombol biru di Admin Panel
+    window.uploadDataAwal = async () => {
+        if(!confirm("Yakin ingin upload semua data lama? Pastikan database Firebase masih kosong agar tidak duplikat.")) return;
+        
+        // SAYA MASUKKAN SEMUA DATA LAMA ANDA KE SINI
+        const dataLama = [
+            { "name": "Adidas Samba Cordura Size 43", "brand": "Adidas", "category": "Casual", "price": 200000, "img": "sepatu70.jpg", "sold": false, "isOriginal": false, "isPO": false },
+            { "name": "Under Armor Size 42", "brand": "Under Armour", "category": "Running", "price": 400000, "img": "sepatu101.jpg", "sold": false, "isOriginal": false, "isPO": false },
+            { "name": "Adidas FOG Size 37", "brand": "Adidas", "category": "Casual", "price": 300000, "img": "sepatu100.jpg", "sold": false, "isOriginal": false, "isPO": false },
+            { "name": "Kaos TNF Peta Indonesia Size", "brand": "TNF", "category": "Kaos", "price": 170000, "img": "kaos31.jpg", "sold": false, "isOriginal": false, "isPO": false },
+            { "name": "Kaos PUMA AC MILAN Size L", "brand": "Puma", "category": "Kaos", "price": 170000, "img": "kaos30.jpg", "sold": false, "isOriginal": false, "isPO": false },
+            { "name": "NB Rebel Size 40", "brand": "New Balance", "category": "Running", "price": 380000, "img": "sepatu99.jpg", "sold": false, "isOriginal": false, "isPO": false },
+            { "name": "Under Armor Size 41", "brand": "Under Armour", "category": "Running", "price": 400000, "img": "sepatu98.jpg", "sold": false, "isOriginal": false, "isPO": false },
+            { "name": "BALLERBRO BB PRO 1 SUMMER BLACK (36-44)", "brand": "Ballerbro", "category": "Basket", "price": 520000, "img": "sepatu97.jpg", "sold": false, "isOriginal": true, "isPO": true },
+            { "name": "BALLERBRO BB STRONGZ (36-44)", "brand": "Ballerbro", "category": "Basket", "price": 409000, "img": "sepatu96.jpg", "sold": false, "isOriginal": true, "isPO": true },
+            { "name": "BALLERBRO BB GRAFITI OK NAVY (38-45)", "brand": "Ballerbro", "category": "Basket", "price": 409000, "img": "sepatu95.jpg", "sold": false, "isOriginal": true, "isPO": true },
+            { "name": "BALLERBRO BB1 PUTIH (36-44)", "brand": "Ballerbro", "category": "Basket", "price": 359000, "img": "sepatu94.jpg", "sold": false, "isOriginal": true, "isPO": true },
+            { "name": "MILLS XYCLOPS SPEEDFREAK M2 (40-45)", "brand": "Mills", "category": "Futsal", "price": 425000, "img": "sepatu93.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 449000 },
+            { "name": "MILLS SPECTER BLACK WHITE (39-44)", "brand": "Mills", "category": "Running", "price": 312000, "img": "sepatu91.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 329000 },
+            { "name": "KANKY YUGA IKEBANA KHAKI (37,39)", "brand": "Kanky", "category": "Running", "price": 228800, "img": "sepatu92.jpg", "sold": false, "isOriginal": true, "isPO": true },
+            { "name": "KANKY CHAKRA DEEP GREEN (42,43,44)", "brand": "Kanky", "category": "Running", "price": 268800, "img": "sepatu90.jpg", "sold": false, "isOriginal": true, "isPO": true },
+            { "name": "KANKY SUPREME  (42,43)", "brand": "Kanky", "category": "Running", "price": 268800, "img": "sepatu89.jpg", "sold": false, "isOriginal": true, "isPO": true },
+            { "name": "CATALYST LIBERTE V5 IN NAVY (39-44)", "brand": "Ortuseight", "category": "Futsal", "price": 575000, "img": "sepatu87.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 649000 },
+            { "name": "CATALYST LIBERTE V5 IN JR (33-36)", "brand": "Ortuseight", "category": "Futsal", "price": 330000, "img": "sepatu88.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 349000 },
+            { "name": "JOGOSALA RADIANT ARMY (38-44)", "brand": "Ortuseight", "category": "Futsal", "price": 520000, "img": "sepatu86.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 549000 },
+            { "name": "HYPERSONIC 2.0 SAGE GREEN (39-45)", "brand": "Ortuseight", "category": "Running", "price": 1430000, "img": "sepatu85.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 1599000 },
+            { "name": "HYPERBLAST 2.1 SACRAMENTO LIME (39-43)", "brand": "Ortuseight", "category": "Running", "price": 730000, "img": "sepatu84.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 749000 },
+            { "name": "SPECS ACCELERATOR ILLUZION 4 PRO (39-44)", "brand": "Specs", "category": "Futsal", "price": 584000, "img": "sepatu83.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 649800 },
+            { "name": "SPECS ACCELERATOR ALPHA FURY PRO (41-44)", "brand": "Specs", "category": "Futsal", "price": 660000, "img": "sepatu82.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 699800 },
+            { "name": "910 HAZE 1.5 HITAM MERAH (39-44)", "brand": "910 Nineten", "category": "Running", "price": 430000, "img": "sepatu80.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 449900 },
+            { "name": "910 HAZE 1.5 BIRU/TOSCA (39-44)", "brand": "910 Nineten", "category": "Running", "price": 430000, "img": "sepatu81.jpg", "sold": false, "isOriginal": true, "isPO": true, "originalPrice": 449900 },
+            { "name": "Asics Megic Speed Size 43", "brand": "Asics", "category": "Running", "price": 350000, "img": "sepatu22.jpg", "sold": false, "isOriginal": false },
+            { "name": "Adidas Samba Kids Size 34", "brand": "Adidas", "category": "Casual", "price": 170000, "img": "sepatu79.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Adidas Sepatu Size XXL", "brand": "Adidas", "category": "Kaos", "price": 180000, "img": "Kaos29.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos New Balance Size XL", "brand": "New Balance", "category": "Kaos", "price": 170000, "img": "Kaos28.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Philipp Plein Size L", "brand": "No Brand", "category": "Kaos", "price": 150000, "img": "Kaos27.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Lacoste Size XL", "brand": "Lacoste", "category": "Kaos", "price": 150000, "img": "Kaos26.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Adidas Biru Panjang Size L", "brand": "Adidas", "category": "Kaos", "price": 180000, "img": "kaos25.jpg", "sold": false, "isOriginal": false },
+            { "name": "Le Coq Size 42", "brand": "Le Coq", "category": "Casual", "price": 330000, "img": "sepatu78.jpg", "sold": false, "isOriginal": false },
+            { "name": "DNY Model Onitsuka size 36", "brand": "DNY", "category": "Casual", "price": 200000, "img": "sepatu77.jpg", "sold": false, "isOriginal": false },
+            { "name": "NIke SKT 24 Size 43 (Minus)", "brand": "Nike", "category": "Running", "price": 230000, "img": "sepatu76.jpg", "sold": true, "isOriginal": false, "originalPrice": 300000 },
+            { "name": "Adidas Adizero EvoSL Size 41", "brand": "Adidas", "category": "Running", "price": 420000, "img": "sepatu75.jpg", "sold": false, "isOriginal": false },
+            { "name": "DNY size 36", "brand": "DNY", "category": "Casual", "price": 180000, "img": "sepatu74.jpg", "sold": true, "isOriginal": false },
+            { "name": "Kaos Blue Size XL", "brand": "No Brand", "category": "Kaos", "price": 130000, "img": "Kaos24.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Lacoste Size XL", "brand": "Lacoste", "category": "Kaos", "price": 150000, "img": "Kaos23.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos MLB Hijau Size XL", "brand": "No Brand", "category": "Kaos", "price": 150000, "img": "Kaos22.jpg", "sold": false, "isOriginal": false },
+            { "name": "kaos Uniqlo One Piece Size L", "brand": "No Brand", "category": "Kaos", "price": 170000, "img": "Kaos21.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos FENDI Biru Size XL", "brand": "No Brand", "category": "Kaos", "price": 170000, "img": "Kaos20.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Burberry Size XL", "brand": "No Brand", "category": "Kaos", "price": 170000, "img": "Kaos19.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Uniqlo Cream Size XL", "brand": "No Brand", "category": "Kaos", "price": 180000, "img": "Kaos18.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Adidas Panjang Size XL", "brand": "Adidas", "category": "Kaos", "price": 180000, "img": "kaos17.jpg", "sold": false, "isOriginal": false },
+            { "name": "Puma Nitro Size 43", "brand": "Puma", "category": "Running", "price": 350000, "img": "sepatu11.jpg", "sold": true, "isOriginal": false },
+            { "name": "Nike Vaporfly Size 42", "brand": "Nike", "category": "Running", "price": 420000, "img": "sepatu66.jpg", "sold": true, "isOriginal": false },
+            { "name": "Nike Vaporfly Size 40", "brand": "Nike", "category": "Running", "price": 420000, "img": "sepatu66.jpg", "sold": false, "isOriginal": false },
+            { "name": "NB Casual (Lokal) Size 40,41", "brand": "New Balance", "category": "Casual", "price": 200000, "img": "sepatu73.jpg", "sold": false, "isOriginal": false },
+            { "name": "Nike Vaformax Size 40", "brand": "Nike", "category": "Running", "price": 200000, "img": "sepatu72.jpg", "sold": false, "isOriginal": false },
+            { "name": "Adidas Samba Sumatra Coklat Size 41", "brand": "Adidas", "category": "Casual", "price": 200000, "img": "sepatu71.jpg", "sold": false, "isOriginal": false },
+            { "name": "Adidas Samba Size 42", "brand": "Adidas", "category": "Casual", "price": 200000, "img": "sepatu70.jpg", "sold": true, "isOriginal": false },
+            { "name": "asisc Running (Lokal) Size 39,40", "brand": "Asics", "category": "Running", "price": 170000, "img": "sepatu69.jpg", "sold": true, "isOriginal": false },
+            { "name": "Asics Novablast (Lokal) Size 39", "brand": "Asics", "category": "Running", "price": 200000, "img": "sepatu68.jpg", "sold": true, "isOriginal": false },
+            { "name": "Adidas Adizero Boston 12 Size 43", "brand": "Adidas", "category": "Running", "price": 300000, "img": "sepatu67.jpg", "sold": false, "isOriginal": false, "originalPrice": 380000 },
+            { "name": "Eiger Original Size 40", "brand": "No Brand", "category": "Casual", "price": 800000, "img": "sepatu32.jpg", "sold": false, "isOriginal": true },
+            { "name": "910 Nineten Original Size 37", "brand": "910 Nineten", "category": "Running", "price": 499000, "img": "sepatu12.jpg", "sold": false, "isOriginal": true },
+            { "name": "Nike Alphafly 3 Size 43", "brand": "Nike", "category": "Running", "price": 450000, "img": "sepatu44.jpg", "sold": false, "isOriginal": false },
+            { "name": "NB Elite Size 40", "brand": "New Balance", "category": "Running", "price": 400000, "img": "sepatu1.jpg", "sold": true, "isOriginal": false },
+            { "name": "Hugo Boss Size 41", "brand": "No Brand", "category": "Casual", "price": 400000, "img": "sepatu33.jpg", "sold": true, "isOriginal": false },
+            { "name": "Under Armor Size 40", "brand": "Under Armour", "category": "Running", "price": 400000, "img": "sepatu26.jpg", "sold": true, "isOriginal": false },
+            { "name": "Hugo Boss Size 40", "brand": "No Brand", "category": "Casual", "price": 400000, "img": "sepatu10.jpg", "sold": false, "isOriginal": false },
+            { "name": "Mizuno Size 41", "brand": "No Brand", "category": "Casual", "price": 390000, "img": "sepatu47.jpg", "sold": true, "isOriginal": false },
+            { "name": "Puma Nitro Elite Size 42", "brand": "Puma", "category": "Running", "price": 385000, "img": "sepatu62.jpg", "sold": true, "isOriginal": false },
+            { "name": "Puma Nitro Elite Size 41", "brand": "Puma", "category": "Running", "price": 385000, "img": "sepatu61.jpg", "sold": false, "isOriginal": false },
+            { "name": "Puma Nitro Elite Size 41", "brand": "Puma", "category": "Running", "price": 385000, "img": "sepatu60.jpg", "sold": false, "isOriginal": false },
+            { "name": "NB 1500 Size 40", "brand": "New Balance", "category": "Casual", "price": 380000, "img": "sepatu48.jpg", "sold": true, "isOriginal": false },
+            { "name": "Adidas Adizero Pro 4 Size 39", "brand": "Adidas", "category": "Running", "price": 380000, "img": "sepatu7.jpg", "sold": false, "isOriginal": false, "originalPrice": 450000 },
+            { "name": "Lacoste Size 42", "brand": "Lacoste", "category": "Casual", "price": 360000, "img": "sepatu45.jpg", "sold": false, "isOriginal": false, "originalPrice": 400000 },
+            { "name": "Nike Struktur 25 Size 43", "brand": "Nike", "category": "Running", "price": 350000, "img": "sepatu42.jpg", "sold": false, "isOriginal": false },
+            { "name": "Saucony Size 43", "brand": "Saucony", "category": "Running", "price": 350000, "img": "sepatu41.jpg", "sold": false, "isOriginal": false },
+            { "name": "Asic Novablast 3 Size 39", "brand": "Asics", "category": "Running", "price": 350000, "img": "sepatu36.jpg", "sold": true, "isOriginal": false },
+            { "name": "NB 8010 Size 42", "brand": "New Balance", "category": "Running", "price": 350000, "img": "sepatu29.jpg", "sold": false, "isOriginal": false },
+            { "name": "NB Elit Size 37", "brand": "New Balance", "category": "Running", "price": 350000, "img": "sepatu28.jpg", "sold": false, "isOriginal": false },
+            { "name": "Asics Magic Speed Size 45", "brand": "Asics", "category": "Running", "price": 350000, "img": "sepatu22.jpg", "sold": true, "isOriginal": false },
+            { "name": "Puma Nitro Size 42", "brand": "Puma", "category": "Running", "price": 350000, "img": "sepatu11.jpg", "sold": false, "isOriginal": false },
+            { "name": "Puma Nitro Size 41", "brand": "Puma", "category": "Running", "price": 350000, "img": "sepatu9.jpg", "sold": false, "isOriginal": false },
+            { "name": "Adidas Ultra Boost Size 41", "brand": "Adidas", "category": "Running", "price": 350000, "img": "sepatu8.jpg", "sold": false, "isOriginal": false },
+            { "name": "Asics Magic Speed Size 36", "brand": "Asics", "category": "Running", "price": 350000, "img": "sepatu4.jpg", "sold": false, "isOriginal": false },
+            { "name": "Adidas Ultra Boost Size 42", "brand": "Adidas", "category": "Running", "price": 350000, "img": "sepatu6.jpg", "sold": false, "isOriginal": false },
+            { "name": "Swiss Army 9205", "brand": "No Brand", "category": "Jam Tangan", "price": 320000, "img": "jamtangan1.jpg", "sold": false, "isOriginal": false },
+            { "name": "Hoka Full Black Size 41", "brand": "Hoka", "category": "Running", "price": 320000, "img": "sepatu50.jpg", "sold": false, "isOriginal": false },
+            { "name": "Hoka Toska Size 38", "brand": "Hoka", "category": "Running", "price": 320000, "img": "sepatu31.jpg", "sold": false, "isOriginal": false },
+            { "name": "Le Coq Size 43", "brand": "Le Coq", "category": "Casual", "price": 300000, "img": "sepatu63.jpg", "sold": true, "isOriginal": false },
+            { "name": "Puma Speetcat Size 37", "brand": "Puma", "category": "Casual", "price": 300000, "img": "sepatu52.jpg", "sold": false, "isOriginal": false },
+            { "name": "NIke Air Zoom Size 43", "brand": "Nike", "category": "Running", "price": 300000, "img": "sepatu43.jpg", "sold": false, "isOriginal": false },
+            { "name": "Nike Vomero Size 43", "brand": "Nike", "category": "Running", "price": 300000, "img": "sepatu46.jpg", "sold": true, "isOriginal": false },
+            { "name": "Asics Dark Green Size 41", "brand": "Asics", "category": "Running", "price": 300000, "img": "sepatu25.jpg", "sold": false, "isOriginal": false },
+            { "name": "Asics Biru Size 39", "brand": "Asics", "category": "Running", "price": 300000, "img": "sepatu24.jpg", "sold": true, "isOriginal": false },
+            { "name": "Asics Abu Size 41", "brand": "Asics", "category": "Running", "price": 300000, "img": "sepatu23.jpg", "sold": false, "isOriginal": false },
+            { "name": "Skechers Size 43", "brand": "Skechers", "category": "Running", "price": 300000, "img": "sepatu16.jpg", "sold": false, "isOriginal": false },
+            { "name": "Puma Suede Size 40", "brand": "Puma", "category": "Casual", "price": 300000, "img": "sepatu15.jpg", "sold": false, "isOriginal": false },
+            { "name": "Skechers Black Purple Size 36", "brand": "Skechers", "category": "Running", "price": 300000, "img": "sepatu13.jpg", "sold": false, "isOriginal": false },
+            { "name": "Nike Pegasus Size 39", "brand": "Nike", "category": "Running", "price": 300000, "img": "sepatu3.jpg", "sold": true, "isOriginal": false },
+            { "name": "Le Coq Size 40", "brand": "Le Coq", "category": "Casual", "price": 300000, "img": "sepatu2.jpg", "sold": false, "isOriginal": false },
+            { "name": "MIRAGE IN Silver Size 40", "brand": "Ortuseight", "category": "Futsal", "price": 299000, "img": "sepatu27.jpg", "sold": false, "isOriginal": true },
+            { "name": "Adidas SL72 Size 39,40", "brand": "Adidas", "category": "Casual", "price": 290000, "img": "sepatu5.jpg", "sold": true, "isOriginal": false },
+            { "name": "Onitsuka Yellow Size 38", "brand": "Onitsuka", "category": "Casual", "price": 280000, "img": "sepatu64.jpg", "sold": false, "isOriginal": false },
+            { "name": "Asics Megic Speed Size 36", "brand": "Asics", "category": "Running", "price": 280000, "img": "Asics36.jpg", "sold": false, "isOriginal": false, "originalPrice": 300000 },
+            { "name": "Asics Tokyo Size 38", "brand": "Asics", "category": "Running", "price": 280000, "img": "sepatu14.jpg", "sold": false, "isOriginal": false, "originalPrice": 320000 },
+            { "name": "Jam Cewek Antroid 2 tali", "brand": "No Brand", "category": "Jam Tangan", "price": 250000, "img": "jamtangan6.jpg", "sold": false, "isOriginal": false },
+            { "name": "Onitsuka Tiger Size 40", "brand": "Onitsuka", "category": "Casual", "price": 250000, "img": "sepatu54.jpg", "sold": false, "isOriginal": false },
+            { "name": "NIke SB Dua Warna Size 41,43", "brand": "Nike", "category": "Casual", "price": 250000, "img": "sepatu38.jpg", "sold": false, "isOriginal": false },
+            { "name": "Adidas Samba Jane Putih Size 39", "brand": "Adidas", "category": "Casual", "price": 250000, "img": "sepatu20.jpg", "sold": false, "isOriginal": false },
+            { "name": "Adidas Samba Jane Size 38", "brand": "Adidas", "category": "Casual", "price": 250000, "img": "sepatu19.jpg", "sold": false, "isOriginal": false },
+            { "name": "Onitsuka Mexico 66 Size 38", "brand": "Onitsuka", "category": "Casual", "price": 250000, "img": "sepatu18.jpg", "sold": false, "isOriginal": false },
+            { "name": "Onitsuka Blue Red Size 38", "brand": "Onitsuka", "category": "Casual", "price": 250000, "img": "sepatu17.jpg", "sold": false, "isOriginal": false },
+            { "name": "Nike Putih Size 36", "brand": "Nike", "category": "Running", "price": 240000, "img": "sepatu51.jpg", "sold": false, "isOriginal": false, "originalPrice": 270000 },
+            { "name": "Onitsuka Tokuten size 41", "brand": "Onitsuka", "category": "Casual", "price": 230000, "img": "Onitsuka.Jpg", "sold": false, "isOriginal": false },
+            { "name": "Evans Jayden Ori", "brand": "No Brand", "category": "Jam Tangan", "price": 230000, "img": "jamtangan4.jpg", "sold": false, "isOriginal": true, "originalPrice": 300000 },
+            { "name": "Nike Putih Size 36", "brand": "Nike", "category": "Casual", "price": 230000, "img": "sepatu53.jpg", "sold": false, "isOriginal": false, "originalPrice": 270000 },
+            { "name": "Adidas Samba Size 39", "brand": "Adidas", "category": "Casual", "price": 220000, "img": "sepatu39.jpg", "sold": false, "isOriginal": false },
+            { "name": "Nike Cewek Size 39", "brand": "Nike", "category": "Casual", "price": 220000, "img": "sepatu40.jpg", "sold": false, "isOriginal": false },
+            { "name": "NIke Futsal Size 37", "brand": "Nike", "category": "Futsal", "price": 220000, "img": "sepatu37.jpg", "sold": true, "isOriginal": false },
+            { "name": "On Cloud Size 41", "brand": "On Cloud", "category": "Running", "price": 200000, "img": "sepatu59.jpg", "sold": false, "isOriginal": false, "originalPrice": 300000 },
+            { "name": "Converse Cewek Size 37", "brand": "Converse", "category": "Casual", "price": 200000, "img": "sepatu57.jpg", "sold": true, "isOriginal": false },
+            { "name": "Adidas Samba Kuning Size 40", "brand": "Adidas", "category": "Casual", "price": 200000, "img": "sepatu49.jpg", "sold": true, "isOriginal": false },
+            { "name": "Specs Stabilo Size 42", "brand": "Specs", "category": "Futsal", "price": 200000, "img": "sepatu34.jpg", "sold": true, "isOriginal": false },
+            { "name": "DNY size 37", "brand": "DNY", "category": "Casual", "price": 180000, "img": "sepatu65.jpg", "sold": false, "isOriginal": false },
+            { "name": "G-shock Kuning", "brand": "No Brand", "category": "Jam Tangan", "price": 180000, "img": "jamtangan2.jpg", "sold": false, "isOriginal": false, "originalPrice": 230000 },
+            { "name": "Kaos Adidas panjang Size XL", "brand": "Adidas", "category": "Kaos", "price": 180000, "img": "kaos11.jpg", "sold": true, "isOriginal": false },
+            { "name": "Adidas Colektor Size 41", "brand": "Adidas", "category": "Casual", "price": 180000, "img": "sepatu55.jpg", "sold": false, "isOriginal": false, "originalPrice": 270000 },
+            { "name": "Adidas Futsal Size 38,39", "brand": "Adidas", "category": "Futsal", "price": 160000, "img": "sepatu35.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos NIke Biru Tua Size XL", "brand": "Nike", "category": "Kaos", "price": 150000, "img": "kaos16.jpg", "sold": true, "isOriginal": false },
+            { "name": "Jam Cewek MK", "brand": "No Brand", "category": "Jam Tangan", "price": 150000, "img": "jamtangan5.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Puma Putih Size L", "brand": "Puma", "category": "Kaos", "price": 150000, "img": "kaos13.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos TNF Abu Size XL", "brand": "TNF", "category": "Kaos", "price": 150000, "img": "kaos10.jpg", "sold": true, "isOriginal": false },
+            { "name": "Kaos Puma Ferarri Size L", "brand": "Puma", "category": "Kaos", "price": 150000, "img": "kaos9.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Puma MLB Size L", "brand": "Puma", "category": "Kaos", "price": 150000, "img": "kaos8.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Gucci Sieze M", "brand": "No Brand", "category": "Kaos", "price": 150000, "img": "kaos6.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Gucci Size M", "brand": "No Brand", "category": "Kaos", "price": 150000, "img": "kaos5.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Puma Ferrari Size L", "brand": "Puma", "category": "Kaos", "price": 150000, "img": "kaos4.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Under Armour", "brand": "Under Armour Size M", "category": "Kaos", "price": 150000, "img": "kaos3.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Nike Jordan Sieze L", "brand": "Nike", "category": "Kaos", "price": 150000, "img": "kaos2.jpg", "sold": false, "isOriginal": false },
+            { "name": "Jam Cewek Cream", "brand": "No Brand", "category": "Jam Tangan", "price": 140000, "img": "jamtangan3.jpg", "sold": false, "isOriginal": false },
+            { "name": "Jam Cewek Silver", "brand": "No Brand", "category": "Jam Tangan", "price": 130000, "img": "jamtangan8.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Hijau Army Size L", "brand": "No Brand", "category": "Kaos", "price": 130000, "img": "kaos12.jpg", "sold": false, "isOriginal": false },
+            { "name": "Adidas Samba Putih (Minus)  Size 39", "brand": "Adidas", "category": "Casual", "price": 130000, "img": "sepatu21.jpg", "sold": false, "isOriginal": false, "originalPrice": 220000 },
+            { "name": "Kaos NIke Jordan 23 Size XL", "brand": "Nike", "category": "Kaos", "price": 120000, "img": "kaos15.jpg", "sold": true, "isOriginal": false },
+            { "name": "Kaos NIke Jordan 23 Size L", "brand": "Nike", "category": "Kaos", "price": 120000, "img": "kaos14.jpg", "sold": true, "isOriginal": false },
+            { "name": "G-shock Casio", "brand": "No Brand", "category": "Jam Tangan", "price": 120000, "img": "jamtangan7.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Adidas Cream Size L", "brand": "Adidas", "category": "Kaos", "price": 120000, "img": "kaos7.jpg", "sold": false, "isOriginal": false },
+            { "name": "Kaos Puma Size M", "brand": "Puma", "category": "Kaos", "price": 100000, "img": "kaos1.jpg", "sold": false, "isOriginal": false },
+            { "name": "Converse Cewek Size 38", "brand": "Converse", "category": "Casual", "price": 80000, "img": "sepatu58.jpg", "sold": false, "isOriginal": false, "originalPrice": 200000 }
         ];
 
-        window.renderProducts = (data) => {
-            const grid = document.getElementById('productGrid');
-            const empty = document.getElementById('emptyState');
-            
-            grid.innerHTML = '';
-            
-            if (!data || data.length === 0) {
-                empty.classList.remove('hidden');
-                return;
-            } else {
-                empty.classList.add('hidden');
-            }
+        const loadingMsg = document.createElement('div');
+        loadingMsg.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);color:lime;display:flex;justify-content:center;align-items:center;z-index:9999;flex-direction:column;"><h2>SEDANG MENGUPLOAD DATA...</h2><p id="uploadProgress">0 / ' + dataLama.length + '</p></div>';
+        document.body.appendChild(loadingMsg);
 
-            data.forEach(product => {
-                const imgStyle = product.sold ? 'grayscale opacity-75' : '';
-                const contentStyle = product.sold ? 'opacity-60' : '';
-                const displayImage = product.images ? product.images[0] : product.img;
-
-                let btnAction;
-                if (product.sold) {
-                    btnAction = `<button disabled class="w-full bg-gray-400 text-white py-2 rounded font-bold cursor-not-allowed text-sm">TERJUAL / SOLD</button>`;
-                } else if (product.isPO) {
-                    btnAction = `<a href="https://wa.me/6281375861195?text=Halo Yusuf Store 25, saya mau pesan Pre-Order (PO) ${product.name} Brand ${product.brand} apakah bisa?" target="_blank" class="block w-full text-center bg-yellow-500 hover:bg-yellow-600 text-black py-2 rounded font-bold text-sm transition"><i class="fab fa-whatsapp"></i> Pesan PO</a>`;
-                } else {
-                    btnAction = `<a href="https://wa.me/6281375861195?text=Halo Yusuf Store 25, saya mau beli ${product.name} Brand ${product.brand} apakah masih ada?" target="_blank" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white py-2 rounded font-bold text-sm transition"><i class="fab fa-whatsapp"></i> Beli via WA</a>`;
-                }
-                
-                let negoTextHTML = '';
-                if (!product.sold) {
-                    if (product.isOriginal) {
-                        negoTextHTML = '<p class="text-[10px] text-blue-600 font-semibold mt-1"><i class="fas fa-check-circle"></i> Harga Resmi</p>';
-                    } else if (product.isPO) {
-                        negoTextHTML = '<p class="text-[10px] text-yellow-600 italic mt-1 font-bold">Barang Pre-Order (Estimasi chat admin)</p>';
-                    } else {
-                        negoTextHTML = '<p class="text-[10px] text-green-600 italic mt-1">Harga masih bisa nego chat admin</p>';
-                    }
-                }
-
-                let priceDisplay = '';
-                if (product.originalPrice && product.originalPrice > product.price) {
-                    const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
-                    priceDisplay = `
-                        <div class="flex flex-col">
-                            <span class="text-[10px] text-gray-400 line-through">${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(product.originalPrice)}</span>
-                            <div class="flex items-center gap-2">
-                                <span class="text-accent font-bold text-sm md:text-lg border border-accent px-2 py-1 rounded">${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(product.price)}</span>
-                                <span class="text-[10px] bg-red-100 text-red-600 px-1 rounded font-bold">-${discount}%</span>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    priceDisplay = `<span class="text-accent font-bold text-sm md:text-lg border border-accent px-2 py-1 rounded">${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(product.price)}</span>`;
-                }
-
-                const card = `
-                    <div class="product-card bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 overflow-hidden relative group hover:border-accent transition duration-300">
-                        <div class="relative group cursor-pointer" onclick="openModal(${product.id})">
-                            <img src="${displayImage}" alt="${product.name}" class="w-full h-40 md:h-56 object-cover ${imgStyle}">
-                            
-                            ${product.sold 
-                                ? '<div class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold shadow-md z-20">SOLD OUT</div>' 
-                                : (product.isPO ? '<div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold shadow-md z-20">PRE-ORDER</div>' : '')
-                            }
-                            
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center z-10">
-                                <span class="opacity-0 group-hover:opacity-100 bg-white text-black text-xs px-3 py-1 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition"><i class="fas fa-search-plus"></i> Detail</span>
-                            </div>
-                        </div>
-                        
-                        <div class="p-3 md:p-4 ${contentStyle} text-gray-300">
-                            <div class="flex justify-between items-start">
-                                <p class="text-xs text-gray-500 uppercase font-semibold tracking-wider">${product.brand}</p>
-                                ${product.isOriginal && !product.sold ? '<span class="text-[10px] bg-accent text-black px-2 py-0.5 rounded font-bold">ORI</span>' : ''}
-                            </div>
-                            <h3 class="font-bold text-sm md:text-base text-white line-clamp-2 leading-tight mb-2">${product.name}</h3>
-                            <div class="flex items-center justify-between mb-3">
-                                ${priceDisplay}
-                            </div>
-                            ${negoTextHTML}
-                            <div class="mt-3">
-                                ${btnAction}
-                            </div>
-                        </div>
-                    </div>
-                `;
-                grid.innerHTML += card;
-            });
-        }
-
-        window.renderBrands = () => {
-            const container = document.getElementById('brandContainer');
-            const colors = [
-                'bg-red-50 border-red-200 text-red-800',
-                'bg-blue-50 border-blue-200 text-blue-800',
-                'bg-green-50 border-green-200 text-green-800',
-                'bg-amber-50 border-amber-200 text-amber-800',
-                'bg-purple-50 border-purple-200 text-purple-800',
-                'bg-pink-50 border-pink-200 text-pink-800',
-                'bg-indigo-50 border-indigo-200 text-indigo-800',
-                'bg-orange-50 border-orange-200 text-orange-800',
-                'bg-teal-50 border-teal-200 text-teal-800',
-                'bg-cyan-50 border-cyan-200 text-cyan-800',
-                'bg-rose-50 border-rose-200 text-rose-800',
-                'bg-slate-100 border-slate-200 text-slate-800'
-            ];
-
-            container.innerHTML = brands.map((brandObj, index) => {
-                const colorTheme = colors[index % colors.length];
-                if (brandObj.logo) {
-                    return `
-                        <div onclick="filterByBrand('${brandObj.name}')" class="brand-logo cursor-pointer bg-white p-2 rounded-lg flex items-center justify-center h-20 shadow-lg transition-all duration-300 group hover:bg-white hover:border-accent hover:shadow-2xl hover:-translate-y-1">
-                            <img src="${brandObj.logo}" alt="${brandObj.name}" class="max-h-full max-w-full object-contain">
-                        </div>
-                    `;
-                } else {
-                    return `
-                        <div onclick="filterByBrand('${brandObj.name}')" class="brand-logo cursor-pointer border ${colorTheme} p-3 rounded-lg flex flex-col items-center justify-center h-20 shadow-lg transition-all duration-300 group hover:bg-white hover:border-accent hover:shadow-2xl hover:-translate-y-1">
-                            <span class="font-bold text-xs md:text-sm text-center group-hover:text-accent transition-colors">${brandObj.name}</span>
-                        </div>
-                    `;
-                }
-            }).join('');
-        }
-
-        window.populateBrandOptions = () => {
-            const brandSelect = document.getElementById('addBrand');
-            if (brandSelect) {
-                brandSelect.innerHTML = brands.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
+        let count = 0;
+        for(const item of dataLama) {
+            try {
+                await addDoc(productsCollection, item);
+                count++;
+                document.getElementById('uploadProgress').innerText = count + ' / ' + dataLama.length;
+            } catch(e) {
+                console.error("Gagal upload:", item.name);
             }
         }
+        loadingMsg.remove();
+        alert("SELESAI! " + count + " Produk berhasil dipindahkan ke Firebase.");
+        fetchProducts(); // Refresh
+        window.closeAdmin();
+    }
 
-        let currentCategory = 'all';
-
-        window.filterCategory = (category) => {
-            currentCategory = category;
-            
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-accent', 'text-white', 'shadow-lg');
-                btn.classList.add('bg-white/10', 'text-white', 'border', 'border-white/20');
-            });
-            
-            if(event && event.target) {
-                event.target.classList.remove('bg-white/10', 'text-white', 'border', 'border-white/20');
-                event.target.classList.add('bg-accent', 'text-white', 'shadow-lg');
-            }
-
-            if (category === 'all') {
-                renderProducts(products);
-            } else {
-                const filtered = products.filter(p => p.category === currentCategory);
-                renderProducts(filtered);
-            }
-        }
-
-        window.filterByBrand = (brandName) => {
-            showSection('catalog');
-            const filtered = products.filter(p => p.brand === brandName);
-            renderProducts(filtered);
-            
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-accent', 'text-white', 'shadow-lg');
-                btn.classList.add('bg-white/10', 'text-white', 'border', 'border-white/20');
-            });
-        }
-
-        window.resetFilter = () => {
-            filterCategory('all');
-            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('bg-accent', 'text-white', 'shadow-lg'));
-            const allBtn = document.querySelector('.cat-btn[onclick="filterCategory(\'all\')"]');
-            if(allBtn) {
-                allBtn.classList.add('bg-accent', 'text-white', 'shadow-lg');
-                allBtn.classList.remove('bg-white/10', 'text-white', 'border', 'border-white/20');
-            }
-        }
-
-        window.searchProduct = (query) => {
-            const lowerQ = query.toLowerCase();
-            const filtered = products.filter(p => 
-                p.name.toLowerCase().includes(lowerQ) || 
-                p.brand.toLowerCase().includes(lowerQ) ||
-                p.category.toLowerCase().includes(lowerQ)
-            );
-            renderProducts(filtered);
-        }
-
-        window.sortProducts = (order) => {
-            let sortedProducts = [...products]; 
-            if (order === 'low') {
-                sortedProducts.sort((a, b) => a.price - b.price);
-            } else if (order === 'high') {
-                sortedProducts.sort((a, b) => b.price - a.price);
-            }
-            // Note: In real app, changing sort logic here needs careful handling with global 'products' reference, 
-            // but for simple list filtering locally, this is fine.
-            
-            if (currentCategory === 'all') {
-                renderProducts(sortedProducts);
-            } else {
-                const filtered = sortedProducts.filter(p => p.category === currentCategory);
-                renderProducts(filtered);
-            }
-        }
-
-        window.showSection = (sectionId) => {
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.add('hidden');
-            });
-
-            const selectedSection = document.getElementById(sectionId);
-            if (selectedSection) {
-                selectedSection.classList.remove('hidden');
-            }
-
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (sectionId === 'home-section' && link.textContent === 'Beranda') link.classList.add('active');
-                if (sectionId === 'catalog' && link.textContent === 'Katalog') link.classList.add('active');
-                if (sectionId === 'testimonials' && link.textContent === 'Testimoni') link.classList.add('active'); 
-                if (sectionId === 'sizeguide' && link.textContent === 'Size Guide') link.classList.add('active');
-            });
-
-            window.scrollTo(0, 0);
-        }
-        
-        window.openModal = (id) => {
-            const product = products.find(p => p.id === id);
-            if(!product) return;
-
-            const container = document.getElementById('modalGalleryContainer');
-            container.innerHTML = ''; 
-
-            const imagesToShow = product.images ? product.images : [product.img];
-
-            imagesToShow.forEach(imgSrc => {
-                const img = document.createElement('img');
-                img.src = imgSrc;
-                img.className = "h-[50vh] md:h-[80vh] w-auto object-contain rounded shadow border border-zinc-800 shrink-0 snap-center bg-black";
-                container.appendChild(img);
-            });
-
-            document.getElementById('imageModal').classList.remove('hidden');
-        }
-
-        window.viewGalleryImage = (src) => {
-            const container = document.getElementById('modalGalleryContainer');
-            container.innerHTML = ''; 
-
-            const img = document.createElement('img');
-            img.src = src;
-            img.className = "h-[50vh] md:h-[80vh] w-auto object-contain rounded shadow border border-zinc-800 shrink-0 snap-center bg-black";
-            container.appendChild(img);
-
-            document.getElementById('imageModal').classList.remove('hidden');
-        }
-
-        window.closeModal = () => {
-            document.getElementById('imageModal').classList.add('hidden');
-        }
-
-        window.toggleMenu = () => {
-            document.getElementById('mobileMenu').classList.toggle('hidden');
-        }
-
-        window.checkShipping = (e) => {
-            e.preventDefault();
-            const dest = document.getElementById('destination').value;
-            if(!dest) return;
-
-            document.getElementById('shippingResult').classList.remove('hidden');
-            document.getElementById('destResult').innerText = dest;
-        }
-
-        window.adminLogin = (e) => {
-            e.preventDefault();
-            const password = prompt("Masukkan Password Admin:");
-            if (password === "admin123") {
-                document.getElementById('adminModal').classList.remove('hidden');
-                renderAdminProductList();
-            } else if (password !== null) {
-                alert("Password salah!");
-            }
-        }
-
-        window.closeAdmin = () => {
-            document.getElementById('adminModal').classList.add('hidden');
-        }
-
-        window.showAdminTab = (tabName) => {
-            const addSec = document.getElementById('adminAddSection');
-            const listSec = document.getElementById('adminListSection');
-            const tabAdd = document.getElementById('tabAdd');
-            const tabList = document.getElementById('tabList');
-
-            if (tabName === 'add') {
-                addSec.classList.remove('hidden');
-                listSec.classList.add('hidden');
-                tabAdd.className = "flex-1 py-2 rounded-lg bg-slate-900 text-white font-semibold text-sm transition";
-                tabList.className = "flex-1 py-2 rounded-lg bg-gray-200 text-gray-600 font-semibold text-sm transition";
-            } else {
-                addSec.classList.add('hidden');
-                listSec.classList.remove('hidden');
-                tabList.className = "flex-1 py-2 rounded-lg bg-slate-900 text-white font-semibold text-sm transition";
-                tabAdd.className = "flex-1 py-2 rounded-lg bg-gray-200 text-gray-600 font-semibold text-sm transition";
-                renderAdminProductList();
-            }
-        }
-
-        // INIT LOAD
-        window.onload = () => {
-            populateBrandOptions(); 
-            renderBrands();
-            showSection('home-section');
-        }
+    // INITIAL LOAD
+    window.onload = () => {
+        window.populateBrandOptions();
+        window.renderBrands();
+        fetchProducts();
+        window.showSection('home-section');
+    }
 
     </script>
 </body>
