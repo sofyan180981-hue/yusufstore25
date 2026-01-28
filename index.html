@@ -2215,10 +2215,44 @@
         window.toggleMenu = function() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
         
         window.populateBrandOptions = function() {
-            const brands = ["Adidas", "Nike", "Onitsuka", "New Balance", "On Cloud", "Puma", "Ortuseight", "910 Nineten", "Skechers", "Hoka", "Asics", "Specs", "Le Coq", "Converse", "Saucony", "Under Armour", "TNF", "Lacoste", "Kanky", "DNY", "Mills", "Ballerbro", "No Brand"];
-            document.getElementById('addBrand').innerHTML = brands.map(b => `<option value="${b}">${b}</option>`).join('');
+            // EDIT DI SINI: Ganti URL dengan nama file gambar di komputer/HP Anda
+            // Pastikan file gambar ada di folder yang sama dengan index.html
+            const brands = [
+                { name: "Adidas", logo: "logo_adidas.jpg" },
+                { name: "Nike", logo: "logo_nike.jpg" },
+                { name: "Onitsuka", logo: "logo_Onitsuka.jpg" },
+                { name: "New Balance", logo: "logo_nb.jpg" },
+                { name: "On Cloud", logo: "logo_oncloud.jpg" },
+                { name: "Puma", logo: "puma.jpg" },
+                { name: "Ortuseight", logo: "logo_ortus.jpg" },
+                { name: "910 Nineten", logo: "logo_910.jpg" },
+                { name: "Skechers", logo: "logo_Skechers.jpg" },
+                { name: "Hoka", logo: "logo_hoka.jpg" },
+                { name: "Asics", logo: "logo_Asics.jpg" },
+                { name: "Specs", logo: "logo_specs.jpg" },
+                { name: "Le Coq", logo: "lecoq.jpg" },
+                { name: "Converse", logo: "converse.jpg" },
+                { name: "Saucony", logo: "saucony.jpg" },
+                { name: "Under Armour", logo: "logo_ua.jpg" },
+                { name: "TNF", logo: "tnf.jpg" },
+                { name: "Lacoste", logo: "lacoste.jpg" },
+                { name: "Kanky", logo: "kanky.jpg" },
+                { name: "DNY", logo: "dny.jpg" },
+                { name: "Mills", logo: "mills.jpg" },
+                { name: "Ballerbro", logo: "balero.jpg" },
+                { name: "No Brand", logo: "nobrand.jpg" }
+            ];
+
+            // Populate Dropdown untuk Admin (Hanya Nama)
+            document.getElementById('addBrand').innerHTML = brands.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
+            
+            // Populate Grid untuk User (Gambar Logo)
             document.getElementById('brandContainer').innerHTML = brands.map(b => `
-                <div onclick="filterByBrand('${b}')" class="brand-logo cursor-pointer bg-white p-2 rounded-lg flex items-center justify-center h-16 shadow-lg border border-gray-200 text-black text-xs font-bold text-center hover:bg-accent transition">${b}</div>
+                <div onclick="filterByBrand('${b.name}')" class="brand-logo cursor-pointer bg-white p-2 rounded-lg flex items-center justify-center h-16 md:h-20 shadow-lg border border-gray-200 hover:bg-accent transition group overflow-hidden relative">
+                    <img src="${b.logo}" alt="${b.name}" class="max-h-full max-w-full object-contain group-hover:scale-110 transition duration-300 z-10 relative">
+                    <!-- Text Fallback jika gambar gagal load (opsional, disembunyikan jika gambar ada) -->
+                    <span class="absolute text-[10px] text-gray-300 font-bold opacity-0">${b.name}</span>
+                </div>
             `).join('');
         }
 
