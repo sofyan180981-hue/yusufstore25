@@ -394,11 +394,12 @@
 
     <!-- FIREBASE LOGIC -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
-
+        // GUNAKAN VERSI STABIL (v10.12.4) AGAR LEBIH KOMPATIBEL
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+        // Storage tidak lagi digunakan untuk menghindari error billing
+        
         // Konfigurasi Firebase Anda
         const firebaseConfig = {
             apiKey: "AIzaSyC-76DURrn1anKUwwf0seh6vxyjKX-GV8Q",
@@ -414,11 +415,10 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
-        // Sign in anonymously to allow reading/writing based on standard open rules (or user rules)
+        // Login Otomatis di Latar Belakang
         signInAnonymously(auth).then(() => {
-            console.log("Connected to Firebase as Anonymous User");
+            console.log("Connected to Firebase");
         }).catch((error) => {
             console.error("Auth Error:", error);
         });
@@ -454,14 +454,13 @@
         let currentCategory = 'all';
 
         // Listen to Firestore Updates
-        // Kita menggunakan koleksi 'products' di Firestore
-        const q = query(collection(db, "products"), orderBy("price", "desc"));
+        const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
         onSnapshot(q, (snapshot) => {
             const firebaseProducts = [];
             snapshot.forEach((doc) => {
                 firebaseProducts.push({ id: doc.id, ...doc.data(), isFirebase: true });
             });
-            // Gabungkan data statis + data firebase
+            // Gabungkan: Firebase (terbaru di atas) + Static
             allProducts = [...firebaseProducts, ...staticProducts];
             // Render ulang
             if(currentCategory === 'all') {
@@ -472,7 +471,33 @@
             renderAdminProductList();
         });
 
-        // --- GLOBAL FUNCTIONS (Attached to window for HTML access) ---
+        // --- GLOBAL FUNCTIONS ---
+
+        // FUNGSI KOMPRES GAMBAR (Wajib ada agar muat di Database Gratisan)
+        function compressImage(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 600; // Perkecil lebar maksimal jadi 600px
+                        const scaleSize = MAX_WIDTH / img.width;
+                        canvas.width = MAX_WIDTH;
+                        canvas.height = img.height * scaleSize;
+                        
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        
+                        // Kompres jadi JPEG kualitas 0.7 (cukup bagus tapi size kecil)
+                        resolve(canvas.toDataURL('image/jpeg', 0.7)); 
+                    }
+                }
+                reader.onerror = (error) => reject(error);
+            });
+        }
 
         window.addProductToFirebase = async function(e) {
             e.preventDefault();
@@ -486,40 +511,39 @@
                 return;
             }
 
-            // UI Loading
             btnSubmit.disabled = true;
             btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
-            btnText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengupload...';
+            btnText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
 
             try {
-                // 1. Upload Gambar ke Storage
-                const storageRef = ref(storage, 'products/' + new Date().getTime() + '_' + file.name);
-                await uploadBytes(storageRef, file);
-                const downloadURL = await getDownloadURL(storageRef);
+                if (!auth.currentUser) await signInAnonymously(auth);
 
-                // 2. Simpan Data ke Firestore
+                // 1. Kompres gambar ke Base64 (Teks) agar GRATIS tanpa Storage
+                const base64Img = await compressImage(file);
+
+                // 2. Simpan Data + Gambar ke Firestore
                 const newProduct = {
                     name: document.getElementById('addName').value,
                     brand: document.getElementById('addBrand').value,
                     category: document.getElementById('addCategory').value,
                     price: parseInt(document.getElementById('addPrice').value),
                     originalPrice: document.getElementById('addOriginalPrice').value ? parseInt(document.getElementById('addOriginalPrice').value) : null,
-                    img: downloadURL, // Link gambar dari Firebase
+                    img: base64Img, // Gambar disimpan langsung di sini
                     sold: document.getElementById('addIsSold').checked,
                     isOriginal: document.getElementById('addIsOriginal').checked,
                     isPO: document.getElementById('addIsPO').checked,
-                    createdAt: new Date()
+                    createdAt: new Date().toISOString() // Simpan waktu agar urutan benar
                 };
 
                 await addDoc(collection(db, "products"), newProduct);
 
-                alert("Berhasil! Produk tersimpan di Firebase.");
+                alert("Berhasil! Produk tersimpan (Mode Hemat Kuota).");
                 document.getElementById('addProductForm').reset();
                 showAdminTab('list');
 
             } catch (error) {
                 console.error("Error adding product: ", error);
-                alert("Gagal mengupload: " + error.message);
+                alert("Gagal: " + error.message);
             } finally {
                 btnSubmit.disabled = false;
                 btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
