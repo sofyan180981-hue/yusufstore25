@@ -5,40 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan</title>
 
-    <!-- Meta Tags LENGKAP untuk Preview Link (WA, FB, IG) -->
+    <!-- Meta Tags -->
     <meta name="title" content="Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan">
     <meta name="description" content="Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan sepatu Running, Casual, Futsal, basket, dan Jam Tangan Original & Premium.">
-
-    <!-- Open Graph / Facebook / WhatsApp -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="index.html">
-    <meta property="og:title" content="Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan">
-    <meta property="og:description" content="Temukan sepatu favoritmu di sini! Lokasi: Depan Tugu Salak. Klik untuk lihat katalog.">
-    <meta property="og:image" content="1000108714.jpg">
-    <!-- Menambahkan dimensi gambar agar lebih mudah terbaca oleh WA -->
-    <meta property="og:image:width" content="300">
-    <meta property="og:image:height" content="300">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan">
-    <meta property="twitter:description" content="Temukan sepatu favoritmu di sini! Lokasi: Depan Tugu Salak. Klik untuk lihat katalog.">
-    <meta property="twitter:image" content="1000108714.jpg">
-
-    <!-- Google / Search Engine Tags (Schema.org) -->
-    <meta itemprop="name" content="Yusuf Store 25 - Pusat Sepatu Padang Sidimpuan">
-    <meta itemprop="description" content="Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan sepatu Running, Casual, Futsal, Basket, dan Jam Tangan Original & Premium.">
-    <meta itemprop="image" content="1000108714.jpg">
-
-    <!-- Favicon (Ikon di Tab Browser & Fallback untuk Link Preview) -->
-    <link rel="icon" href="1000108714.jpg" type="image/jpeg">
-    <link rel="shortcut icon" href="1000108714.jpg" type="image/jpeg">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts (Menambahkan Russo One untuk Judul) -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
     
     <script>
@@ -47,14 +22,14 @@
                 extend: {
                     fontFamily: {
                         sans: ['Poppins', 'sans-serif'],
-                        display: ['Russo One', 'sans-serif'], // Font baru untuk judul
+                        display: ['Russo One', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#000000',   // Hitam Pekat
-                        accent: '#ccff00',    // Neon Lime / Green Streetwear
-                        secondary: '#18181b', // Zinc 900
-                        cardbg: '#121212',    // Dark Grey untuk kartu
-                        mute: '#a1a1aa'       // Abu-abu teks
+                        primary: '#000000',
+                        accent: '#ccff00',
+                        secondary: '#18181b',
+                        cardbg: '#121212',
+                        mute: '#a1a1aa'
                     }
                 }
             }
@@ -64,53 +39,10 @@
         html { scroll-behavior: smooth; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Glassmorphism Dark */
-        .glass {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .brand-logo:hover { 
-            transform: scale(1.05); 
-            border-color: #ccff00; /* Neon border on hover */
-            box-shadow: 0 0 15px rgba(204, 255, 0, 0.3);
-        }
-        
         .product-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .product-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 10px 30px -10px rgba(204, 255, 0, 0.15); 
-            border-color: #ccff00;
-        }
-        
-        /* Modal Styles */
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(204, 255, 0, 0.15); border-color: #ccff00; }
         #imageModal, #adminModal, #testimoniModal { backdrop-filter: blur(8px); }
         .nav-link.active { color: #ccff00; font-weight: 700; text-shadow: 0 0 10px rgba(204, 255, 0, 0.3); }
-        
-        /* Animasi Floating WA */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .float-btn { animation: float 3s ease-in-out infinite; }
-        
-        /* FAQ Style */
-        details > summary { list-style: none; }
-        details > summary::-webkit-details-marker { display: none; }
-        details[open] summary ~ * { animation: sweep .3s ease-in-out; }
-        @keyframes sweep {
-            0%    {opacity: 0; transform: translateY(-10px)}
-            100%  {opacity: 1; transform: translateY(0)}
-        }
-
-        /* Neon Text Selection */
-        ::selection {
-            background-color: #ccff00;
-            color: #000;
-        }
         
         /* Loading Spinner */
         .loader {
@@ -122,72 +54,49 @@
             animation: spin 1s linear infinite;
             margin: 20px auto;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<!-- Body Dark Streetwear -->
 <body class="bg-primary text-gray-200 font-sans pt-16 md:pt-20 min-h-screen selection:bg-accent selection:text-black">
 
-    <!-- Navbar (Dark & Transparan) -->
+    <!-- Navbar -->
     <nav class="bg-black/90 backdrop-blur-md border-b border-white/10 fixed w-full z-50 top-0">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Logo -->
             <a href="#" class="flex items-center gap-2 group" onclick="showSection('home-section'); resetFilter(); return false;">
-                <img src="1000108714.jpg" alt="Logo Yusuf Store 25" class="h-10 w-10 md:h-12 md:w-12 object-cover rounded-full border-2 border-transparent group-hover:border-accent transition duration-300">
-                
+                <img src="1000108714.jpg" onerror="this.src='https://via.placeholder.com/50'" alt="Logo" class="h-10 w-10 md:h-12 md:w-12 object-cover rounded-full border-2 border-transparent group-hover:border-accent transition duration-300">
                 <div class="hidden md:block">
                     <h1 class="font-display font-bold text-xl leading-none text-white tracking-wide group-hover:text-accent transition">Yusuf Store 25</h1>
                     <p class="text-xs text-gray-400 font-mono">Padang Sidimpuan</p>
                 </div>
             </a>
-
-            <!-- Desktop Navigation Links -->
+            <!-- Desktop Nav -->
             <div class="hidden md:flex items-center space-x-8 text-sm font-bold tracking-wide uppercase">
                 <a href="#" onclick="showSection('home-section'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Beranda</a>
                 <a href="#" onclick="showSection('catalog'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Katalog</a>
                 <a href="#" onclick="showSection('gallery'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Galeri</a>
                 <a href="#" onclick="showSection('testimonials'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Testimoni</a>
-                <a href="#" onclick="showSection('sizeguide'); return false;" class="nav-link text-gray-300 hover:text-accent transition">Size Guide</a>
             </div>
-
-            <!-- Search Bar (Desktop - Dark Style) -->
-            <div class="hidden md:flex flex-1 mx-6 justify-end relative">
-                <input type="text" id="desktopSearch" placeholder="Cari sneakers..." class="w-48 lg:w-64 bg-zinc-900 border border-zinc-700 rounded-full py-2 px-4 text-sm text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition placeholder-gray-600" onkeyup="searchProduct(this.value); showSection('catalog');">
-                <button class="absolute right-3 top-2.5 text-gray-500 hover:text-accent">
-                    <i class="fas fa-search text-sm"></i>
-                </button>
-            </div>
-
-            <!-- Menu & Mobile Toggle -->
+            <!-- Search & Menu -->
             <div class="flex items-center gap-5">
-                <a href="https://www.instagram.com/yusufstore_25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="text-gray-300 hover:text-accent text-2xl transition">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <button class="md:hidden text-2xl text-white hover:text-accent transition" onclick="toggleMenu()">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <div class="hidden md:block relative">
+                    <input type="text" placeholder="Cari..." class="bg-zinc-900 border border-zinc-700 rounded-full py-2 px-4 text-sm focus:outline-none focus:border-accent w-48" onkeyup="searchProduct(this.value); showSection('catalog');">
+                </div>
+                <button class="md:hidden text-2xl text-white hover:text-accent transition" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
             </div>
         </div>
-
         <!-- Mobile Menu -->
         <div id="mobileMenu" class="hidden bg-zinc-900 border-t border-white/10 p-4 md:hidden text-white">
             <input type="text" placeholder="Cari barang..." class="w-full bg-black border border-zinc-700 p-2 rounded mb-4 focus:border-accent outline-none" onkeyup="searchProduct(this.value); showSection('catalog'); toggleMenu();">
             <ul class="space-y-4 font-bold uppercase text-sm tracking-wider">
-                <li><a href="#" class="block hover:text-accent" onclick="showSection('home-section'); toggleMenu(); return false;">Beranda</a></li>
-                <li><a href="#" class="block hover:text-accent" onclick="showSection('catalog'); toggleMenu(); return false;">Katalog</a></li>
-                <li><a href="#" class="block hover:text-accent" onclick="showSection('gallery'); toggleMenu(); return false;">Galeri</a></li>
-                <li><a href="#" class="block hover:text-accent" onclick="showSection('testimonials'); toggleMenu(); return false;">Testimoni</a></li>
-                <li><a href="#" class="block hover:text-accent" onclick="showSection('sizeguide'); toggleMenu(); return false;">Size Guide</a></li>
-                <li><a href="#shipping-location-section" class="block hover:text-accent" onclick="showSection('shipping-location-section'); toggleMenu(); return false;">Cek Ongkir & Lokasi</a></li>
+                <li><a href="#" class="block hover:text-accent" onclick="showSection('home-section'); toggleMenu();">Beranda</a></li>
+                <li><a href="#" class="block hover:text-accent" onclick="showSection('catalog'); toggleMenu();">Katalog</a></li>
+                <li><a href="#" class="block hover:text-accent" onclick="showSection('gallery'); toggleMenu();">Galeri</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- FLOATING WHATSAPP BUTTON (Neon Style) -->
-    <a href="https://wa.me/6281375861195?text=Halo Admin Yusuf Store 25, saya mau tanya sepatu..." target="_blank" class="fixed bottom-6 right-6 z-50 float-btn bg-accent hover:bg-white text-black w-14 h-14 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.4)] flex items-center justify-center text-3xl transition duration-300 border-2 border-black">
+    <!-- Floating WA -->
+    <a href="https://wa.me/6281375861195" target="_blank" class="fixed bottom-6 right-6 z-50 bg-accent hover:bg-white text-black w-14 h-14 rounded-full shadow-[0_0_20px_rgba(204,255,0,0.4)] flex items-center justify-center text-3xl transition duration-300 border-2 border-black">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -195,435 +104,131 @@
     <main id="main-content">
         <!-- Home Section -->
         <div id="home-section" class="page-section">
-            <!-- Hero Banner -->
             <section class="relative h-[350px] md:h-[450px] w-full overflow-hidden bg-black">
-                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=2070&auto=format&fit=crop" alt="Esthetic Shoes" class="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition duration-700">
-                
-                <!-- STIKER INFO (BARU - ADJUSTED MOBILE POSITION) -->
-                <div class="absolute top-4 right-2 md:top-12 md:right-16 z-30 transform rotate-12 hover:rotate-0 transition duration-500 cursor-default">
-                    <div class="bg-accent text-black font-black text-[10px] md:text-base px-2 py-1 md:px-4 md:py-2 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)] border-2 border-black text-center leading-tight uppercase animate-pulse">
-                        Barang Ready<br><span class="text-red-600 font-extrabold">& Bisa PO!</span>
-                    </div>
-                </div>
-
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-                
+                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-40 grayscale">
                 <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
-                    <img src="1000108714.jpg" alt="Logo Yusuf Store 25" class="w-24 h-24 md:w-32 md:h-32 mb-6 rounded-full border-4 border-accent shadow-[0_0_30px_rgba(204,255,0,0.3)] object-cover">
-
-                    <!-- JUDUL TOKO DIPERBARUI FONTYA -->
-                    <div class="mb-4">
-                        <h2 class="text-3xl md:text-5xl font-display uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-accent to-white drop-shadow-[0_0_10px_rgba(204,255,0,0.5)] tracking-wider">
-                            Yusuf Store 25
-                        </h2>
-                        <p class="text-[10px] md:text-sm text-gray-300 font-mono mt-1 tracking-widest uppercase">
-                            Padang Sidimpuan Depan Tugu Salak
-                        </p>
-                    </div>
-                    
-                    <div class="text-sm md:text-lg font-light text-gray-300 flex flex-col gap-1 items-center mb-8">
-                        <p class="italic">"Biarkan gayamu bicara!"</p>
-                        <p>"Mode yang cocok untuk setiap langkah Anda"</p>
-                        <p class="text-accent font-medium mt-1">"Tampil percaya diri dengan sepatu Yusuf_Store25"</p>
-                    </div>
-
-                    <button onclick="showSection('catalog')" class="bg-accent text-black font-extrabold py-3 px-10 rounded-full transition duration-300 hover:bg-white hover:scale-105 shadow-[0_0_20px_rgba(204,255,0,0.5)] uppercase tracking-widest text-xs md:text-sm">
-                        Belanja Sekarang
-                    </button>
+                    <h2 class="text-3xl md:text-5xl font-display uppercase text-white drop-shadow-md mb-2">Yusuf Store 25</h2>
+                    <p class="text-gray-300 mb-6">Pusat Sepatu Padang Sidimpuan</p>
+                    <button onclick="showSection('catalog')" class="bg-accent text-black font-extrabold py-3 px-10 rounded-full hover:scale-105 transition uppercase tracking-widest text-xs md:text-sm">Belanja Sekarang</button>
                 </div>
             </section>
-
+            
             <!-- Brand Grid -->
             <section class="py-16 container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <span class="inline-block border-b-2 border-accent pb-2">
-                        <h3 class="font-bold text-lg md:text-3xl text-white uppercase tracking-widest">
-                            Pilih Brand Favorit Mu
-                        </h3>
-                    </span>
-                </div>
-                
-                <div class="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-6" id="brandContainer">
-                    <!-- JS Generated -->
-                </div>
+                <h3 class="text-center font-bold text-2xl text-white mb-8 uppercase">Brand Favorit</h3>
+                <div class="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-6" id="brandContainer"></div>
             </section>
         </div>
 
         <!-- Catalog Section -->
         <section id="catalog" class="page-section hidden py-10 min-h-screen">
             <div class="container mx-auto px-4">
-                <!-- Filter Bar (UPDATED: Relative on mobile, Sticky on Desktop) -->
-                <div class="flex flex-col md:flex-row justify-between items-center mb-8 bg-zinc-900 border border-zinc-800 p-4 rounded-xl gap-4 relative md:sticky md:top-24 z-40 shadow-xl">
+                <!-- Filter -->
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8 bg-zinc-900 border border-zinc-800 p-4 rounded-xl gap-4 sticky top-20 z-40 shadow-xl">
                     <div class="flex items-center gap-2">
                         <i class="fas fa-filter text-accent"></i>
-                        <h2 class="text-lg font-bold text-white uppercase tracking-wider">Katalog</h2>
+                        <h2 class="text-lg font-bold text-white uppercase">Katalog</h2>
                     </div>
-                    
-                    <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto items-center">
-                        <select onchange="sortProducts(this.value)" class="bg-black text-gray-300 border border-zinc-700 rounded px-3 py-2 text-xs focus:border-accent outline-none w-full md:w-auto">
-                            <option value="default">Urutkan</option>
-                            <option value="low">Harga Terendah</option>
-                            <option value="high">Harga Tertinggi</option>
-                        </select>
-                        <div class="flex flex-wrap justify-center gap-2">
-                            <button onclick="filterCategory('all')" class="cat-btn active bg-accent text-black font-bold px-4 py-1.5 rounded-full text-xs hover:bg-white hover:text-black transition">Semua</button>
-                            <button onclick="filterCategory('Running')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Running</button>
-                            <button onclick="filterCategory('Casual')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Casual</button>
-                            <button onclick="filterCategory('Futsal')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Futsal</button>
-                            <button onclick="filterCategory('Basket')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Basket</button>
-                            <button onclick="filterCategory('Kaos')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Kaos</button>
-                            <button onclick="filterCategory('Jam Tangan')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1.5 rounded-full text-xs hover:border-accent hover:text-black hover:bg-accent transition">Jam Tangan</button>
-                        </div>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <button onclick="filterCategory('all')" class="cat-btn active bg-accent text-black font-bold px-4 py-1 rounded-full text-xs">Semua</button>
+                        <button onclick="filterCategory('Running')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1 rounded-full text-xs hover:border-accent hover:text-white">Running</button>
+                        <button onclick="filterCategory('Casual')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1 rounded-full text-xs hover:border-accent hover:text-white">Casual</button>
+                        <button onclick="filterCategory('Futsal')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1 rounded-full text-xs hover:border-accent hover:text-white">Futsal</button>
+                        <button onclick="filterCategory('Basket')" class="cat-btn bg-black text-gray-400 border border-zinc-700 px-4 py-1 rounded-full text-xs hover:border-accent hover:text-white">Basket</button>
                     </div>
-                </div>
-
-                <div class="bg-zinc-900/50 border-l-4 border-accent p-3 mb-8 text-xs text-gray-300">
-                    <i class="fas fa-truck mr-2"></i> Siap kirim ke seluruh Indonesia dengan packing aman!
                 </div>
 
                 <!-- Product Grid -->
                 <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                     <div class="col-span-full text-center py-10">
                         <div class="loader"></div>
-                        <p class="text-gray-400 text-sm mt-4">Memuat data dari Firebase...</p>
+                        <p class="text-gray-400 text-sm mt-4">Memuat data dari Database...</p>
                     </div>
                 </div>
-                
                 <div id="emptyState" class="hidden text-center py-20 text-gray-600">
                     <i class="fas fa-box-open text-6xl mb-4"></i>
-                    <p>Barang tidak ditemukan di Database.</p>
+                    <p>Produk tidak ditemukan.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Galeri Pembeli Section -->
-        <section id="gallery" class="page-section hidden py-16 container mx-auto px-4 bg-black">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl font-bold text-white mb-2 uppercase tracking-widest">Galeri Pembeli</h2>
-                <div class="h-1 w-20 bg-accent mx-auto rounded"></div>
-                <p class="text-gray-400 text-xs mt-4">Klik foto untuk melihat lebih jelas</p>
-            </div>
-            <!-- Grid diubah: mobile 3 kolom, desktop 6 kolom (lebih kecil & padat) -->
-            <div class="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-4">
-                <!-- Foto 1-12 -->
-                <div onclick="viewGalleryImage('pembeli1.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli1.jpg" alt="Galeri Pembeli 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <!-- ... Sisa galeri tetap sama ... -->
-                <div onclick="viewGalleryImage('pembeli2.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli2.jpg" alt="Galeri Pembeli 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli3.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli3.jpg" alt="Galeri Pembeli 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli4.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli4.jpg" alt="Galeri Pembeli 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli5.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli5.jpg" alt="Galeri Pembeli 5" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                <div onclick="viewGalleryImage('pembeli6.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                    <img src="pembeli6.jpg" alt="Galeri Pembeli 6" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <i class="fas fa-search-plus text-accent text-xl"></i>
-                    </div>
-                </div>
-                
-                <!-- Video placeholders -->
-                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700">
-                    <video class="w-full h-full object-cover" controls muted loop playsinline>
-                        <source src="video_review1.mp4" type="video/mp4">
-                        Video tidak support
-                    </video>
-                    <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none"><i class="fas fa-play"></i> VIDEO</div>
-                </div>
-                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700">
-                    <video class="w-full h-full object-cover" controls muted loop playsinline>
-                        <source src="video_review2.mp4" type="video/mp4">
-                        Video tidak support
-                    </video>
-                    <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none"><i class="fas fa-play"></i> VIDEO</div>
+        <!-- Gallery Section -->
+        <section id="gallery" class="page-section hidden py-16 container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-white text-center mb-8 uppercase">Galeri Pembeli</h2>
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
+                <div class="aspect-square bg-zinc-800 rounded overflow-hidden cursor-pointer" onclick="viewGalleryImage('pembeli1.jpg')"><img src="pembeli1.jpg" onerror="this.src='https://via.placeholder.com/150'" class="w-full h-full object-cover hover:scale-110 transition"></div>
+                <div class="aspect-square bg-zinc-800 rounded overflow-hidden cursor-pointer" onclick="viewGalleryImage('pembeli2.jpg')"><img src="pembeli2.jpg" onerror="this.src='https://via.placeholder.com/150'" class="w-full h-full object-cover hover:scale-110 transition"></div>
+                <div class="aspect-square bg-zinc-800 rounded overflow-hidden cursor-pointer" onclick="viewGalleryImage('pembeli3.jpg')"><img src="pembeli3.jpg" onerror="this.src='https://via.placeholder.com/150'" class="w-full h-full object-cover hover:scale-110 transition"></div>
+                <!-- Video Placeholder -->
+                <div class="relative aspect-square bg-zinc-800 rounded border border-zinc-700 flex items-center justify-center">
+                    <i class="fas fa-play text-accent text-2xl"></i>
+                    <span class="absolute bottom-2 text-[10px] text-gray-400">Review Video</span>
                 </div>
             </div>
         </section>
 
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="page-section hidden py-16 container mx-auto px-4 bg-zinc-900/30">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl font-bold text-white mb-4 uppercase tracking-widest">Kata Mereka</h2>
-                <button onclick="openTestiModal()" class="bg-transparent hover:bg-accent hover:text-black text-accent border border-accent px-6 py-2 rounded text-xs font-bold transition uppercase tracking-wide">
-                    <i class="fas fa-pen mr-2"></i>Tulis Ulasan
-                </button>
+        <!-- Testimonials -->
+        <section id="testimonials" class="page-section hidden py-16 container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-white text-center mb-8 uppercase">Testimoni</h2>
+            <div class="text-center mb-8">
+                <button onclick="openTestiModal()" class="bg-transparent border border-accent text-accent px-6 py-2 rounded text-xs font-bold hover:bg-accent hover:text-black transition">Tulis Ulasan</button>
             </div>
-            <div id="testimoniGrid" class="grid md:grid-cols-3 gap-6">
-                <!-- Testimoni 1 -->
-                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
-                    <div class="text-accent text-xs mb-4">★★★★★</div>
-                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">"Barang mendarat dengan aman di Medan. Kualitasnya oke banget untuk harga segini. Adminnya ramah poll!"</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&auto=format&fit=crop&q=60" alt="Rudi" class="w-10 h-10 rounded-full object-cover border border-zinc-700">
-                        <div>
-                            <p class="font-bold text-sm text-white">Rudi Hartono</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide">Medan</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Testimoni 2 -->
-                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
-                    <div class="text-accent text-xs mb-4">★★★★★</div>
-                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">"Suka banget sama sepatunya, pas di kaki. Pengiriman cepet, packing rapih. Next order lagi disini."</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60" alt="Siti" class="w-10 h-10 rounded-full object-cover border border-zinc-700">
-                        <div>
-                            <p class="font-bold text-sm text-white">Siti Aminah</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide">Padang Sidimpuan</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Testimoni 3 -->
-                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
-                    <div class="text-accent text-xs mb-4">★★★★★</div>
-                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">"Awalnya ragu karena online, tapi pas sampe barangnya realpict. Thanks Yusuf Store!"</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Budi" class="w-10 h-10 rounded-full object-cover border border-zinc-700">
-                        <div>
-                            <p class="font-bold text-sm text-white">Ferdinand Sianturi</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide">P.Siantar</p>
-                        </div>
-                    </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-zinc-900 p-6 rounded border border-zinc-800">
+                    <div class="text-accent text-xs mb-2">★★★★★</div>
+                    <p class="text-gray-400 text-sm">"Barang mantap, pengiriman cepat ke Medan."</p>
+                    <p class="text-white text-xs font-bold mt-4">- Rudi, Medan</p>
                 </div>
             </div>
         </section>
-
-        <!-- FAQ Section -->
-        <section class="py-12 container mx-auto px-4 border-t border-zinc-900">
-            <h2 class="text-xl font-bold text-white text-center mb-8 uppercase tracking-widest">FAQ</h2>
-            <div class="max-w-2xl mx-auto space-y-3">
-                <details class="group bg-zinc-900 border border-zinc-800 rounded overflow-hidden">
-                    <summary class="flex justify-between items-center p-4 font-medium text-sm text-gray-200 cursor-pointer hover:bg-zinc-800 transition">
-                        <span>Apakah barang Ready Stock?</span>
-                        <span class="text-accent transition group-open:rotate-180"><i class="fas fa-plus"></i></span>
-                    </summary>
-                    <div class="p-4 text-gray-400 text-xs border-t border-zinc-800 leading-relaxed">
-                        Sebagian besar barang ready stock. Namun status stok dapat berubah sewaktu-waktu. Silakan cek label "SOLD" atau "READY" di katalog.
-                    </div>
-                </details>
-                <details class="group bg-zinc-900 border border-zinc-800 rounded overflow-hidden">
-                    <summary class="flex justify-between items-center p-4 font-medium text-sm text-gray-200 cursor-pointer hover:bg-zinc-800 transition">
-                        <span>Bisa kirim ke mana saja?</span>
-                        <span class="text-accent transition group-open:rotate-180"><i class="fas fa-plus"></i></span>
-                    </summary>
-                    <div class="p-4 text-gray-400 text-xs border-t border-zinc-800 leading-relaxed">
-                        Kami melayani pengiriman ke seluruh Indonesia menggunakan ekspedisi JNE, J&T, dan SiCepat.
-                    </div>
-                </details>
-                <details class="group bg-zinc-900 border border-zinc-800 rounded overflow-hidden">
-                    <summary class="flex justify-between items-center p-4 font-medium text-sm text-gray-200 cursor-pointer hover:bg-zinc-800 transition">
-                        <span>Apakah barang Original?</span>
-                        <span class="text-accent transition group-open:rotate-180"><i class="fas fa-plus"></i></span>
-                    </summary>
-                    <div class="p-4 text-gray-400 text-xs border-t border-zinc-800 leading-relaxed">
-                        Kami menjual barang Original dan Premium Hight Quality. Keterangan Original tertera jelas di setiap kartu produk.
-                    </div>
-                </details>
-            </div>
-        </section>
-
-        <!-- Size Guide -->
-        <section id="sizeguide" class="page-section hidden py-12 min-h-screen">
-            <div class="container mx-auto px-4 max-w-4xl">
-                <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-6 md:p-10 shadow-lg">
-                    <h2 class="text-xl font-bold text-center mb-8 text-white uppercase tracking-widest">Size Guide</h2>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full text-sm md:text-base text-gray-300">
-                            <thead>
-                                <tr class="border-b border-zinc-700 text-accent">
-                                    <th class="py-3 px-4 font-bold">EUR</th>
-                                    <th class="py-3 px-4 font-bold">US (Men)</th>
-                                    <th class="py-3 px-4 font-bold">UK</th>
-                                    <th class="py-3 px-4 font-bold">CM</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center divide-y divide-zinc-800">
-                                <tr><td class="py-3">39</td><td>6.5</td><td>6</td><td>24.5 cm</td></tr>
-                                <tr><td class="py-3">40</td><td>7</td><td>6.5</td><td>25 cm</td></tr>
-                                <tr><td class="py-3">41</td><td>8</td><td>7.5</td><td>26 cm</td></tr>
-                                <tr><td class="py-3">42</td><td>8.5</td><td>8</td><td>26.5 cm</td></tr>
-                                <tr><td class="py-3">43</td><td>9.5</td><td>9</td><td>27.5 cm</td></tr>
-                                <tr><td class="py-3">44</td><td>10</td><td>9.5</td><td>28 cm</td></tr>
-                                <tr><td class="py-3">45</td><td>11</td><td>10.5</td><td>29 cm</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="text-[10px] text-center mt-6 text-gray-500 font-mono">*Ukuran dapat berbeda tergantung merek. Konsultasikan dengan admin.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Cek Ongkir & Location -->
-        <div id="shipping-location-section" class="page-section hidden py-10 min-h-screen">
-            <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
-                <!-- Cek Ongkir -->
-                <section id="ongkir" class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg md:col-span-2">
-                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-white uppercase tracking-wider">
-                        <i class="fas fa-truck text-accent"></i> Cek Ongkir
-                    </h3>
-                    <form id="shippingForm" onsubmit="checkShipping(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Kecamatan Tujuan</label>
-                            <input type="text" id="destination" required placeholder="Contoh: Padang Sidimpuan Utara" class="w-full bg-black border border-zinc-700 rounded p-3 text-white focus:border-accent outline-none text-sm placeholder-gray-700">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Berat (Gram)</label>
-                            <input type="number" value="1000" class="w-full bg-zinc-800 border border-zinc-700 rounded p-3 text-gray-400 text-sm cursor-not-allowed" readonly>
-                        </div>
-                        <button type="submit" class="w-full bg-accent text-black font-bold py-3 rounded hover:bg-white transition uppercase text-sm tracking-wide">
-                            Cek Ongkir
-                        </button>
-                    </form>
-                    <div id="shippingResult" class="hidden mt-6 p-4 bg-accent/10 border border-accent/20 rounded text-sm text-accent">
-                        <p class="font-bold mb-1"><i class="fas fa-info-circle"></i> Info:</p>
-                        <p class="text-gray-300">Untuk tarif real-time JNE/J&T ke <span id="destResult" class="font-bold text-white"></span>, silakan chat admin.</p>
-                    </div>
-                </section>
-
-                <!-- Map -->
-                <section id="location" class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg md:col-span-1">
-                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-white uppercase tracking-wider">
-                        <i class="fas fa-map-pin text-accent"></i> Lokasi
-                    </h3>
-                    <p class="mb-4 text-xs text-gray-400 font-mono">Jln. Merdeka-Kantin, Padang Sidimpuan, Sumut</p>
-                    <div class="w-full h-48 bg-zinc-800 rounded overflow-hidden grayscale hover:grayscale-0 transition duration-500">
-                        <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=1.3759020665545012,99.27329924966573&z=16&output=embed" allowfullscreen></iframe>
-                    </div>
-                    <a href="https://maps.google.com/?q=1.3759020665545012,99.27329924966573" target="_blank" class="block text-center mt-4 text-xs font-bold text-accent hover:text-white uppercase tracking-wider">
-                        Buka di Google Maps
-                    </a>
-                </section>
-            </div>
-        </div>
     </main>
 
-    <!-- Payment Footer -->
-    <div class="border-t border-zinc-900 py-10 mt-12 bg-black">
+    <!-- Footer -->
+    <footer class="bg-black text-white py-8 border-t border-zinc-900 mt-12">
         <div class="container mx-auto px-4 text-center">
-            <h4 class="text-gray-600 text-[10px] font-bold uppercase tracking-[0.2em] mb-6">Metode Pembayaran</h4>
-            <div class="flex flex-wrap justify-center gap-6 opacity-50 hover:opacity-100 transition duration-500">
-                <span class="font-bold text-gray-400 text-sm">BCA</span>
-                <span class="font-bold text-gray-400 text-sm">BRI</span>
-                <span class="font-bold text-gray-400 text-sm">BNI</span>
-                <span class="font-bold text-gray-400 text-sm">MANDIRI</span>
-                <span class="font-bold text-gray-400 text-sm">DANA</span>
-                <span class="font-bold text-gray-400 text-sm">OVO</span>
-                <span class="font-bold text-gray-400 text-sm">QRIS</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Footer -->
-    <footer class="bg-black text-white py-12 border-t border-zinc-900">
-        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-12 text-sm">
-            <div>
-                <h3 class="font-black text-xl mb-4 text-white uppercase tracking-tight">Yusuf Store 25</h3>
-                <p class="text-gray-500 leading-relaxed mb-6">Menyediakan sepatu berkualitas dengan harga terbaik. Original & Premium Quality.</p>
-                <div class="flex gap-4">
-                    <a href="#" class="w-8 h-8 flex items-center justify-center rounded bg-zinc-900 hover:bg-accent hover:text-black transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="w-8 h-8 flex items-center justify-center rounded bg-zinc-900 hover:bg-accent hover:text-black transition"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-            <div>
-                <h3 class="font-bold text-white mb-4 uppercase tracking-wider">Kontak</h3>
-                <ul class="text-gray-500 space-y-3 font-mono text-xs">
-                    <li><i class="fab fa-whatsapp w-6 text-accent"></i> 0813-7586-1195</li>
-                    <li><i class="fas fa-map-marker-alt w-6 text-accent"></i> Padang Sidimpuan</li>
-                    <li><i class="far fa-envelope w-6 text-accent"></i> yusufstore25@gmail.com</li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="font-bold text-white mb-4 uppercase tracking-wider">Lokasi Toko</h3>
-                <div class="w-full h-32 bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800 grayscale hover:grayscale-0 transition duration-500">
-                    <iframe 
-                        width="100%" 
-                        height="100%" 
-                        frameborder="0" 
-                        style="border:0" 
-                        src="https://maps.google.com/maps?q=1.3759020665545012,99.27329924966573&z=16&output=embed" allowfullscreen>
-                    </iframe>
-                </div>
-                <div class="mt-3 text-xs text-gray-500 flex justify-between items-center border-t border-zinc-800 pt-2">
-                    <span>Buka Setiap Hari</span>
-                    <span class="text-white font-bold">11.00 - 22.30 WIB</span>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-12 pt-8 border-t border-zinc-900 text-[10px] text-gray-600 uppercase tracking-widest">
-            &copy; 2025 Yusuf Store 25. All Rights Reserved. <br>
-            <a href="#" onclick="adminLogin(event)" class="hover:text-accent transition mt-2 inline-block">Admin Login</a>
+            <p class="text-xs text-gray-500 mb-4">&copy; 2025 Yusuf Store 25. All Rights Reserved.</p>
+            <a href="#" onclick="adminLogin(event)" class="text-[10px] text-gray-600 hover:text-accent">Admin Login</a>
         </div>
     </footer>
 
-    <!-- Image Modal (Zoom) -->
+    <!-- Modals -->
     <div id="imageModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/95 p-4" onclick="closeModal()">
-        <div class="relative w-full h-full flex items-center justify-center">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white text-3xl transition z-50">✕</button>
-            <img id="modalImg" src="" class="max-h-[85vh] max-w-full object-contain rounded shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-zinc-800">
-        </div>
+        <img id="modalImg" src="" class="max-h-[85vh] max-w-full rounded border border-zinc-800">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-3xl">✕</button>
     </div>
 
-    <!-- Testimoni Modal Form -->
     <div id="testimoniModal" class="fixed inset-0 z-[90] hidden flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-lg w-full max-w-md p-6 relative">
-            <button onclick="closeTestiModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">✕</button>
-            <h3 class="text-xl font-bold text-white mb-6 uppercase tracking-wide">Tulis Ulasan</h3>
-            <form onsubmit="submitTestimonial(event)" class="space-y-4">
-                <input type="text" id="testiName" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Nama Anda">
-                <input type="text" id="testiCity" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Kota">
-                <select id="testiRating" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none">
-                    <option value="5">★★★★★ - Sangat Puas</option>
-                    <option value="4">★★★★ - Puas</option>
-                    <option value="3">★★★ - Cukup</option>
-                </select>
-                <textarea id="testiReview" required rows="3" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Ulasan Anda..."></textarea>
-                <button type="submit" class="w-full bg-accent text-black font-bold py-3 rounded hover:bg-white transition uppercase text-xs tracking-widest">Kirim ke WhatsApp</button>
+        <div class="bg-zinc-900 border border-zinc-800 rounded w-full max-w-md p-6 relative">
+            <button onclick="closeTestiModal()" class="absolute top-2 right-4 text-gray-500 hover:text-white">✕</button>
+            <h3 class="text-white font-bold mb-4">Tulis Ulasan</h3>
+            <form onsubmit="submitTestimonial(event)" class="space-y-3">
+                <input type="text" id="testiName" placeholder="Nama" class="w-full bg-black border border-zinc-700 p-2 rounded text-white text-sm">
+                <textarea id="testiReview" placeholder="Ulasan..." class="w-full bg-black border border-zinc-700 p-2 rounded text-white text-sm"></textarea>
+                <button class="w-full bg-accent text-black font-bold py-2 rounded text-sm">Kirim WA</button>
             </form>
         </div>
     </div>
 
-    <!-- Admin Modal -->
+    <!-- ADMIN MODAL (UPDATED FOR UPLOAD) -->
     <div id="adminModal" class="fixed inset-0 z-[90] hidden flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm">
         <div class="bg-zinc-900 border border-zinc-800 rounded-lg w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6 border-b border-zinc-800 pb-4">
-                <h2 class="text-xl font-bold text-white uppercase tracking-wider">Admin Panel</h2>
+                <h2 class="text-xl font-bold text-white uppercase">Admin Panel</h2>
                 <button onclick="closeAdmin()" class="text-gray-500 hover:text-red-500"><i class="fas fa-times"></i></button>
             </div>
 
             <div class="flex mb-6 bg-black rounded p-1">
-                <button onclick="showAdminTab('add')" id="tabAdd" class="flex-1 py-2 rounded text-xs font-bold uppercase tracking-wide bg-zinc-800 text-white transition">Tambah</button>
-                <button onclick="showAdminTab('list')" id="tabList" class="flex-1 py-2 rounded text-xs font-bold uppercase tracking-wide text-gray-500 hover:text-white transition">Kelola</button>
+                <button onclick="showAdminTab('add')" id="tabAdd" class="flex-1 py-2 rounded text-xs font-bold bg-zinc-800 text-white">Tambah</button>
+                <button onclick="showAdminTab('list')" id="tabList" class="flex-1 py-2 rounded text-xs font-bold text-gray-500">Kelola</button>
             </div>
 
-            <!-- Add Section -->
+            <!-- Add Section (UPDATED INPUT FILE) -->
             <div id="adminAddSection">
                 <form id="addProductForm" onsubmit="addProductToFirestore(event)" class="space-y-4">
                     <input type="text" id="addName" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Nama Produk">
                     <div class="grid grid-cols-2 gap-4">
-                        <select id="addBrand" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none"></select>
-                        <select id="addCategory" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none">
+                        <select id="addBrand" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm outline-none"></select>
+                        <select id="addCategory" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm outline-none">
                             <option value="Running">Running</option>
                             <option value="Casual">Casual</option>
                             <option value="Futsal">Futsal</option>
@@ -633,25 +238,21 @@
                         </select>
                     </div>
                     <div class="flex gap-4 flex-wrap">
-                        <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer">
-                            <input type="checkbox" id="addIsOriginal" class="accent-accent"> Original
-                        </label>
-                        <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer">
-                            <input type="checkbox" id="addIsSold" class="accent-red-500"> Sold Out
-                        </label>
-                        <!-- Checkbox Baru PO -->
-                        <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer">
-                            <input type="checkbox" id="addIsPO" class="accent-yellow-500"> Pre-Order (PO)
-                        </label>
+                        <label class="flex items-center gap-2 text-sm text-gray-400"><input type="checkbox" id="addIsOriginal" class="accent-accent"> Original</label>
+                        <label class="flex items-center gap-2 text-sm text-gray-400"><input type="checkbox" id="addIsSold" class="accent-red-500"> Sold Out</label>
+                        <label class="flex items-center gap-2 text-sm text-gray-400"><input type="checkbox" id="addIsPO" class="accent-yellow-500"> Pre-Order</label>
                     </div>
-                    <input type="number" id="addPrice" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Harga Jual">
-                    <input type="number" id="addOriginalPrice" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Harga Coret (Opsional)">
+                    <input type="number" id="addPrice" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm outline-none" placeholder="Harga Jual">
+                    <input type="number" id="addOriginalPrice" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm outline-none" placeholder="Harga Coret (Opsional)">
                     
-                    <!-- File Upload Input (Ganti dari text ke file) -->
-                    <div class="relative">
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Upload Foto Produk</label>
-                        <input type="file" id="addImgFile" accept="image/*" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none cursor-pointer">
-                        <p class="text-[10px] text-gray-500 mt-1">*Foto akan otomatis diupload ke Firebase Storage</p>
+                    <!-- INPUT FILE UNTUK UPLOAD -->
+                    <div class="relative border-dashed border-2 border-zinc-700 rounded p-4 text-center hover:border-accent transition">
+                        <input type="file" id="addImgFile" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                        <div class="text-gray-400 text-xs">
+                            <i class="fas fa-cloud-upload-alt text-2xl mb-2 text-accent"></i><br>
+                            Klik untuk Upload Foto Produk
+                        </div>
+                        <p id="fileName" class="text-[10px] text-green-500 mt-2 hidden"></p>
                     </div>
                     
                     <button type="submit" class="w-full bg-white text-black font-bold py-3 rounded hover:bg-accent transition uppercase text-xs tracking-widest mt-2">Simpan ke Database</button>
@@ -665,17 +266,15 @@
         </div>
     </div>
 
-    <!-- Script Logic -->
+    <!-- SCRIPT UTAMA (MODULE) -->
     <script type="module">
         // Import Firebase Functions
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        // Import Firebase Storage
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
-        // Import Firebase Auth (DITAMBAHKAN UNTUK PERMISSION)
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-        // Konfigurasi Firebase dari User
+        // Konfigurasi Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyC-76DURrn1anKUwwf0seh6vxyjKX-GV8Q",
             authDomain: "yusus-store.firebaseapp.com",
@@ -686,522 +285,281 @@
             measurementId: "G-299QHZE8CP"
         };
 
-        // Initialize Firebase
+        // Initialize Firebase Services
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app); // Inisialisasi Storage
-        const auth = getAuth(app); // Inisialisasi Auth
+        const storage = getStorage(app);
+        const auth = getAuth(app);
 
-        // Login Anonim Otomatis agar diizinkan upload oleh Firebase Rules
-        signInAnonymously(auth)
-            .then(() => {
-                console.log("Berhasil login anonim ke Firebase");
-            })
-            .catch((error) => {
-                console.error("Gagal login anonim:", error);
-            });
+        // Login Anonim (PENTING AGAR BISA UPLOAD)
+        signInAnonymously(auth).then(() => console.log("Admin Logged In Anonymously")).catch(console.error);
 
-        // Global Variables
-        let products = []; // Data sekarang kosong, akan diisi dari Firebase
+        // Global Vars
+        let products = [];
+        let currentCategory = 'all';
         const brands = [
-            { name: "Adidas", logo: "logo_adidas.jpg" },
-            { name: "Nike", logo: "logo_nike.jpg" },
-            { name: "Onitsuka", logo: "logo_Onitsuka.jpg" },
-            { name: "New Balance", logo: "logo_nb.jpg" },
-            { name: "On Cloud", logo: "logo_oncloud.jpg" },
-            { name: "Puma", logo: "puma.jpg" },
-            { name: "Ortuseight", logo: "logo_ortus.jpg" },
-            { name: "910 Nineten", logo: "logo_910.jpg" },
-            { name: "Skechers", logo: "logo_Skechers.jpg" },
-            { name: "Hoka", logo: "logo_hoka.jpg" },
-            { name: "Asics", logo: "logo_Asics.jpg" },
-            { name: "Specs", logo: "logo_specs.jpg" },
-            { name: "Le Coq", logo: "lecoq.jpg" },
-            { name: "Converse", logo: "converse.jpg" }, 
-            { name: "Saucony", logo: "saucony.jpg" },
-            { name: "Under Armour", logo: "logo_ua.jpg" },
-            { name: "TNF", logo: "tnf.jpg" }, 
-            { name: "Lacoste", logo: "lacoste.jpg" }, 
-            { name: "Kanky", logo: "kanky.jpg" }, 
-            { name: "DNY", logo: "dny.jpg" }, 
-            { name: "Mills", logo: "mills.jpg" }, 
-            { name: "Ballerbro", logo: "balero.jpg" },
-            { name: "No Brand", logo: "nobrand.jpg" }     
+            { name: "Adidas", logo: "logo_adidas.jpg" }, { name: "Nike", logo: "logo_nike.jpg" },
+            { name: "Onitsuka", logo: "logo_Onitsuka.jpg" }, { name: "New Balance", logo: "logo_nb.jpg" },
+            { name: "On Cloud", logo: "logo_oncloud.jpg" }, { name: "Puma", logo: "puma.jpg" },
+            { name: "Ortuseight", logo: "logo_ortus.jpg" }, { name: "910 Nineten", logo: "logo_910.jpg" },
+            { name: "Skechers", logo: "logo_Skechers.jpg" }, { name: "Hoka", logo: "logo_hoka.jpg" },
+            { name: "Asics", logo: "logo_Asics.jpg" }, { name: "Specs", logo: "logo_specs.jpg" },
+            { name: "Le Coq", logo: "lecoq.jpg" }, { name: "Converse", logo: "converse.jpg" },
+            { name: "Saucony", logo: "saucony.jpg" }, { name: "Under Armour", logo: "logo_ua.jpg" },
+            { name: "TNF", logo: "tnf.jpg" }, { name: "Lacoste", logo: "lacoste.jpg" },
+            { name: "Kanky", logo: "kanky.jpg" }, { name: "DNY", logo: "dny.jpg" },
+            { name: "Mills", logo: "mills.jpg" }, { name: "Ballerbro", logo: "balero.jpg" },
+            { name: "No Brand", logo: "nobrand.jpg" }
         ];
 
-        // --- FETCH DATA DARI FIREBASE (REALTIME) ---
-        const productsCollection = collection(db, "products");
-        // Mengurutkan berdasarkan waktu dibuat (jika ada) atau nama, default ambil semua
-        const q = query(productsCollection); 
-
-        onSnapshot(q, (snapshot) => {
-            products = snapshot.docs.map(doc => ({
-                id: doc.id, // ID dari Firebase (string unik)
-                ...doc.data()
-            }));
-            
-            // Render ulang tampilan saat data berubah
-            renderProducts(products);
+        // --- REALTIME DATA ---
+        onSnapshot(collection(db, "products"), (snapshot) => {
+            products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            // Urutkan produk terbaru di atas (jika ada createdAt)
+            products.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+            renderProductsList(products);
             renderAdminProductList();
         });
 
-        // --- FUNGSI ADMIN BARU (MENGGUNAKAN FIRESTORE & STORAGE) ---
-
-        // Tambah Produk ke Firebase
+        // --- FUNGSI ADMIN ---
         window.addProductToFirestore = async function(e) {
             e.preventDefault();
-            
-            // Ambil elemen
+            const submitBtn = e.target.querySelector('button[type="submit"]');
             const fileInput = document.getElementById('addImgFile');
             const file = fileInput.files[0];
 
-            if (!file) {
-                alert("Harap pilih foto produk!");
-                return;
-            }
+            if (!file) { alert("Wajib pilih foto produk!"); return; }
 
-            // Tampilkan loading sederhana (ubah text tombol)
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerText;
-            submitBtn.innerText = "Mengupload...";
+            submitBtn.innerText = "Mengupload Foto... (Jangan Tutup)";
             submitBtn.disabled = true;
+            submitBtn.classList.remove('bg-white');
+            submitBtn.classList.add('bg-gray-500');
 
             try {
-                // 1. Upload File ke Firebase Storage
-                const storageRef = ref(storage, 'products/' + file.name + '-' + Date.now()); // Tambah timestamp biar unik
+                // 1. Upload ke Storage
+                const storageRef = ref(storage, 'products/' + Date.now() + '-' + file.name);
                 await uploadBytes(storageRef, file);
                 const imgUrl = await getDownloadURL(storageRef);
 
-                // 2. Ambil data form lainnya
-                const name = document.getElementById('addName').value;
-                const brand = document.getElementById('addBrand').value;
-                const category = document.getElementById('addCategory').value;
-                const price = parseInt(document.getElementById('addPrice').value);
-                const originalPriceVal = document.getElementById('addOriginalPrice').value;
-                const isOriginal = document.getElementById('addIsOriginal').checked;
-                const isSold = document.getElementById('addIsSold').checked;
-                const isPO = document.getElementById('addIsPO').checked;
-                
-                // 3. Buat Object Produk
-                const newProduct = { 
-                    name: name, 
-                    brand: brand, 
-                    category: category, 
-                    price: price, 
-                    img: imgUrl, // Gunakan URL dari Storage
-                    sold: isSold,
-                    isOriginal: isOriginal,
-                    isPO: isPO,
+                // 2. Simpan ke Firestore
+                const newProduct = {
+                    name: document.getElementById('addName').value,
+                    brand: document.getElementById('addBrand').value,
+                    category: document.getElementById('addCategory').value,
+                    price: parseInt(document.getElementById('addPrice').value),
+                    originalPrice: document.getElementById('addOriginalPrice').value ? parseInt(document.getElementById('addOriginalPrice').value) : null,
+                    img: imgUrl,
+                    sold: document.getElementById('addIsSold').checked,
+                    isOriginal: document.getElementById('addIsOriginal').checked,
+                    isPO: document.getElementById('addIsPO').checked,
                     createdAt: new Date().toISOString()
                 };
 
-                if(originalPriceVal) {
-                    newProduct.originalPrice = parseInt(originalPriceVal);
-                }
-                
-                // 4. Simpan ke Firestore
                 await addDoc(collection(db, "products"), newProduct);
-                
-                alert("Produk berhasil disimpan!");
-                document.getElementById('addProductForm').reset();
+                alert("Produk Berhasil Ditambah!");
+                e.target.reset();
+                document.getElementById('fileName').classList.add('hidden');
                 showAdminTab('list');
 
             } catch (error) {
-                console.error("Error adding document: ", error);
-                alert("Gagal menyimpan data: " + error.message);
+                console.error(error);
+                alert("Gagal: " + error.message);
             } finally {
-                // Reset tombol
-                submitBtn.innerText = originalBtnText;
+                submitBtn.innerText = "Simpan ke Database";
                 submitBtn.disabled = false;
+                submitBtn.classList.add('bg-white');
+                submitBtn.classList.remove('bg-gray-500');
             }
         }
 
-        // Hapus Produk dari Firebase
         window.deleteProduct = async function(id) {
-            if(confirm("Yakin ingin menghapus produk ini dari Database?")) {
-                try {
-                    await deleteDoc(doc(db, "products", id));
-                    // Tidak perlu render manual, onSnapshot akan otomatis update
-                } catch (error) {
-                    console.error("Error deleting document: ", error);
-                    alert("Gagal menghapus: " + error.message);
-                }
+            if(confirm("Hapus produk ini permanen?")) {
+                try { await deleteDoc(doc(db, "products", id)); } 
+                catch (e) { alert(e.message); }
             }
         }
 
-        // Toggle Status Sold di Firebase
         window.toggleSold = async function(id) {
-            const product = products.find(p => p.id === id);
-            if (product) {
-                try {
-                    await updateDoc(doc(db, "products", id), {
-                        sold: !product.sold
-                    });
-                } catch (error) {
-                    console.error("Error updating document: ", error);
-                }
-            }
+            const p = products.find(i => i.id === id);
+            if(p) await updateDoc(doc(db, "products", id), { sold: !p.sold });
         }
 
-        // Toggle Status PO di Firebase
         window.togglePO = async function(id) {
-            const product = products.find(p => p.id === id);
-            if (product) {
-                try {
-                    await updateDoc(doc(db, "products", id), {
-                        isPO: !product.isPO
-                    });
-                } catch (error) {
-                    console.error("Error updating document: ", error);
-                }
-            }
+            const p = products.find(i => i.id === id);
+            if(p) await updateDoc(doc(db, "products", id), { isPO: !p.isPO });
         }
 
-        // --- FUNGSI STANDAR (YANG LAIN TETAP SAMA NAMUN DI-EXPORT KE WINDOW) ---
+        // --- Helper Admin UI ---
+        document.getElementById('addImgFile').addEventListener('change', function() {
+            const fileNameDisplay = document.getElementById('fileName');
+            if (this.files[0]) {
+                fileNameDisplay.innerText = "Foto dipilih: " + this.files[0].name;
+                fileNameDisplay.classList.remove('hidden');
+            }
+        });
 
         window.adminLogin = function(e) {
             e.preventDefault();
-            const password = prompt("Masukkan Password Admin:");
-            if (password === "admin123") {
+            const p = prompt("Password Admin:");
+            if (p === "admin123") {
                 document.getElementById('adminModal').classList.remove('hidden');
                 renderAdminProductList();
-            } else if (password !== null) {
-                alert("Password salah!");
-            }
+            } else if (p !== null) alert("Salah bos!");
         }
 
-        window.closeAdmin = function() {
-            document.getElementById('adminModal').classList.add('hidden');
-        }
+        window.closeAdmin = () => document.getElementById('adminModal').classList.add('hidden');
 
-        window.showAdminTab = function(tabName) {
-            const addSec = document.getElementById('adminAddSection');
-            const listSec = document.getElementById('adminListSection');
-            const tabAdd = document.getElementById('tabAdd');
-            const tabList = document.getElementById('tabList');
-
-            if (tabName === 'add') {
-                addSec.classList.remove('hidden');
-                listSec.classList.add('hidden');
-                tabAdd.className = "flex-1 py-2 rounded-lg bg-slate-900 text-white font-semibold text-sm transition";
-                tabList.className = "flex-1 py-2 rounded-lg bg-gray-200 text-gray-600 font-semibold text-sm transition";
-            } else {
-                addSec.classList.add('hidden');
-                listSec.classList.remove('hidden');
-                tabList.className = "flex-1 py-2 rounded-lg bg-slate-900 text-white font-semibold text-sm transition";
-                tabAdd.className = "flex-1 py-2 rounded-lg bg-gray-200 text-gray-600 font-semibold text-sm transition";
-                renderAdminProductList(); 
-            }
+        window.showAdminTab = function(t) {
+            document.getElementById('adminAddSection').classList.toggle('hidden', t !== 'add');
+            document.getElementById('adminListSection').classList.toggle('hidden', t !== 'list');
+            document.getElementById('tabAdd').className = t === 'add' ? "flex-1 py-2 rounded text-xs font-bold bg-zinc-800 text-white" : "flex-1 py-2 rounded text-xs font-bold text-gray-500";
+            document.getElementById('tabList').className = t === 'list' ? "flex-1 py-2 rounded text-xs font-bold bg-zinc-800 text-white" : "flex-1 py-2 rounded text-xs font-bold text-gray-500";
+            if(t === 'list') renderAdminProductList();
         }
 
         window.renderAdminProductList = function() {
-            const container = document.getElementById('adminProductListContainer');
-            if (products.length === 0) {
-                container.innerHTML = '<p class="text-center text-gray-400 py-4">Belum ada produk di database.</p>';
-                return;
-            }
-
-            container.innerHTML = products.map(p => `
-                <div class="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-200 text-sm hover:bg-gray-100 transition">
+            const c = document.getElementById('adminProductListContainer');
+            if(!products.length) { c.innerHTML = '<p class="text-center text-gray-500 py-4">Kosong</p>'; return; }
+            c.innerHTML = products.map(p => `
+                <div class="flex justify-between items-center bg-zinc-800 p-2 rounded mb-2 border border-zinc-700">
                     <div class="flex items-center gap-2 overflow-hidden flex-1">
-                        <img src="${p.img}" class="w-10 h-10 rounded object-cover bg-gray-200 border border-gray-300">
+                        <img src="${p.img}" class="w-8 h-8 rounded object-cover">
                         <div class="truncate">
-                            <div class="font-bold text-gray-800 truncate w-24 md:w-40 ${p.sold ? 'line-through text-gray-400' : ''}">${p.name}</div>
-                            <div class="text-[10px] text-gray-500 font-mono">${p.brand} • ${formatRupiah(p.price)}</div>
+                            <div class="font-bold text-gray-200 truncate w-24 text-xs">${p.name}</div>
+                            <div class="text-[10px] text-gray-500">${new Intl.NumberFormat('id-ID').format(p.price)}</div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="togglePO('${p.id}')" class="${p.isPO ? 'bg-yellow-100 text-yellow-600 border-yellow-200' : 'bg-gray-200 text-gray-500 border-gray-300'} border px-2 py-1 rounded text-[10px] font-bold w-12 text-center transition hover:shadow-sm" title="Ubah ke PO / Ready">
-                            ${p.isPO ? 'PO' : 'RDY'}
-                        </button>
-                        <button onclick="toggleSold('${p.id}')" class="${p.sold ? 'bg-red-100 text-red-600 border-red-200' : 'bg-green-100 text-green-600 border-green-200'} border px-2 py-1 rounded text-[10px] font-bold w-16 text-center transition hover:shadow-sm" title="Klik untuk ubah status">
-                            ${p.sold ? 'SOLD' : 'READY'}
-                        </button>
-                        <button onclick="deleteProduct('${p.id}')" class="text-gray-400 hover:text-red-500 hover:bg-red-50 p-2 rounded transition" title="Hapus Produk">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
+                    <div class="flex gap-1">
+                        <button onclick="togglePO('${p.id}')" class="px-2 py-1 rounded text-[8px] font-bold ${p.isPO ? 'bg-yellow-500 text-black' : 'bg-gray-700 text-gray-300'}">PO</button>
+                        <button onclick="toggleSold('${p.id}')" class="px-2 py-1 rounded text-[8px] font-bold ${p.sold ? 'bg-red-500 text-white' : 'bg-green-500 text-white'}">${p.sold ? 'SOLD' : 'RDY'}</button>
+                        <button onclick="deleteProduct('${p.id}')" class="text-gray-400 hover:text-red-500 px-2"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
             `).join('');
         }
 
-        const formatRupiah = (number) => {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
-        }
+        // --- UI FUNCTIONS ---
+        window.renderProductsList = function(data) {
+            const g = document.getElementById('productGrid');
+            const e = document.getElementById('emptyState');
+            g.innerHTML = '';
+            if(!data.length) { e.classList.remove('hidden'); return; }
+            e.classList.add('hidden');
 
-        window.renderBrands = function() {
-            const container = document.getElementById('brandContainer');
-            const colors = [
-                'bg-red-50 border-red-200 text-red-800', 'bg-blue-50 border-blue-200 text-blue-800',
-                'bg-green-50 border-green-200 text-green-800', 'bg-amber-50 border-amber-200 text-amber-800',
-                'bg-purple-50 border-purple-200 text-purple-800', 'bg-pink-50 border-pink-200 text-pink-800',
-                'bg-indigo-50 border-indigo-200 text-indigo-800', 'bg-orange-50 border-orange-200 text-orange-800',
-                'bg-teal-50 border-teal-200 text-teal-800', 'bg-cyan-50 border-cyan-200 text-cyan-800',
-                'bg-rose-50 border-rose-200 text-rose-800', 'bg-slate-100 border-slate-200 text-slate-800'
-            ];
-
-            container.innerHTML = brands.map((brandObj, index) => {
-                const colorTheme = colors[index % colors.length];
-                if (brandObj.logo) {
-                    return `
-                        <div onclick="filterByBrand('${brandObj.name}')" class="brand-logo cursor-pointer bg-white p-2 rounded-lg flex items-center justify-center h-20 shadow-lg transition-all duration-300 group hover:bg-white hover:border-accent hover:shadow-2xl hover:-translate-y-1">
-                            <img src="${brandObj.logo}" alt="${brandObj.name}" class="max-h-full max-w-full object-contain">
-                        </div>
-                    `;
-                } else {
-                    return `
-                        <div onclick="filterByBrand('${brandObj.name}')" class="brand-logo cursor-pointer border ${colorTheme} p-3 rounded-lg flex flex-col items-center justify-center h-20 shadow-lg transition-all duration-300 group hover:bg-white hover:border-accent hover:shadow-2xl hover:-translate-y-1">
-                            <span class="font-bold text-xs md:text-sm text-center group-hover:text-accent transition-colors">${brandObj.name}</span>
-                        </div>
-                    `;
-                }
-            }).join('');
-        }
-
-        window.populateBrandOptions = function() {
-            const brandSelect = document.getElementById('addBrand');
-            if (brandSelect) {
-                brandSelect.innerHTML = brands.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
-            }
-        }
-
-        let currentCategory = 'all';
-
-        window.sortProducts = function(order) {
-            let sortedProducts = [...products];
-            if (order === 'low') {
-                sortedProducts.sort((a, b) => a.price - b.price);
-            } else if (order === 'high') {
-                sortedProducts.sort((a, b) => b.price - a.price);
-            }
-            // Temporarily replace main list for sorting visual, or just filter
-            // Simpler: filter then render
-            const filtered = currentCategory === 'all' ? sortedProducts : sortedProducts.filter(p => p.category === currentCategory);
-            renderProductsList(filtered); 
-        }
-
-        window.filterCategory = function(category) {
-            currentCategory = category;
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-accent', 'text-white', 'shadow-lg');
-                btn.classList.add('bg-white/10', 'text-white', 'border', 'border-white/20');
-            });
-            if(event && event.target) {
-                event.target.classList.remove('bg-white/10', 'text-white', 'border', 'border-white/20');
-                event.target.classList.add('bg-accent', 'text-white', 'shadow-lg');
-            }
-            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
-            renderProductsList(filtered);
-        }
-
-        window.filterByBrand = function(brandName) {
-            showSection('catalog');
-            const filtered = products.filter(p => p.brand === brandName);
-            renderProductsList(filtered);
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-accent', 'text-white', 'shadow-lg');
-                btn.classList.add('bg-white/10', 'text-white', 'border', 'border-white/20');
-            });
-        }
-
-        window.resetFilter = function() {
-            filterCategory('all');
-            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('bg-accent', 'text-white', 'shadow-lg'));
-            const allBtn = document.querySelector('.cat-btn[onclick="filterCategory(\'all\')"]');
-            if(allBtn) {
-                allBtn.classList.add('bg-accent', 'text-white', 'shadow-lg');
-                allBtn.classList.remove('bg-white/10', 'text-white', 'border', 'border-white/20');
-            }
-        }
-
-        window.searchProduct = function(query) {
-            const lowerQ = query.toLowerCase();
-            const filtered = products.filter(p => 
-                p.name.toLowerCase().includes(lowerQ) || 
-                p.brand.toLowerCase().includes(lowerQ) ||
-                p.category.toLowerCase().includes(lowerQ)
-            );
-            renderProductsList(filtered);
-        }
-
-        // Helper to render the passed list (not fetching again)
-        function renderProductsList(data) {
-            const grid = document.getElementById('productGrid');
-            const empty = document.getElementById('emptyState');
-            grid.innerHTML = '';
-            
-            if (data.length === 0) {
-                empty.classList.remove('hidden');
-                return;
-            } else {
-                empty.classList.add('hidden');
-            }
-
-            data.forEach(product => {
-                const imgStyle = product.sold ? 'grayscale opacity-75' : '';
-                const contentStyle = product.sold ? 'opacity-60' : '';
-                let btnAction;
-                if (product.sold) {
-                    btnAction = `<button disabled class="w-full bg-gray-400 text-white py-2 rounded font-bold cursor-not-allowed text-sm">TERJUAL / SOLD</button>`;
-                } else if (product.isPO) {
-                    btnAction = `<a href="https://wa.me/6281375861195?text=Halo Yusuf Store 25, saya mau pesan Pre-Order (PO) ${product.name} Brand ${product.brand} apakah bisa?" target="_blank" class="block w-full text-center bg-yellow-500 hover:bg-yellow-600 text-black py-2 rounded font-bold text-sm transition"><i class="fab fa-whatsapp"></i> Pesan PO</a>`;
-                } else {
-                    btnAction = `<a href="https://wa.me/6281375861195?text=Halo Yusuf Store 25, saya mau beli ${product.name} Brand ${product.brand} apakah masih ada?" target="_blank" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white py-2 rounded font-bold text-sm transition"><i class="fab fa-whatsapp"></i> Beli via WA</a>`;
-                }
+            data.forEach(p => {
+                const discount = p.originalPrice ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
+                const priceHtml = p.originalPrice 
+                    ? `<div class="flex flex-col"><span class="text-[10px] text-gray-500 line-through">Rp ${new Intl.NumberFormat('id-ID').format(p.originalPrice)}</span><div class="flex items-center gap-1"><span class="text-accent font-bold">Rp ${new Intl.NumberFormat('id-ID').format(p.price)}</span><span class="text-[8px] bg-red-600 text-white px-1 rounded">-${discount}%</span></div></div>`
+                    : `<span class="text-accent font-bold">Rp ${new Intl.NumberFormat('id-ID').format(p.price)}</span>`;
                 
-                let negoTextHTML = '';
-                if (!product.sold) {
-                    if (product.isOriginal) {
-                        negoTextHTML = '<p class="text-[10px] text-blue-600 font-semibold mt-1"><i class="fas fa-check-circle"></i> Harga Resmi</p>';
-                    } else if (product.isPO) {
-                        negoTextHTML = '<p class="text-[10px] text-yellow-600 italic mt-1 font-bold">Barang Pre-Order (Estimasi chat admin)</p>';
-                    } else {
-                        negoTextHTML = '<p class="text-[10px] text-green-600 italic mt-1">Harga masih bisa nego chat admin</p>';
-                    }
-                }
+                let btn = p.sold ? `<button disabled class="w-full bg-gray-600 text-white py-2 rounded text-xs font-bold cursor-not-allowed">SOLD OUT</button>`
+                    : `<a href="https://wa.me/6281375861195?text=Halo, saya mau beli ${p.name}" target="_blank" class="block w-full text-center ${p.isPO ? 'bg-yellow-500 text-black' : 'bg-green-600 text-white'} hover:opacity-80 py-2 rounded text-xs font-bold transition">${p.isPO ? 'Pesan PO' : 'Beli WA'}</a>`;
 
-                let priceDisplay = '';
-                if (product.originalPrice && product.originalPrice > product.price) {
-                    const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
-                    priceDisplay = `
-                        <div class="flex flex-col">
-                            <span class="text-[10px] text-gray-400 line-through">${formatRupiah(product.originalPrice)}</span>
-                            <div class="flex items-center gap-2">
-                                <span class="text-accent font-bold text-sm md:text-lg border border-accent px-2 py-1 rounded">${formatRupiah(product.price)}</span>
-                                <span class="text-[10px] bg-red-100 text-red-600 px-1 rounded font-bold">-${discount}%</span>
-                            </div>
+                g.innerHTML += `
+                    <div class="product-card bg-zinc-900 rounded-lg border border-zinc-800 overflow-hidden group hover:border-accent">
+                        <div class="relative cursor-pointer" onclick="openModal('${p.id}')">
+                            <img src="${p.img}" class="w-full h-40 object-cover ${p.sold ? 'grayscale opacity-50' : ''}">
+                            ${p.sold ? '<span class="absolute top-2 right-2 bg-red-600 text-white text-[10px] px-2 py-1 rounded font-bold">SOLD</span>' : (p.isPO ? '<span class="absolute top-2 right-2 bg-yellow-500 text-black text-[10px] px-2 py-1 rounded font-bold">PO</span>' : '')}
                         </div>
-                    `;
-                } else {
-                    priceDisplay = `<span class="text-accent font-bold text-sm md:text-lg border border-accent px-2 py-1 rounded">${formatRupiah(product.price)}</span>`;
-                }
-
-                // ID string perlu tanda kutip saat dipassing ke onclick
-                const card = `
-                    <div class="product-card bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 overflow-hidden relative group hover:border-accent transition duration-300">
-                        <div class="relative group cursor-pointer" onclick="openModal('${product.id}')">
-                            <img src="${product.img}" alt="${product.name}" class="w-full h-40 md:h-56 object-cover ${imgStyle}">
-                            ${product.sold ? '<div class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold shadow-md z-20">SOLD OUT</div>' : (product.isPO ? '<div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold shadow-md z-20">PRE-ORDER</div>' : '')}
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center z-10">
-                                <span class="opacity-0 group-hover:opacity-100 bg-white text-black text-xs px-3 py-1 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition"><i class="fas fa-search-plus"></i> Detail</span>
-                            </div>
-                        </div>
-                        <div class="p-3 md:p-4 ${contentStyle} text-gray-300">
-                            <div class="flex justify-between items-start">
-                                <p class="text-xs text-gray-500 uppercase font-semibold tracking-wider">${product.brand}</p>
-                                ${product.isOriginal && !product.sold ? '<span class="text-[10px] bg-accent text-black px-2 py-0.5 rounded font-bold">ORI</span>' : ''}
-                            </div>
-                            <h3 class="font-bold text-sm md:text-base text-white line-clamp-2 leading-tight mb-2">${product.name}</h3>
-                            <div class="flex items-center justify-between mb-3">
-                                ${priceDisplay}
-                            </div>
-                            ${negoTextHTML}
-                            <div class="mt-3">
-                                ${btnAction}
-                            </div>
+                        <div class="p-3">
+                            <div class="flex justify-between mb-1"><span class="text-[10px] text-gray-500 uppercase">${p.brand}</span> ${p.isOriginal && !p.sold ? '<span class="text-[8px] bg-blue-600 text-white px-1 rounded">ORI</span>' : ''}</div>
+                            <h3 class="font-bold text-sm text-white line-clamp-2 mb-2">${p.name}</h3>
+                            <div class="flex justify-between items-end mb-3">${priceHtml}</div>
+                            ${btn}
                         </div>
                     </div>
                 `;
-                grid.innerHTML += card;
             });
         }
 
-        // Bridge function for main entry point
-        window.renderProducts = function(data) {
-            renderProductsList(data);
-        }
-
-        window.showSection = function(sectionId) {
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.add('hidden');
+        window.filterCategory = function(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                b.classList.remove('bg-accent', 'text-black');
+                b.classList.add('bg-black', 'text-gray-400', 'border-zinc-700');
             });
-            const selectedSection = document.getElementById(sectionId);
-            if (selectedSection) {
-                selectedSection.classList.remove('hidden');
+            if(event && event.target) {
+                event.target.classList.remove('bg-black', 'text-gray-400', 'border-zinc-700');
+                event.target.classList.add('bg-accent', 'text-black');
             }
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (sectionId === 'home-section' && link.textContent === 'Beranda') link.classList.add('active');
-                if (sectionId === 'catalog' && link.textContent === 'Katalog') link.classList.add('active');
-                if (sectionId === 'testimonials' && link.textContent === 'Testimoni') link.classList.add('active');
-                if (sectionId === 'sizeguide' && link.textContent === 'Size Guide') link.classList.add('active');
-            });
-            window.scrollTo(0, 0);
+            const f = cat === 'all' ? products : products.filter(p => p.category === cat);
+            renderProductsList(f);
         }
+
+        window.searchProduct = function(q) {
+            const low = q.toLowerCase();
+            renderProductsList(products.filter(p => p.name.toLowerCase().includes(low) || p.brand.toLowerCase().includes(low)));
+        }
+
+        window.sortProducts = function(order) {
+            let sorted = [...products];
+            if(order === 'low') sorted.sort((a,b) => a.price - b.price);
+            if(order === 'high') sorted.sort((a,b) => b.price - a.price);
+            renderProductsList(currentCategory === 'all' ? sorted : sorted.filter(p => p.category === currentCategory));
+        }
+
+        // --- BASIC UI ---
+        window.populateBrandOptions = () => {
+            const s = document.getElementById('addBrand');
+            const bHtml = document.getElementById('brandContainer');
+            if(s) s.innerHTML = brands.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
+            if(bHtml) bHtml.innerHTML = brands.map(b => `
+                <div onclick="filterByBrand('${b.name}')" class="bg-white p-2 rounded flex items-center justify-center h-16 cursor-pointer hover:scale-105 transition shadow">
+                    ${b.logo ? `<img src="${b.logo}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" class="max-h-full max-w-full"><span style="display:none" class="text-black text-xs font-bold">${b.name}</span>` : `<span class="text-black text-xs font-bold">${b.name}</span>`}
+                </div>
+            `).join('');
+        }
+
+        window.filterByBrand = (name) => {
+            showSection('catalog');
+            renderProductsList(products.filter(p => p.brand === name));
+        }
+
+        window.showSection = (id) => {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        window.openModal = (id) => {
+            const p = products.find(i => i.id === id);
+            if(p) {
+                document.getElementById('modalImg').src = p.img;
+                document.getElementById('imageModal').classList.remove('hidden');
+            }
+        }
+        window.viewGalleryImage = (src) => {
+            document.getElementById('modalImg').src = src;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+        window.closeModal = () => document.getElementById('imageModal').classList.add('hidden');
+        window.toggleMenu = () => document.getElementById('mobileMenu').classList.toggle('hidden');
         
-        window.openModal = function(id) {
-            const product = products.find(p => p.id === id);
-            if(!product) return;
-            const imgElement = document.getElementById('modalImg');
-            imgElement.src = product.img;
-            imgElement.alt = product.name;
-            imgElement.classList.remove('scale-100');
-            imgElement.classList.add('scale-95');
-            document.getElementById('imageModal').classList.remove('hidden');
-            setTimeout(() => {
-                imgElement.classList.remove('scale-95');
-                imgElement.classList.add('scale-100');
-            }, 50);
-        }
-
-        window.viewGalleryImage = function(src) {
-            const imgElement = document.getElementById('modalImg');
-            imgElement.src = src;
-            imgElement.alt = "Galeri Pembeli";
-            imgElement.classList.remove('scale-100');
-            imgElement.classList.add('scale-95');
-            document.getElementById('imageModal').classList.remove('hidden');
-            setTimeout(() => {
-                imgElement.classList.remove('scale-95');
-                imgElement.classList.add('scale-100');
-            }, 50);
-        }
-
-        window.closeModal = function() {
-            document.getElementById('imageModal').classList.add('hidden');
-        }
-
-        window.toggleMenu = function() {
-            document.getElementById('mobileMenu').classList.toggle('hidden');
-        }
-
-        window.checkShipping = function(e) {
+        window.checkShipping = (e) => {
             e.preventDefault();
-            const dest = document.getElementById('destination').value;
-            if(!dest) return;
-            document.getElementById('shippingResult').classList.remove('hidden');
-            document.getElementById('destResult').innerText = dest;
+            const d = document.getElementById('destination').value;
+            if(d) {
+                document.getElementById('shippingResult').classList.remove('hidden');
+                document.getElementById('destResult').innerText = d;
+            }
         }
 
-        window.openTestiModal = function() {
-            document.getElementById('testimoniModal').classList.remove('hidden');
-        }
-
-        window.closeTestiModal = function() {
-            document.getElementById('testimoniModal').classList.add('hidden');
-        }
-
-        window.submitTestimonial = function(e) {
+        window.openTestiModal = () => document.getElementById('testimoniModal').classList.remove('hidden');
+        window.closeTestiModal = () => document.getElementById('testimoniModal').classList.add('hidden');
+        
+        window.submitTestimonial = (e) => {
             e.preventDefault();
-            const name = document.getElementById('testiName').value;
-            const city = document.getElementById('testiCity').value;
-            const rating = document.getElementById('testiRating').value;
-            const review = document.getElementById('testiReview').value;
-            
-            const message = `Halo Yusuf Store, saya ingin memberikan ulasan:%0A%0ANama: ${name}%0AKota: ${city}%0ARating: ${rating} Bintang%0AUlasan: ${review}`;
-            window.open(`https://wa.me/6281375861195?text=${message}`, '_blank');
+            const n = document.getElementById('testiName').value;
+            const r = document.getElementById('testiReview').value;
+            window.open(`https://wa.me/6281375861195?text=Ulasan dari ${n}: ${r}`, '_blank');
             closeTestiModal();
         }
 
-        // Initialize
+        // Init
         window.onload = () => {
             populateBrandOptions();
-            renderBrands();
-            // renderProducts(products); // Tidak perlu dipanggil manual, onSnapshot akan memanggilnya
             showSection('home-section');
         }
-
     </script>
 </body>
-
 </html>
