@@ -311,7 +311,13 @@
                 
                 <!-- Gallery List -->
                 <div>
-                    <h3 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Daftar Galeri</h3>
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-white font-bold uppercase text-xs tracking-wider">Daftar Galeri</h3>
+                        <!-- Tombol Reset Baru -->
+                        <button onclick="resetGallery()" class="text-[10px] text-red-500 hover:text-red-400 border border-red-900 bg-red-900/20 px-2 py-1 rounded transition">
+                            <i class="fas fa-trash-alt mr-1"></i> Hapus Semua (Reset)
+                        </button>
+                    </div>
                     <div id="adminGalleryList" class="space-y-2 max-h-60 overflow-y-auto"></div>
                     
                     <!-- Migration Button -->
@@ -320,7 +326,7 @@
                         <button id="btnMigrateGallery" onclick="migrateGalleryToFirebase()" class="w-full bg-indigo-900/50 hover:bg-indigo-800 text-indigo-200 border border-indigo-700 py-3 rounded text-xs font-bold uppercase tracking-widest transition">
                             <i class="fas fa-cloud-upload-alt mr-2"></i>Upload Galeri Bawaan
                         </button>
-                        <p class="text-[9px] text-red-400 mt-2 italic">*Video bawaan tidak ikut diupload (terlalu besar), hanya foto.</p>
+                        <p id="migrateMsg" class="text-[9px] text-red-400 mt-2 italic">*Video bawaan tidak ikut diupload (terlalu besar), hanya foto.</p>
                     </div>
                 </div>
             </div>
@@ -358,6 +364,9 @@
                     <h3 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Ubah Banner Utama</h3>
                     <div class="space-y-3">
                         <input type="file" id="bannerImg" accept="image/*" class="w-full bg-black border border-zinc-600 p-2 rounded text-white text-xs">
+                        <!-- Petunjuk Ukuran Ditambahkan Di Sini -->
+                        <p class="text-[10px] text-gray-400 italic">*Rekomendasi ukuran: 1920 x 450 px (Landscape) agar tidak pecah/terpotong.</p>
+                        
                         <input type="text" id="bannerTitle" placeholder="Judul Banner" class="w-full bg-black border border-zinc-600 p-2 rounded text-white text-xs">
                         <input type="text" id="bannerSubtitle" placeholder="Sub-Judul" class="w-full bg-black border border-zinc-600 p-2 rounded text-white text-xs">
                         <button onclick="saveBannerSettings()" class="w-full bg-accent text-black font-bold py-2 rounded text-xs hover:bg-white transition">Simpan Banner</button>
@@ -435,7 +444,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+        // Menambahkan getDocs ke import
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy, setDoc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
         
         const firebaseConfig = { apiKey: "AIzaSyC-76DURrn1anKUwwf0seh6vxyjKX-GV8Q", authDomain: "yusus-store.firebaseapp.com", projectId: "yusus-store", storageBucket: "yusus-store.firebasestorage.app", messagingSenderId: "115210326402", appId: "1:115210326402:web:58555cc684a29fabaeff9b", measurementId: "G-299QHZE8CP" };
         const app = initializeApp(firebaseConfig);
@@ -500,19 +510,41 @@
             renderAdminBrandList();
         });
 
-        // Fetch Gallery (UPDATED TO HANDLE VIDEOS)
+        // Fetch Gallery (UPDATED: AUTO MERGE STATIC VIDEOS)
         onSnapshot(collection(db, "gallery"), (snapshot) => {
             const firebaseGallery = [];
             snapshot.forEach(doc => firebaseGallery.push({ id: doc.id, ...doc.data() }));
             
             const galleryContainer = document.getElementById('galleryGrid');
             const adminList = document.getElementById('adminGalleryList');
+            const migrateBtn = document.getElementById('btnMigrateGallery');
+            const migrateMsg = document.getElementById('migrateMsg');
             
             let displayData = [];
+            
+            // Ambil video dari data statis (karena tidak diupload ke DB)
+            const staticVideos = staticGallery.filter(item => item.type === 'video');
+
             if (firebaseGallery.length > 0) {
-                displayData = firebaseGallery;
+                // Gabungkan Foto dari Firebase + Video Bawaan
+                displayData = [...firebaseGallery, ...staticVideos];
+                
+                // Disable migrate button
+                if(migrateBtn) {
+                    migrateBtn.disabled = true;
+                    migrateBtn.className = "w-full bg-zinc-800 text-gray-500 border border-zinc-700 py-3 rounded text-xs font-bold uppercase tracking-widest cursor-not-allowed";
+                    migrateBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Data Sudah Ada di Database';
+                    migrateMsg.innerText = "Gunakan tombol Reset (di atas) jika ingin mengupload ulang dari awal.";
+                }
             } else {
-                displayData = staticGallery; // Fallback to static images only for view
+                displayData = staticGallery; // Fallback ke semua data statis
+                // Enable migrate button
+                if(migrateBtn) {
+                    migrateBtn.disabled = false;
+                    migrateBtn.className = "w-full bg-indigo-900/50 hover:bg-indigo-800 text-indigo-200 border border-indigo-700 py-3 rounded text-xs font-bold uppercase tracking-widest transition";
+                    migrateBtn.innerHTML = '<i class="fas fa-cloud-upload-alt mr-2"></i>Upload Galeri Bawaan';
+                    migrateMsg.innerText = "*Video bawaan tidak ikut diupload (terlalu besar), tapi akan tetap ditampilkan otomatis.";
+                }
             }
 
             // Render Frontend Gallery
@@ -527,23 +559,29 @@
                         </div>
                     </div>`; 
                 } else {
-                    return `<div onclick="viewGalleryImage('${item.src}')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                        <img src="${item.src}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    // Cek jika item punya ID (berarti dari Firebase) atau src (statis)
+                    const imgSrc = item.src; 
+                    return `<div onclick="viewGalleryImage('${imgSrc}')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
+                        <img src="${imgSrc}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fas fa-search-plus text-accent text-xl"></i></div>
                     </div>`;
                 }
             }).join('');
 
-            // Render Admin Gallery List
-            adminList.innerHTML = firebaseGallery.map(item => {
-                return `<div class="flex justify-between items-center bg-black p-2 rounded border border-zinc-800">
-                    <div class="flex items-center gap-2">
-                        <img src="${item.src}" class="w-8 h-8 object-cover rounded">
-                        <span class="text-xs text-white">Foto Galeri</span>
-                    </div>
-                    <button onclick="deleteGallery('${item.id}')" class="text-red-500 hover:text-red-400 ml-2"><i class="fas fa-trash"></i></button>
-                </div>`;
-            }).join('');
+            // Render Admin Gallery List (Hanya menampilkan yang ada di Firebase untuk dihapus)
+            if (firebaseGallery.length === 0) {
+                adminList.innerHTML = '<p class="text-gray-500 text-[10px] text-center py-2">Belum ada foto yang diupload ke Database.</p>';
+            } else {
+                adminList.innerHTML = firebaseGallery.map(item => {
+                    return `<div class="flex justify-between items-center bg-black p-2 rounded border border-zinc-800">
+                        <div class="flex items-center gap-2">
+                            <img src="${item.src}" class="w-8 h-8 object-cover rounded">
+                            <span class="text-xs text-white">Foto Galeri</span>
+                        </div>
+                        <button onclick="deleteGallery('${item.id}')" class="text-red-500 hover:text-red-400 ml-2"><i class="fas fa-trash"></i></button>
+                    </div>`;
+                }).join('');
+            }
         });
 
         // Add Gallery Function
@@ -561,6 +599,28 @@
 
         window.deleteGallery = async function(id) {
             if(confirm("Hapus foto ini dari galeri?")) await deleteDoc(doc(db, "gallery", id));
+        }
+
+        // New Reset Function
+        window.resetGallery = async function() {
+            if(!confirm("PERINGATAN: Tombol ini akan menghapus SEMUA FOTO di galeri Anda (termasuk yang double). Anda harus mengupload ulang setelah ini.\n\nYakin ingin melanjutkan?")) return;
+            
+            const btn = document.querySelector('button[onclick="resetGallery()"]');
+            const originalText = btn.innerHTML;
+            btn.innerText = "Menghapus...";
+            btn.disabled = true;
+
+            try {
+                const snapshot = await getDocs(collection(db, "gallery"));
+                const batchPromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
+                await Promise.all(batchPromises);
+                alert("Galeri berhasil dikosongkan. Silakan upload ulang data bawaan (Cukup klik tombol upload 1 kali).");
+            } catch (e) {
+                alert("Gagal menghapus: " + e.message);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
         }
 
         window.migrateGalleryToFirebase = async function() {
@@ -585,7 +645,7 @@
                 }
             }
             alert(count + " Foto berhasil dipindahkan!");
-            btn.disabled = false; btn.innerText = "Selesai";
+            // Button disabled logic handled by onSnapshot
         }
 
         // Add Brand Function (NEW)
