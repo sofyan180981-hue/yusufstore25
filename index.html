@@ -170,7 +170,19 @@
                 <h2 class="text-2xl font-bold text-white mb-4 uppercase tracking-widest">Kata Mereka</h2>
             </div>
             <div id="testimoniGrid" class="grid md:grid-cols-3 gap-6">
-                <!-- Data will be loaded here from Firebase -->
+                <!-- Testimoni Bawaan (Akan tertimpa jika ada data Firebase, atau tampil jika kosong) -->
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Barang mendarat dengan aman di Medan. Kualitasnya oke banget untuk harga segini. Adminnya ramah poll!"</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Rudi Hartono</p><p class="text-xs text-gray-500 uppercase tracking-wide">Medan</p></div></div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Suka banget sama sepatunya, pas di kaki. Pengiriman cepet, packing rapih. Next order lagi disini."</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Siti Aminah</p><p class="text-xs text-gray-500 uppercase tracking-wide">Padang Sidimpuan</p></div></div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Awalnya ragu karena online, tapi pas sampe barangnya realpict. Thanks Yusuf Store!"</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Ferdinand Sianturi</p><p class="text-xs text-gray-500 uppercase tracking-wide">P.Siantar</p></div></div>
+                </div>
             </div>
         </section>
 
@@ -436,7 +448,11 @@
         const staticGallery = [];
         for(let i=1; i<=12; i++) staticGallery.push({type:'image', src:`pembeli${i}.jpg`});
         staticGallery.push({type:'image', src:'pembeli17.jpg'});
-        // Note: Videos are skipped for migration due to size limits in Firestore Documents (Base64)
+        // Add videos back to static data
+        staticGallery.push({type:'video', src:'video_review1.mp4'});
+        staticGallery.push({type:'video', src:'video_review2.mp4'});
+        staticGallery.push({type:'video', src:'video_review3.mp4'});
+        staticGallery.push({type:'video', src:'video_review4.mp4'});
 
         const staticProducts = [];
         
@@ -465,25 +481,17 @@
             const firebaseBrands = [];
             snapshot.forEach(doc => firebaseBrands.push({ id: doc.id, ...doc.data() }));
             
-            // Logic Pengurutan: 
-            // 1. "No Brand" Wajib Paling Belakang
-            // 2. Brand bawaan sesuai urutan asli
-            // 3. Brand baru (hasil upload) urut abjad di tengah
             const orderMap = staticBrands.map(b => b.name);
             firebaseBrands.sort((a, b) => {
-                // KHUSUS: Pastikan "No Brand" selalu di paling akhir
                 if (a.name === "No Brand") return 1;
                 if (b.name === "No Brand") return -1;
 
                 const idxA = orderMap.indexOf(a.name);
                 const idxB = orderMap.indexOf(b.name);
                 
-                // Jika keduanya adalah brand bawaan, urutkan sesuai daftar static
                 if (idxA !== -1 && idxB !== -1) return idxA - idxB;
-                // Jika salah satu brand bawaan, dia lebih dulu
                 if (idxA !== -1) return -1;
                 if (idxB !== -1) return 1;
-                // Jika keduanya brand baru, urutkan sesuai abjad
                 return a.name.localeCompare(b.name);
             });
 
@@ -492,7 +500,7 @@
             renderAdminBrandList();
         });
 
-        // Fetch Gallery (NEW)
+        // Fetch Gallery (UPDATED TO HANDLE VIDEOS)
         onSnapshot(collection(db, "gallery"), (snapshot) => {
             const firebaseGallery = [];
             snapshot.forEach(doc => firebaseGallery.push({ id: doc.id, ...doc.data() }));
@@ -510,8 +518,14 @@
             // Render Frontend Gallery
             galleryContainer.innerHTML = displayData.map(item => {
                 if(item.type === 'video') {
-                    // Placeholder for video logic if needed in future
-                    return ''; 
+                    return `<div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700">
+                        <video class="w-full h-full object-cover" controls muted loop playsinline>
+                            <source src="${item.src}" type="video/mp4">
+                        </video>
+                        <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">
+                            <i class="fas fa-play"></i> VIDEO
+                        </div>
+                    </div>`; 
                 } else {
                     return `<div onclick="viewGalleryImage('${item.src}')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
                         <img src="${item.src}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
@@ -650,9 +664,11 @@
             const container = document.getElementById('testimoniGrid');
             const adminList = document.getElementById('adminTestiList');
             
+            let html = '';
+            let adminHtml = '';
+
+            // Jika ada data di Firebase, gunakan itu
             if (!snapshot.empty) {
-                let html = '';
-                let adminHtml = '';
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     html += `
@@ -670,9 +686,24 @@
                         <button onclick="deleteTestimonial('${doc.id}')" class="text-red-500 hover:text-red-400"><i class="fas fa-trash"></i></button>
                     </div>`;
                 });
-                container.innerHTML = html;
-                adminList.innerHTML = adminHtml;
+            } else {
+                // FALLBACK: Tampilkan Testimoni Bawaan jika Firebase kosong
+                html = `
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Barang mendarat dengan aman di Medan. Kualitasnya oke banget untuk harga segini. Adminnya ramah poll!"</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Rudi Hartono</p><p class="text-xs text-gray-500 uppercase tracking-wide">Medan</p></div></div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Suka banget sama sepatunya, pas di kaki. Pengiriman cepet, packing rapih. Next order lagi disini."</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Siti Aminah</p><p class="text-xs text-gray-500 uppercase tracking-wide">Padang Sidimpuan</p></div></div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Awalnya ragu karena online, tapi pas sampe barangnya realpict. Thanks Yusuf Store!"</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Ferdinand Sianturi</p><p class="text-xs text-gray-500 uppercase tracking-wide">P.Siantar</p></div></div>
+                </div>`;
             }
+            container.innerHTML = html;
+            adminList.innerHTML = adminHtml;
         });
 
         const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
