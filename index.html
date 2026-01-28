@@ -337,6 +337,20 @@
 
             <!-- Settings Section -->
             <div id="adminSettingsSection" class="hidden space-y-6">
+                <!-- New: Auto Fix Tools -->
+                <div class="bg-zinc-800 p-4 rounded border border-zinc-700">
+                    <h3 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Alat Bantu Admin</h3>
+                    <div class="p-3 bg-indigo-900/30 border border-indigo-700 rounded mb-3">
+                        <p class="text-xs text-indigo-200 mb-2">
+                            <i class="fas fa-magic mr-1"></i> <strong>Ekstrak Ukuran Otomatis</strong><br>
+                            Tombol ini akan memindahkan ukuran dari "Nama Produk" (cth: Size 42) ke dalam "Pilihan Size" secara otomatis, lalu membersihkan nama produknya.
+                        </p>
+                        <button id="btnAutoFix" onclick="autoFixProductData()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 rounded text-xs transition">
+                            Mulai Perbaikan Otomatis
+                        </button>
+                    </div>
+                </div>
+
                 <div class="bg-zinc-800 p-4 rounded border border-zinc-700">
                     <h3 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Ubah Banner Utama</h3>
                     <div class="space-y-3">
@@ -896,6 +910,77 @@
             if(!newPass) return alert("Password tidak boleh kosong");
             try { await setDoc(doc(db, "settings", "admin_config"), { password: newPass }); alert("Password berhasil diubah!"); document.getElementById('newAdminPassword').value = ''; } catch(e) { alert("Gagal ubah password: " + e.message); }
         }
+
+        // --- NEW: AUTO FIX FUNCTION ---
+        window.autoFixProductData = async function() {
+            if(!confirm("PENTING: Fitur ini akan mengedit banyak produk sekaligus.\n\nSistem akan:\n1. Mencari tulisan 'Size X' atau '(39,40)' di nama produk.\n2. Memasukkannya ke data Ukuran.\n3. Menghapus tulisan tersebut dari Nama Produk.\n\nLanjutkan?")) return;
+
+            const btn = document.getElementById('btnAutoFix');
+            btn.disabled = true;
+            btn.innerText = "Sedang Memproses...";
+
+            try {
+                const snapshot = await getDocs(collection(db, "products"));
+                let count = 0;
+
+                for (const docSnap of snapshot.docs) {
+                    const data = docSnap.data();
+                    let newName = data.name;
+                    let newSizes = data.sizes || [];
+                    let isUpdated = false;
+
+                    // Pattern 1: Matches "(36,37,38)" or "(39,40)"
+                    const parenMatch = newName.match(/\(([\d,]+)\)/);
+                    if(parenMatch) {
+                        const sizesStr = parenMatch[1];
+                        const extracted = sizesStr.split(',').map(s => {
+                            const num = parseInt(s.trim());
+                            return isNaN(num) ? s.trim() : num;
+                        });
+                        newSizes = [...new Set([...newSizes, ...extracted])];
+                        newName = newName.replace(parenMatch[0], '').trim();
+                        isUpdated = true;
+                    }
+
+                    // Pattern 2: Matches "Size 42" or "Size 39,40" or "Size XL" or "Sieze L" (typo handling)
+                    // Case insensitive search for "Size" or "Sieze" followed by numbers or S/M/L/XL
+                    const sizeKeywordMatch = newName.match(/(?:Size|Sieze)\s+([0-9,]+|[SMLX]+)/i);
+                    if(sizeKeywordMatch) {
+                        const sizePart = sizeKeywordMatch[1];
+                        const extracted = sizePart.split(',').map(s => {
+                            const num = parseInt(s.trim());
+                            return isNaN(num) ? s.trim().toUpperCase() : num;
+                        });
+                        newSizes = [...new Set([...newSizes, ...extracted])];
+                        // Replace the whole match "Size 42"
+                        newName = newName.replace(sizeKeywordMatch[0], '').trim();
+                        // Clean up trailing commas or dashes if any left
+                        if(newName.endsWith('-') || newName.endsWith(',')) newName = newName.slice(0, -1).trim();
+                        isUpdated = true;
+                    }
+
+                    if(isUpdated) {
+                        // Update to Firebase
+                        await updateDoc(doc(db, "products", docSnap.id), {
+                            name: newName,
+                            sizes: newSizes
+                        });
+                        count++;
+                        console.log(`Updated: ${data.name} -> ${newName} | Sizes: ${newSizes}`);
+                    }
+                }
+                
+                alert("Selesai! " + count + " produk berhasil diperbaiki otomatis.");
+
+            } catch (e) {
+                console.error(e);
+                alert("Terjadi kesalahan: " + e.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Mulai Perbaikan Otomatis";
+            }
+        }
+        // --- END AUTO FIX FUNCTION ---
 
         window.addProductToFirebase = async function(e) {
             e.preventDefault();
