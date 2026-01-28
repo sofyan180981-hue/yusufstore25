@@ -301,6 +301,13 @@
             <div id="adminListSection" class="hidden">
                 <div class="mb-4"><input type="text" id="adminSearchInput" onkeyup="renderAdminProductList()" placeholder="Cari produk..." class="w-full bg-black border border-zinc-700 rounded p-2 text-sm text-white focus:border-accent outline-none"></div>
                 <div id="adminProductListContainer" class="space-y-2 max-h-[300px] overflow-y-auto pr-2"></div>
+                <!-- Tombol Migrasi Data -->
+                <div class="mt-4 pt-4 border-t border-zinc-800 text-center">
+                    <p class="text-xs text-gray-500 mb-2">Belum ada data di Database?</p>
+                    <button id="btnMigrate" onclick="migrateStaticData()" class="w-full bg-indigo-900/50 hover:bg-indigo-800 text-indigo-200 border border-indigo-700 py-3 rounded text-xs font-bold uppercase tracking-widest transition">
+                        <i class="fas fa-cloud-upload-alt mr-2"></i>Upload Semua Data Bawaan ke Firebase
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -542,6 +549,33 @@
                 showAdminTab('list');
             } catch (error) { console.error("Error: ", error); alert("Gagal: " + error.message); } 
             finally { btnSubmit.disabled = false; btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed'); btnText.innerHTML = editingId ? 'Update Produk' : 'Upload & Simpan'; }
+        }
+
+        window.migrateStaticData = async function() {
+            if(!confirm("Anda yakin ingin mengupload " + staticProducts.length + " produk bawaan ke Firebase? Lakukan ini hanya SEKALI untuk menghindari duplikat.")) return;
+            
+            const btn = document.getElementById('btnMigrate');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sedang Memproses...';
+            
+            let count = 0;
+            if (!auth.currentUser) await signInAnonymously(auth);
+
+            for (const p of staticProducts) {
+                try {
+                    // Buat salinan data, hapus ID lama (biarkan Firebase buat ID baru), tambahkan createdAt
+                    const dataToUpload = { ...p, createdAt: new Date().toISOString() };
+                    delete dataToUpload.id; // Hapus ID manual, gunakan ID otomatis Firebase nantinya
+                    
+                    await addDoc(collection(db, "products"), dataToUpload);
+                    count++;
+                } catch (e) {
+                    console.error("Gagal upload", p.name, e);
+                }
+            }
+            
+            alert("Berhasil! " + count + " produk telah dipindahkan ke Firebase. \n\nPENTING: Silakan hapus data 'staticProducts' di kode agar tidak muncul ganda.");
+            btn.innerHTML = '<i class="fas fa-check mr-2"></i>Selesai';
         }
 
         window.renderAdminProductList = function() {
