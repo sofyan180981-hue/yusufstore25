@@ -255,7 +255,6 @@
         </div>
     </div>
 
-    <!-- PRODUCT DETAIL MODAL -->
     <div id="productModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm" onclick="if(event.target === this) closeProductModal()">
         <div class="bg-zinc-900 border border-zinc-800 w-full max-w-3xl rounded-xl overflow-hidden flex flex-col md:flex-row shadow-2xl relative">
             <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 bg-black/50 rounded-full w-8 h-8 flex items-center justify-center"><i class="fas fa-times"></i></button>
@@ -337,20 +336,14 @@
 
             <!-- Settings Section -->
             <div id="adminSettingsSection" class="hidden space-y-6">
-                <!-- New: Auto Fix Tools -->
+                <!-- Auto Fix Tool -->
                 <div class="bg-zinc-800 p-4 rounded border border-zinc-700">
                     <h3 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Alat Bantu Admin</h3>
                     <div class="p-3 bg-indigo-900/30 border border-indigo-700 rounded mb-3">
-                        <p class="text-xs text-indigo-200 mb-2">
-                            <i class="fas fa-magic mr-1"></i> <strong>Ekstrak Ukuran Otomatis</strong><br>
-                            Tombol ini akan memindahkan ukuran dari "Nama Produk" (cth: Size 42) ke dalam "Pilihan Size" secara otomatis, lalu membersihkan nama produknya.
-                        </p>
-                        <button id="btnAutoFix" onclick="autoFixProductData()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 rounded text-xs transition">
-                            Mulai Perbaikan Otomatis
-                        </button>
+                        <p class="text-xs text-indigo-200 mb-2"><i class="fas fa-magic mr-1"></i> <strong>Ekstrak Ukuran Otomatis</strong><br>Tombol ini akan memindahkan ukuran dari "Nama Produk" (cth: Size 42) ke dalam "Pilihan Size" secara otomatis, lalu membersihkan nama produknya.</p>
+                        <button id="btnAutoFix" onclick="autoFixProductData()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 rounded text-xs transition">Mulai Perbaikan Otomatis</button>
                     </div>
                 </div>
-
                 <div class="bg-zinc-800 p-4 rounded border border-zinc-700">
                     <h3 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Ubah Banner Utama</h3>
                     <div class="space-y-3">
@@ -509,10 +502,12 @@
             const migrateMsg = document.getElementById('migrateMsg');
             
             let displayData = [];
+            
+            // Ambil video dari data statis (karena tidak diupload ke DB)
             const staticVideos = staticGallery.filter(item => item.type === 'video');
 
             if (firebaseGallery.length > 0) {
-                // If Firebase has data, use Firebase + Static Videos (since videos are not migrated)
+                // Gabungkan Foto dari Firebase + Video Bawaan
                 displayData = [...firebaseGallery, ...staticVideos];
                 
                 // Disable migrate button
@@ -523,7 +518,7 @@
                     migrateMsg.innerText = "Gunakan tombol Reset (di atas) jika ingin mengupload ulang dari awal.";
                 }
             } else {
-                displayData = staticGallery; // Fallback
+                displayData = staticGallery; // Fallback ke semua data statis
                 // Enable migrate button
                 if(migrateBtn) {
                     migrateBtn.disabled = false;
@@ -550,14 +545,16 @@
                         </div>
                     </div>`; 
                 } else {
-                    return `<div onclick="viewGalleryMedia('${item.src}', 'image')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                        <img src="${item.src}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    // Cek jika item punya ID (berarti dari Firebase) atau src (statis)
+                    const imgSrc = item.src; 
+                    return `<div onclick="viewGalleryMedia('${imgSrc}', 'image')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
+                        <img src="${imgSrc}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fas fa-search-plus text-accent text-xl"></i></div>
                     </div>`;
                 }
             }).join('');
 
-            // Render Admin Gallery List (Hanya menampilkan yang ada di Firebase)
+            // Render Admin Gallery List (Hanya menampilkan yang ada di Firebase untuk dihapus)
             if (firebaseGallery.length === 0) {
                 adminList.innerHTML = '<p class="text-gray-500 text-[10px] text-center py-2">Belum ada foto yang diupload ke Database.</p>';
             } else {
@@ -590,6 +587,7 @@
             if(confirm("Hapus foto ini dari galeri?")) await deleteDoc(doc(db, "gallery", id));
         }
 
+        // New Reset Function
         window.resetGallery = async function() {
             if(!confirm("PERINGATAN: Tombol ini akan menghapus SEMUA FOTO di galeri Anda (termasuk yang double). Anda harus mengupload ulang setelah ini.\n\nYakin ingin melanjutkan?")) return;
             
@@ -1040,7 +1038,7 @@
                 if (product.sold) { btnText = "SOLD OUT"; btnClass = "bg-zinc-800 text-gray-500 cursor-not-allowed"; } else if (product.isPO) { btnText = "Pesan PO"; btnClass = "bg-yellow-500 text-black hover:bg-yellow-400"; }
                 let priceDisplay = `<span class="text-accent font-bold text-sm md:text-lg border border-accent px-2 py-1 rounded">${formatRupiah(product.price)}</span>`;
                 if (product.originalPrice && product.originalPrice > product.price) { const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100); priceDisplay = `<div class="flex flex-col"><span class="text-[10px] text-gray-400 line-through">${formatRupiah(product.originalPrice)}</span><div class="flex items-center gap-2">${priceDisplay}<span class="text-[10px] bg-red-100 text-red-600 px-1 rounded font-bold">-${discount}%</span></div></div>`; }
-                let sizeBadge = ''; if(product.sizes && product.sizes.length > 0) { const displaySizes = product.sizes.slice(0, 4); sizeBadge = `<div class="mt-2 flex flex-wrap gap-1">` + displaySizes.map(s => `<span class="text-[9px] border border-zinc-700 px-1 rounded text-gray-400">${s}</span>`).join('') + (product.sizes.length > 4 ? `<span class="text-[9px] text-gray-500">+${product.sizes.length-4}</span>` : '') + `</div>`; }
+                let sizeBadge = ''; if(product.sizes && product.sizes.length > 0) { const displaySizes = product.sizes.slice(0, 4); sizeBadge = `<div class="mt-2 flex flex-wrap gap-1">` + displaySizes.map(s => `<span class="text-[10px] border border-zinc-700 px-1.5 py-0.5 rounded text-gray-300 bg-zinc-800/50">${s}</span>`).join('') + (product.sizes.length > 4 ? `<span class="text-[10px] text-gray-500 self-center">+${product.sizes.length-4}</span>` : '') + `</div>`; }
                 grid.innerHTML += `<div class="product-card bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 overflow-hidden relative group hover:border-accent transition duration-300 flex flex-col"><div class="relative group cursor-pointer h-48 md:h-64 overflow-hidden" onclick="openProductModal('${product.id}')"><img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover ${imgStyle} transition duration-500 group-hover:scale-110">${product.sold ? '<div class="absolute top-2 right-2 bg-red-600 text-white text-[10px] px-2 py-1 rounded font-bold z-20 shadow-md">SOLD OUT</div>' : (product.isPO ? '<div class="absolute top-2 right-2 bg-yellow-500 text-black text-[10px] px-2 py-1 rounded font-bold z-20 shadow-md">PRE-ORDER</div>' : '')}<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center"><span class="bg-accent text-black px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transform translate-y-4 group-hover:translate-y-0 transition duration-300"><i class="fas fa-eye mr-1"></i> Detail</span></div></div><div class="p-3 md:p-4 ${contentStyle} text-gray-300 flex-1 flex flex-col"><div class="flex justify-between items-start mb-1"><p class="text-[10px] text-gray-500 uppercase font-bold tracking-wider">${product.brand}</p>${product.isOriginal && !product.sold ? '<span class="text-[9px] bg-accent/20 text-accent border border-accent/30 px-1.5 rounded font-bold">ORI</span>' : ''}</div><h3 class="font-bold text-sm text-white line-clamp-2 leading-snug mb-1 flex-1 cursor-pointer hover:text-accent transition" onclick="openProductModal('${product.id}')">${product.name}</h3>${sizeBadge}<div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-800">${priceDisplay}<button onclick="openProductModal('${product.id}')" class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center hover:bg-accent transition shadow-lg ${product.sold ? 'opacity-50 cursor-not-allowed' : ''}"><i class="fas fa-shopping-bag text-xs"></i></button></div></div></div>`;
             });
         }
