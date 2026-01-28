@@ -42,6 +42,8 @@
         details[open] summary ~ * { animation: sweep .3s ease-in-out; }
         @keyframes sweep { 0% {opacity: 0; transform: translateY(-10px)} 100% {opacity: 1; transform: translateY(0)} }
         ::selection { background-color: #ccff00; color: #000; }
+        /* Custom Checkbox for Sizes */
+        .size-checkbox:checked + div { background-color: #ccff00; color: black; border-color: #ccff00; }
     </style>
 </head>
 <body class="bg-primary text-gray-200 font-sans pt-16 md:pt-20 min-h-screen selection:bg-accent selection:text-black">
@@ -162,7 +164,6 @@
                     for(let i=1; i<=12; i++){
                         document.write(`<div onclick="viewGalleryImage('pembeli${i}.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer"><img src="pembeli${i}.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fas fa-search-plus text-accent text-xl"></i></div></div>`);
                     }
-                    // Tambahan manual
                     document.write(`<div onclick="viewGalleryImage('pembeli17.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer"><img src="pembeli17.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fas fa-search-plus text-accent text-xl"></i></div></div>`);
                 </script>
                 <!-- Videos -->
@@ -176,7 +177,6 @@
         <section id="testimonials" class="page-section hidden py-16 container mx-auto px-4 bg-zinc-900/30">
             <div class="text-center mb-12">
                 <h2 class="text-2xl font-bold text-white mb-4 uppercase tracking-widest">Kata Mereka</h2>
-                <button onclick="openTestiModal()" class="bg-transparent hover:bg-accent hover:text-black text-accent border border-accent px-6 py-2 rounded text-xs font-bold transition uppercase tracking-wide"><i class="fas fa-pen mr-2"></i>Tulis Ulasan</button>
             </div>
             <div id="testimoniGrid" class="grid md:grid-cols-3 gap-6">
                 <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
@@ -274,11 +274,47 @@
     <div id="adminModal" class="fixed inset-0 z-[90] hidden flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm">
         <div class="bg-zinc-900 border border-zinc-800 rounded-lg w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6 border-b border-zinc-800 pb-4"><h2 class="text-xl font-bold text-white uppercase tracking-wider">Admin Panel</h2><button onclick="closeAdmin()" class="text-gray-500 hover:text-red-500"><i class="fas fa-times"></i></button></div>
+            
             <div class="flex mb-6 bg-black rounded p-1">
-                <button onclick="showAdminTab('add')" id="tabAdd" class="flex-1 py-2 rounded text-xs font-bold uppercase bg-zinc-800 text-white transition">Input</button>
+                <button onclick="showAdminTab('dashboard')" id="tabDashboard" class="flex-1 py-2 rounded text-xs font-bold uppercase bg-zinc-800 text-white transition">Home</button>
+                <button onclick="showAdminTab('add')" id="tabAdd" class="flex-1 py-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition">Input</button>
                 <button onclick="showAdminTab('list')" id="tabList" class="flex-1 py-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition">Kelola</button>
+                <button onclick="showAdminTab('settings')" id="tabSettings" class="flex-1 py-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition"><i class="fas fa-cog"></i></button>
             </div>
-            <div id="adminAddSection">
+
+            <!-- Dashboard Section (NEW) -->
+            <div id="adminDashboardSection">
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="bg-zinc-800 p-4 rounded border border-zinc-700">
+                        <div class="text-xs text-gray-400 uppercase tracking-widest">Total Produk</div>
+                        <div class="text-2xl font-bold text-white" id="statTotalProducts">0</div>
+                    </div>
+                    <div class="bg-zinc-800 p-4 rounded border border-zinc-700">
+                        <div class="text-xs text-gray-400 uppercase tracking-widest">Estimasi Aset</div>
+                        <div class="text-lg font-bold text-accent" id="statTotalAsset">Rp 0</div>
+                    </div>
+                    <div class="bg-zinc-800 p-4 rounded border border-zinc-700">
+                        <div class="text-xs text-gray-400 uppercase tracking-widest">Ready Stock</div>
+                        <div class="text-2xl font-bold text-green-500" id="statReady">0</div>
+                    </div>
+                    <div class="bg-zinc-800 p-4 rounded border border-zinc-700">
+                        <div class="text-xs text-gray-400 uppercase tracking-widest">Sold Out</div>
+                        <div class="text-2xl font-bold text-red-500" id="statSold">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section (NEW) -->
+            <div id="adminSettingsSection" class="hidden">
+                <div class="bg-zinc-800 p-6 rounded border border-zinc-700">
+                    <h3 class="text-white font-bold mb-4">Ganti Password Admin</h3>
+                    <input type="password" id="newAdminPassword" placeholder="Password Baru" class="w-full bg-black border border-zinc-600 p-3 rounded text-white text-sm mb-3">
+                    <button onclick="changePassword()" class="w-full bg-accent text-black font-bold py-2 rounded text-sm hover:bg-white transition">Simpan Password</button>
+                </div>
+            </div>
+
+            <!-- Add/Edit Section (Updated with Size) -->
+            <div id="adminAddSection" class="hidden">
                 <div id="editModeNotice" class="hidden mb-4 bg-yellow-900/30 border border-yellow-700 text-yellow-200 px-4 py-2 rounded text-sm flex justify-between items-center"><span><i class="fas fa-edit mr-2"></i>Mode Edit Produk</span><button onclick="cancelEdit()" class="text-xs bg-yellow-700 hover:bg-yellow-600 px-2 py-1 rounded">Batal</button></div>
                 <form id="addProductForm" onsubmit="addProductToFirebase(event)" class="space-y-4">
                     <input type="text" id="addName" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Nama Produk">
@@ -288,6 +324,18 @@
                             <option value="Running">Running</option><option value="Casual">Casual</option><option value="Futsal">Futsal</option><option value="Basket">Basket</option><option value="Kaos">Kaos</option><option value="Jam Tangan">Jam Tangan</option>
                         </select>
                     </div>
+                    
+                    <!-- Size Selector (NEW) -->
+                    <div class="bg-zinc-800 p-3 rounded border border-zinc-700">
+                        <label class="text-[10px] text-gray-400 font-bold uppercase mb-2 block">Pilih Ukuran Tersedia:</label>
+                        <div class="grid grid-cols-6 gap-2 mb-2" id="shoeSizeContainer">
+                            <!-- Shoes Sizes Generated by JS -->
+                        </div>
+                        <div class="grid grid-cols-6 gap-2" id="shirtSizeContainer">
+                            <!-- Shirt Sizes Generated by JS -->
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-2 gap-4">
                         <div class="space-y-1"><label class="text-[10px] text-gray-500 font-bold uppercase ml-1">Status Ketersediaan</label><select id="addStockType" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none"><option value="ready">Ready Stock</option><option value="po">Pre-Order (PO)</option></select></div>
                         <div class="space-y-1"><label class="text-[10px] text-gray-500 font-bold uppercase ml-1">Label Tambahan</label><div class="flex flex-col justify-center h-[46px] gap-2 px-2"><label class="flex items-center gap-2 text-xs text-gray-400 cursor-pointer hover:text-white transition"><input type="checkbox" id="addIsOriginal" class="accent-accent"> Original</label><label class="flex items-center gap-2 text-xs text-gray-400 cursor-pointer hover:text-red-500 transition"><input type="checkbox" id="addIsSold" class="accent-red-500"> Sold Out</label></div></div>
@@ -298,6 +346,7 @@
                     <div class="flex gap-2"><button type="submit" id="btnSubmit" class="flex-1 bg-white text-black font-bold py-3 rounded hover:bg-accent transition uppercase text-xs tracking-widest mt-2"><span id="btnText">Upload & Simpan</span></button><button type="button" id="cancelEditBtn" onclick="cancelEdit()" class="hidden w-20 bg-zinc-800 text-white border border-zinc-700 font-bold py-3 rounded hover:bg-red-900 transition uppercase text-xs tracking-widest mt-2">Batal</button></div>
                 </form>
             </div>
+            
             <div id="adminListSection" class="hidden">
                 <div class="mb-4"><input type="text" id="adminSearchInput" onkeyup="renderAdminProductList()" placeholder="Cari produk..." class="w-full bg-black border border-zinc-700 rounded p-2 text-sm text-white focus:border-accent outline-none"></div>
                 <div id="adminProductListContainer" class="space-y-2 max-h-[300px] overflow-y-auto pr-2"></div>
@@ -308,7 +357,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
         
         const firebaseConfig = { apiKey: "AIzaSyC-76DURrn1anKUwwf0seh6vxyjKX-GV8Q", authDomain: "yusus-store.firebaseapp.com", projectId: "yusus-store", storageBucket: "yusus-store.firebasestorage.app", messagingSenderId: "115210326402", appId: "1:115210326402:web:58555cc684a29fabaeff9b", measurementId: "G-299QHZE8CP" };
         const app = initializeApp(firebaseConfig);
@@ -316,21 +365,34 @@
         const db = getFirestore(app);
         signInAnonymously(auth).then(() => console.log("Connected")).catch((e) => console.error(e));
 
-        // Data Produk sudah dimigrasi ke Firebase. Array ini dikosongkan agar file ringan.
         const staticProducts = [];
-
-        let allProducts = [...staticProducts];
+        let allProducts = [];
         let currentCategory = 'all';
         let editingId = null;
 
+        // Load Products
         const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
         onSnapshot(q, (snapshot) => {
             const firebaseProducts = [];
             snapshot.forEach((doc) => firebaseProducts.push({ id: doc.id, ...doc.data(), isFirebase: true }));
             allProducts = [...firebaseProducts, ...staticProducts];
             if(currentCategory === 'all') renderProducts(allProducts); else filterCategory(currentCategory);
+            renderDashboard();
             if(!document.getElementById('adminModal').classList.contains('hidden')) renderAdminProductList();
         });
+
+        // Dashboard Stats
+        window.renderDashboard = function() {
+            const total = allProducts.length;
+            const ready = allProducts.filter(p => !p.sold).length;
+            const sold = allProducts.filter(p => p.sold).length;
+            const asset = allProducts.filter(p => !p.sold).reduce((acc, curr) => acc + (curr.price || 0), 0);
+
+            document.getElementById('statTotalProducts').innerText = total;
+            document.getElementById('statReady').innerText = ready;
+            document.getElementById('statSold').innerText = sold;
+            document.getElementById('statTotalAsset').innerText = formatRupiah(asset);
+        }
 
         function compressImage(file) {
             return new Promise((resolve, reject) => {
@@ -352,6 +414,19 @@
             });
         }
 
+        // Handle Password Change
+        window.changePassword = async function() {
+            const newPass = document.getElementById('newAdminPassword').value;
+            if(!newPass) return alert("Password tidak boleh kosong");
+            try {
+                await setDoc(doc(db, "settings", "admin_config"), { password: newPass });
+                alert("Password berhasil diubah!");
+                document.getElementById('newAdminPassword').value = '';
+            } catch(e) {
+                alert("Gagal ubah password: " + e.message);
+            }
+        }
+
         window.addProductToFirebase = async function(e) {
             e.preventDefault();
             const btnSubmit = document.getElementById('btnSubmit');
@@ -369,6 +444,10 @@
                 let base64Img = null;
                 if (file) base64Img = await compressImage(file);
 
+                // Get selected sizes
+                const selectedSizes = [];
+                document.querySelectorAll('.size-checkbox:checked').forEach(cb => selectedSizes.push(cb.value));
+
                 const productData = {
                     name: document.getElementById('addName').value,
                     brand: document.getElementById('addBrand').value,
@@ -378,6 +457,7 @@
                     sold: document.getElementById('addIsSold').checked,
                     isOriginal: document.getElementById('addIsOriginal').checked,
                     isPO: document.getElementById('addStockType').value === 'po',
+                    sizes: selectedSizes, // Simpan ukuran
                     createdAt: new Date().toISOString()
                 };
                 if (base64Img) productData.img = base64Img;
@@ -393,6 +473,7 @@
                     await addDoc(collection(db, "products"), productData);
                     alert("Produk baru berhasil ditambahkan!");
                     document.getElementById('addProductForm').reset();
+                    document.querySelectorAll('.size-checkbox').forEach(cb => cb.checked = false); // Reset checkboxes
                 }
                 showAdminTab('list');
             } catch (error) { console.error("Error: ", error); alert("Gagal: " + error.message); } 
@@ -437,6 +518,16 @@
             document.getElementById('addStockType').value = p.isPO ? 'po' : 'ready';
             document.getElementById('addIsOriginal').checked = p.isOriginal;
             document.getElementById('addIsSold').checked = p.sold;
+            
+            // Check Sizes
+            document.querySelectorAll('.size-checkbox').forEach(cb => cb.checked = false);
+            if (p.sizes && Array.isArray(p.sizes)) {
+                p.sizes.forEach(s => {
+                    const cb = document.querySelector(`.size-checkbox[value="${s}"]`);
+                    if(cb) cb.checked = true;
+                });
+            }
+
             document.getElementById('btnText').innerText = "Update Produk";
             document.getElementById('cancelEditBtn').classList.remove('hidden');
             document.getElementById('editModeNotice').classList.remove('hidden');
@@ -448,6 +539,7 @@
         window.cancelEdit = function() {
             editingId = null;
             document.getElementById('addProductForm').reset();
+            document.querySelectorAll('.size-checkbox').forEach(cb => cb.checked = false);
             document.getElementById('btnText').innerText = "Upload & Simpan";
             document.getElementById('cancelEditBtn').classList.add('hidden');
             document.getElementById('editModeNotice').classList.add('hidden');
@@ -484,20 +576,60 @@
                     priceDisplay = `<div class="flex flex-col"><span class="text-[10px] text-gray-400 line-through">${formatRupiah(product.originalPrice)}</span><div class="flex items-center gap-2">${priceDisplay}<span class="text-[10px] bg-red-100 text-red-600 px-1 rounded font-bold">-${discount}%</span></div></div>`;
                 }
 
+                // Size Badge
+                let sizeBadge = '';
+                if(product.sizes && product.sizes.length > 0) {
+                    sizeBadge = `<div class="mt-2 flex flex-wrap gap-1">` + 
+                        product.sizes.map(s => `<span class="text-[10px] border border-gray-600 px-1 rounded text-gray-400">${s}</span>`).join('') + 
+                    `</div>`;
+                }
+
                 grid.innerHTML += `<div class="product-card bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 overflow-hidden relative group hover:border-accent transition duration-300">
                         <div class="relative group cursor-pointer" onclick="openModal('${product.id}')"><img src="${product.img}" alt="${product.name}" class="w-full h-40 md:h-56 object-cover ${imgStyle}">${product.sold ? '<div class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold z-20">SOLD OUT</div>' : (product.isPO ? '<div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded font-bold z-20">PRE-ORDER</div>' : '')}</div>
-                        <div class="p-3 md:p-4 ${contentStyle} text-gray-300"><div class="flex justify-between items-start"><p class="text-xs text-gray-500 uppercase font-semibold">${product.brand}</p>${product.isOriginal && !product.sold ? '<span class="text-[10px] bg-accent text-black px-2 py-0.5 rounded font-bold">ORI</span>' : ''}</div><h3 class="font-bold text-sm md:text-base text-white line-clamp-2 leading-tight mb-2">${product.name}</h3><div class="flex items-center justify-between mb-3">${priceDisplay}</div><div class="mt-3">${btnAction}</div></div></div>`;
+                        <div class="p-3 md:p-4 ${contentStyle} text-gray-300">
+                            <div class="flex justify-between items-start"><p class="text-xs text-gray-500 uppercase font-semibold">${product.brand}</p>${product.isOriginal && !product.sold ? '<span class="text-[10px] bg-accent text-black px-2 py-0.5 rounded font-bold">ORI</span>' : ''}</div>
+                            <h3 class="font-bold text-sm md:text-base text-white line-clamp-2 leading-tight mb-1">${product.name}</h3>
+                            ${sizeBadge}
+                            <div class="flex items-center justify-between mt-2 mb-3">${priceDisplay}</div><div class="mt-3">${btnAction}</div>
+                        </div></div>`;
             });
         }
 
         window.formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
-        window.adminLogin = function(e) { e.preventDefault(); const password = prompt("Masukkan Password Admin:"); if (password === "admin123") { document.getElementById('adminModal').classList.remove('hidden'); renderAdminProductList(); } else if (password !== null) alert("Password salah!"); }
+        
+        window.adminLogin = async function(e) { 
+            e.preventDefault(); 
+            const inputPass = prompt("Masukkan Password Admin:");
+            if(!inputPass) return;
+
+            // Fetch password from Firebase
+            let realPass = "admin123"; // Default
+            try {
+                const docSnap = await getDoc(doc(db, "settings", "admin_config"));
+                if (docSnap.exists()) {
+                    realPass = docSnap.data().password;
+                }
+            } catch(e) { console.log("Config not found, using default"); }
+
+            if (inputPass === realPass) { 
+                document.getElementById('adminModal').classList.remove('hidden'); 
+                renderAdminProductList();
+                showAdminTab('dashboard'); // Default open dashboard
+            } else { alert("Password salah!"); } 
+        }
+
         window.closeAdmin = function() { document.getElementById('adminModal').classList.add('hidden'); }
         window.showAdminTab = function(tabName) {
-            const addSec = document.getElementById('adminAddSection'), listSec = document.getElementById('adminListSection'), tabAdd = document.getElementById('tabAdd'), tabList = document.getElementById('tabList');
-            if (tabName === 'add') { addSec.classList.remove('hidden'); listSec.classList.add('hidden'); tabAdd.className = "flex-1 py-2 rounded-lg bg-slate-900 text-white font-bold text-xs uppercase"; tabList.className = "flex-1 py-2 rounded-lg bg-gray-200 text-gray-600 font-bold text-xs uppercase"; } 
-            else { addSec.classList.add('hidden'); listSec.classList.remove('hidden'); tabList.className = "flex-1 py-2 rounded-lg bg-slate-900 text-white font-bold text-xs uppercase"; tabAdd.className = "flex-1 py-2 rounded-lg bg-gray-200 text-gray-600 font-bold text-xs uppercase"; renderAdminProductList(); }
+            ['Dashboard', 'Add', 'List', 'Settings'].forEach(t => {
+                document.getElementById('admin' + t + 'Section').classList.add('hidden');
+                document.getElementById('tab' + t).className = "flex-1 py-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition";
+            });
+            document.getElementById('admin' + tabName.charAt(0).toUpperCase() + tabName.slice(1) + 'Section').classList.remove('hidden');
+            document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1)).className = "flex-1 py-2 rounded text-xs font-bold uppercase bg-zinc-800 text-white transition";
+            if(tabName === 'list') renderAdminProductList();
+            if(tabName === 'dashboard') renderDashboard();
         }
+        
         window.filterCategory = function(category) {
             currentCategory = category; document.querySelectorAll('.cat-btn').forEach(btn => { btn.classList.remove('bg-accent', 'text-white'); btn.classList.add('bg-white/10', 'text-white', 'border', 'border-white/20'); });
             if(event && event.target) { event.target.classList.remove('bg-white/10', 'border'); event.target.classList.add('bg-accent', 'text-black'); }
@@ -520,6 +652,12 @@
             const brands = [{name:"Adidas",logo:"logo_adidas.jpg"},{name:"Nike",logo:"logo_nike.jpg"},{name:"Onitsuka",logo:"logo_Onitsuka.jpg"},{name:"New Balance",logo:"logo_nb.jpg"},{name:"On Cloud",logo:"logo_oncloud.jpg"},{name:"Puma",logo:"puma.jpg"},{name:"Ortuseight",logo:"logo_ortus.jpg"},{name:"910 Nineten",logo:"logo_910.jpg"},{name:"Skechers",logo:"logo_Skechers.jpg"},{name:"Hoka",logo:"logo_hoka.jpg"},{name:"Asics",logo:"logo_Asics.jpg"},{name:"Specs",logo:"logo_specs.jpg"},{name:"Le Coq",logo:"lecoq.jpg"},{name:"Converse",logo:"converse.jpg"},{name:"Saucony",logo:"saucony.jpg"},{name:"Under Armour",logo:"logo_ua.jpg"},{name:"TNF",logo:"tnf.jpg"},{name:"Lacoste",logo:"lacoste.jpg"},{name:"Kanky",logo:"kanky.jpg"},{name:"DNY",logo:"dny.jpg"},{name:"Mills",logo:"mills.jpg"},{name:"Ballerbro",logo:"balero.jpg"},{name:"No Brand",logo:"nobrand.jpg"}];
             document.getElementById('addBrand').innerHTML = brands.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
             document.getElementById('brandContainer').innerHTML = brands.map(b => `<div onclick="filterByBrand('${b.name}')" class="brand-logo cursor-pointer bg-white p-2 rounded-lg flex items-center justify-center h-16 md:h-20 shadow-lg border border-gray-200 hover:bg-accent transition group overflow-hidden relative"><img src="${b.logo}" alt="${b.name}" class="max-h-full max-w-full object-contain group-hover:scale-110 transition duration-300 z-10 relative"><span class="absolute text-[10px] text-gray-300 font-bold opacity-0">${b.name}</span></div>`).join('');
+            
+            // Populate Size Checkboxes (New)
+            const shoeSizes = [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
+            const shirtSizes = ['S', 'M', 'L', 'XL', 'XXL', '3XL'];
+            document.getElementById('shoeSizeContainer').innerHTML = shoeSizes.map(s => `<label class="cursor-pointer"><input type="checkbox" value="${s}" class="size-checkbox hidden"><div class="text-[10px] text-center border border-gray-600 rounded py-1 text-gray-400 hover:border-accent hover:text-accent transition">${s}</div></label>`).join('');
+            document.getElementById('shirtSizeContainer').innerHTML = shirtSizes.map(s => `<label class="cursor-pointer"><input type="checkbox" value="${s}" class="size-checkbox hidden"><div class="text-[10px] text-center border border-gray-600 rounded py-1 text-gray-400 hover:border-accent hover:text-accent transition">${s}</div></label>`).join('');
         }
 
         window.onload = () => { populateBrandOptions(); renderProducts(staticProducts); showSection('home-section'); }
