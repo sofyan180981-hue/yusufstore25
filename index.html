@@ -646,7 +646,13 @@
                     </div>
                     <input type="number" id="addPrice" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Harga Jual">
                     <input type="number" id="addOriginalPrice" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Harga Coret (Opsional)">
-                    <input type="text" id="addImg" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Nama File Gambar (ex: sepatu1.jpg)">
+                    
+                    <!-- File Upload Input (Ganti dari text ke file) -->
+                    <div class="relative">
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Upload Foto Produk</label>
+                        <input type="file" id="addImgFile" accept="image/*" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none cursor-pointer">
+                        <p class="text-[10px] text-gray-500 mt-1">*Foto akan otomatis diupload ke Firebase Storage</p>
+                    </div>
                     
                     <button type="submit" class="w-full bg-white text-black font-bold py-3 rounded hover:bg-accent transition uppercase text-xs tracking-widest mt-2">Simpan ke Database</button>
                 </form>
@@ -664,6 +670,8 @@
         // Import Firebase Functions
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        // Import Firebase Storage
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
         // Konfigurasi Firebase dari User
         const firebaseConfig = {
@@ -679,6 +687,7 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const storage = getStorage(app); // Inisialisasi Storage
 
         // Global Variables
         let products = []; // Data sekarang kosong, akan diisi dari Firebase
@@ -724,46 +733,74 @@
             renderAdminProductList();
         });
 
-        // --- FUNGSI ADMIN BARU (MENGGUNAKAN FIRESTORE) ---
+        // --- FUNGSI ADMIN BARU (MENGGUNAKAN FIRESTORE & STORAGE) ---
 
         // Tambah Produk ke Firebase
         window.addProductToFirestore = async function(e) {
             e.preventDefault();
             
-            const name = document.getElementById('addName').value;
-            const brand = document.getElementById('addBrand').value;
-            const category = document.getElementById('addCategory').value;
-            const price = parseInt(document.getElementById('addPrice').value);
-            const originalPriceVal = document.getElementById('addOriginalPrice').value;
-            const img = document.getElementById('addImg').value;
-            const isOriginal = document.getElementById('addIsOriginal').checked;
-            const isSold = document.getElementById('addIsSold').checked;
-            const isPO = document.getElementById('addIsPO').checked;
-            
-            const newProduct = { 
-                name: name, 
-                brand: brand, 
-                category: category, 
-                price: price, 
-                img: img, 
-                sold: isSold,
-                isOriginal: isOriginal,
-                isPO: isPO,
-                createdAt: new Date().toISOString() // Simpan waktu pembuatan
-            };
+            // Ambil elemen
+            const fileInput = document.getElementById('addImgFile');
+            const file = fileInput.files[0];
 
-            if(originalPriceVal) {
-                newProduct.originalPrice = parseInt(originalPriceVal);
+            if (!file) {
+                alert("Harap pilih foto produk!");
+                return;
             }
-            
+
+            // Tampilkan loading sederhana (ubah text tombol)
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = "Mengupload...";
+            submitBtn.disabled = true;
+
             try {
+                // 1. Upload File ke Firebase Storage
+                const storageRef = ref(storage, 'products/' + file.name + '-' + Date.now()); // Tambah timestamp biar unik
+                await uploadBytes(storageRef, file);
+                const imgUrl = await getDownloadURL(storageRef);
+
+                // 2. Ambil data form lainnya
+                const name = document.getElementById('addName').value;
+                const brand = document.getElementById('addBrand').value;
+                const category = document.getElementById('addCategory').value;
+                const price = parseInt(document.getElementById('addPrice').value);
+                const originalPriceVal = document.getElementById('addOriginalPrice').value;
+                const isOriginal = document.getElementById('addIsOriginal').checked;
+                const isSold = document.getElementById('addIsSold').checked;
+                const isPO = document.getElementById('addIsPO').checked;
+                
+                // 3. Buat Object Produk
+                const newProduct = { 
+                    name: name, 
+                    brand: brand, 
+                    category: category, 
+                    price: price, 
+                    img: imgUrl, // Gunakan URL dari Storage
+                    sold: isSold,
+                    isOriginal: isOriginal,
+                    isPO: isPO,
+                    createdAt: new Date().toISOString()
+                };
+
+                if(originalPriceVal) {
+                    newProduct.originalPrice = parseInt(originalPriceVal);
+                }
+                
+                // 4. Simpan ke Firestore
                 await addDoc(collection(db, "products"), newProduct);
-                alert("Produk berhasil disimpan ke Database!");
+                
+                alert("Produk berhasil disimpan!");
                 document.getElementById('addProductForm').reset();
                 showAdminTab('list');
+
             } catch (error) {
                 console.error("Error adding document: ", error);
                 alert("Gagal menyimpan data: " + error.message);
+            } finally {
+                // Reset tombol
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
             }
         }
 
