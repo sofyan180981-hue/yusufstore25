@@ -161,16 +161,16 @@
             <div class="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-4">
                 <!-- Loop gambar manual disederhanakan -->
                 <script>
-                    for(let i=1; i<=12; i++){
-                        document.write(`<div onclick="viewGalleryImage('pembeli${i}.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer"><img src="pembeli${i}.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fas fa-search-plus text-accent text-xl"></i></div></div>`);
-                    }
-                    document.write(`<div onclick="viewGalleryImage('pembeli17.jpg')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer"><img src="pembeli17.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fas fa-search-plus text-accent text-xl"></i></div></div>`);
-                </script>
-                <!-- Videos -->
-                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700"><video class="w-full h-full object-cover" controls muted loop playsinline><source src="video_review1.mp4" type="video/mp4"></video><div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none"><i class="fas fa-play"></i> VIDEO</div></div>
-                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700"><video class="w-full h-full object-cover" controls muted loop playsinline><source src="video_review2.mp4" type="video/mp4"></video><div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none"><i class="fas fa-play"></i> VIDEO</div></div>
-                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700"><video class="w-full h-full object-cover" controls muted loop playsinline><source src="video_review3.mp4" type="video/mp4"></video><div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none"><i class="fas fa-play"></i> VIDEO</div></div>
-                <div class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700"><video class="w-full h-full object-cover" controls muted loop playsinline><source src="video_review4.mp4" type="video/mp4"></video><div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none"><i class="fas fa-play"></i> VIDEO</div></div>
+        <!-- Galeri Section (Updated Dynamic) -->
+        <section id="gallery" class="page-section hidden py-16 container mx-auto px-4 bg-black">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl font-bold text-white mb-2 uppercase tracking-widest">Galeri Pembeli</h2>
+                <div class="h-1 w-20 bg-accent mx-auto rounded"></div>
+                <p class="text-gray-400 text-xs mt-4">Klik foto untuk melihat lebih jelas</p>
+            </div>
+            <!-- Container Kosong untuk Data Firebase -->
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-4" id="galleryGrid">
+                <!-- Data will be loaded here from Firebase -->
             </div>
         </section>
 
@@ -289,19 +289,41 @@
                 <button onclick="showAdminTab('dashboard')" id="tabDashboard" class="flex-1 py-2 px-2 rounded text-xs font-bold uppercase bg-zinc-800 text-white transition whitespace-nowrap">Home</button>
                 <button onclick="showAdminTab('add')" id="tabAdd" class="flex-1 py-2 px-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition whitespace-nowrap">Produk</button>
                 <button onclick="showAdminTab('list')" id="tabList" class="flex-1 py-2 px-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition whitespace-nowrap">Kelola</button>
-                <!-- NEW BRAND TAB -->
+                <button onclick="showAdminTab('gallery')" id="tabGallery" class="flex-1 py-2 px-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition whitespace-nowrap">Galeri</button>
                 <button onclick="showAdminTab('brand')" id="tabBrand" class="flex-1 py-2 px-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition whitespace-nowrap">Brand</button>
                 <button onclick="showAdminTab('testimoni')" id="tabTestimoni" class="flex-1 py-2 px-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition whitespace-nowrap">Testi</button>
                 <button onclick="showAdminTab('settings')" id="tabSettings" class="flex-1 py-2 px-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition whitespace-nowrap"><i class="fas fa-cog"></i></button>
             </div>
 
             <!-- Dashboard Section -->
-            <div id="adminDashboardSection">
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div class="bg-zinc-800 p-4 rounded border border-zinc-700"><div class="text-xs text-gray-400 uppercase tracking-widest">Total Produk</div><div class="text-2xl font-bold text-white" id="statTotalProducts">0</div></div>
-                    <div class="bg-zinc-800 p-4 rounded border border-zinc-700"><div class="text-xs text-gray-400 uppercase tracking-widest">Estimasi Aset</div><div class="text-lg font-bold text-accent" id="statTotalAsset">Rp 0</div></div>
-                    <div class="bg-zinc-800 p-4 rounded border border-zinc-700"><div class="text-xs text-gray-400 uppercase tracking-widest">Ready Stock</div><div class="text-2xl font-bold text-green-500" id="statReady">0</div></div>
-                    <div class="bg-zinc-800 p-4 rounded border border-zinc-700"><div class="text-xs text-gray-400 uppercase tracking-widest">Sold Out</div><div class="text-2xl font-bold text-red-500" id="statSold">0</div></div>
+            <!-- Gallery Section (NEW) -->
+            <div id="adminGallerySection" class="hidden space-y-6">
+                <!-- Add Gallery Form -->
+                <div class="bg-zinc-800 p-4 rounded border border-zinc-700">
+                    <h3 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Tambah Foto Galeri</h3>
+                    <div class="space-y-3">
+                        <select id="galleryTypeInput" class="w-full bg-black border border-zinc-600 p-2 rounded text-white text-xs">
+                            <option value="image">Foto (Upload)</option>
+                            <!-- Video disabled for direct upload due to size limits, can be enabled if using URL -->
+                        </select>
+                        <input type="file" id="galleryFileInput" accept="image/*" class="w-full bg-black border border-zinc-600 p-2 rounded text-white text-xs">
+                        <button onclick="addGalleryToFirebase()" class="w-full bg-accent text-black font-bold py-2 rounded text-xs hover:bg-white transition">Upload Foto</button>
+                    </div>
+                </div>
+                
+                <!-- Gallery List -->
+                <div>
+                    <h3 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Daftar Galeri</h3>
+                    <div id="adminGalleryList" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                    
+                    <!-- Migration Button -->
+                    <div class="mt-4 pt-4 border-t border-zinc-800 text-center">
+                        <p class="text-[10px] text-gray-500 mb-2">Belum ada Foto di Database?</p>
+                        <button id="btnMigrateGallery" onclick="migrateGalleryToFirebase()" class="w-full bg-indigo-900/50 hover:bg-indigo-800 text-indigo-200 border border-indigo-700 py-3 rounded text-xs font-bold uppercase tracking-widest transition">
+                            <i class="fas fa-cloud-upload-alt mr-2"></i>Upload Galeri Bawaan
+                        </button>
+                        <p class="text-[9px] text-red-400 mt-2 italic">*Video bawaan tidak ikut diupload (terlalu besar), hanya foto.</p>
+                    </div>
                 </div>
             </div>
 
@@ -425,38 +447,116 @@
 
         // Data Static dipindah ke sini agar bisa dimigrasi
         const staticBrands = [{name:"Adidas",logo:"logo_adidas.jpg"},{name:"Nike",logo:"logo_nike.jpg"},{name:"Onitsuka",logo:"logo_Onitsuka.jpg"},{name:"New Balance",logo:"logo_nb.jpg"},{name:"On Cloud",logo:"logo_oncloud.jpg"},{name:"Puma",logo:"puma.jpg"},{name:"Ortuseight",logo:"logo_ortus.jpg"},{name:"910 Nineten",logo:"logo_910.jpg"},{name:"Skechers",logo:"logo_Skechers.jpg"},{name:"Hoka",logo:"logo_hoka.jpg"},{name:"Asics",logo:"logo_Asics.jpg"},{name:"Specs",logo:"logo_specs.jpg"},{name:"Le Coq",logo:"lecoq.jpg"},{name:"Converse",logo:"converse.jpg"},{name:"Saucony",logo:"saucony.jpg"},{name:"Under Armour",logo:"logo_ua.jpg"},{name:"TNF",logo:"tnf.jpg"},{name:"Lacoste",logo:"lacoste.jpg"},{name:"Kanky",logo:"kanky.jpg"},{name:"DNY",logo:"dny.jpg"},{name:"Mills",logo:"mills.jpg"},{name:"Ballerbro",logo:"balero.jpg"},{name:"No Brand",logo:"nobrand.jpg"}];
+        // Static Gallery Data for Migration
+        const staticGallery = [];
+        for(let i=1; i<=12; i++) staticGallery.push({type:'image', src:`pembeli${i}.jpg`});
+        staticGallery.push({type:'image', src:'pembeli17.jpg'});
+        // Note: Videos are skipped for migration due to size limits in Firestore Documents (Base64)
+
         const staticProducts = [];
         
         let allProducts = [];
         let allBrands = [];
+        let allGallery = []; // Store gallery items
         let currentCategory = 'all';
         let editingId = null;
         let currentProductData = null;
         let selectedProductSize = null;
 
         async function loadBanner() {
-            try {
-                const docSnap = await getDoc(doc(db, "settings", "banner"));
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    if(data.image) document.getElementById('heroImage').src = data.image;
-                    if(data.title) document.getElementById('heroTitle').innerText = data.title;
-                    if(data.subtitle) document.getElementById('heroSubtitle').innerText = data.subtitle;
-                }
-            } catch(e) { console.log("No custom banner"); }
-        }
-
-        // Fetch Brands (NEW)
+        // Fetch Brands
         onSnapshot(collection(db, "brands"), (snapshot) => {
             const firebaseBrands = [];
             snapshot.forEach(doc => firebaseBrands.push({ id: doc.id, ...doc.data() }));
-            
-            // Gabung dengan static jika Firebase kosong (Fallback)
             allBrands = firebaseBrands.length > 0 ? firebaseBrands : staticBrands;
-            
-            populateBrandOptions(); // Update tampilan
-            renderAdminBrandList(); // Update list di admin
+            populateBrandOptions(); 
+            renderAdminBrandList();
         });
+
+        // Fetch Gallery (NEW)
+        onSnapshot(collection(db, "gallery"), (snapshot) => {
+            const firebaseGallery = [];
+            snapshot.forEach(doc => firebaseGallery.push({ id: doc.id, ...doc.data() }));
+            
+            // Use Firebase data if available, else use static (but static videos are kept if using fallback)
+            // Strategy: If Firebase has data, use ONLY Firebase. If empty, show static.
+            
+            const galleryContainer = document.getElementById('galleryGrid');
+            const adminList = document.getElementById('adminGalleryList');
+            
+            let displayData = [];
+            if (firebaseGallery.length > 0) {
+                displayData = firebaseGallery;
+            } else {
+                displayData = staticGallery; // Fallback to static images only for view
+            }
+
+            // Render Frontend Gallery
+            galleryContainer.innerHTML = displayData.map(item => {
+                if(item.type === 'video') {
+                    // Placeholder for video logic if needed in future
+                    return ''; 
+                } else {
+                    return `<div onclick="viewGalleryImage('${item.src}')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
+                        <img src="${item.src}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fas fa-search-plus text-accent text-xl"></i></div>
+                    </div>`;
+                }
+            }).join('');
+
+            // Render Admin Gallery List
+            adminList.innerHTML = firebaseGallery.map(item => {
+                return `<div class="flex justify-between items-center bg-black p-2 rounded border border-zinc-800">
+                    <div class="flex items-center gap-2">
+                        <img src="${item.src}" class="w-8 h-8 object-cover rounded">
+                        <span class="text-xs text-white">Foto Galeri</span>
+                    </div>
+                    <button onclick="deleteGallery('${item.id}')" class="text-red-500 hover:text-red-400 ml-2"><i class="fas fa-trash"></i></button>
+                </div>`;
+            }).join('');
+        });
+
+        // Add Gallery Function
+        window.addGalleryToFirebase = async function() {
+            const file = document.getElementById('galleryFileInput').files[0];
+            if(!file) return alert("Pilih foto terlebih dahulu!");
+            
+            try {
+                const base64 = await compressImage(file, 600); // Reasonable quality
+                await addDoc(collection(db, "gallery"), { type: 'image', src: base64, createdAt: new Date().toISOString() });
+                alert("Foto berhasil ditambahkan ke Galeri!");
+                document.getElementById('galleryFileInput').value = '';
+            } catch(e) { alert("Gagal: " + e.message); }
+        }
+
+        window.deleteGallery = async function(id) {
+            if(confirm("Hapus foto ini dari galeri?")) await deleteDoc(doc(db, "gallery", id));
+        }
+
+        window.migrateGalleryToFirebase = async function() {
+            if(!confirm("Upload semua FOTO galeri bawaan ke Firebase? (Video tidak akan diupload)")) return;
+            const btn = document.getElementById('btnMigrateGallery');
+            btn.disabled = true; btn.innerText = "Memproses...";
+            
+            let count = 0;
+            for(const item of staticGallery) {
+                if(item.type === 'image') {
+                    try {
+                        const response = await fetch(item.src);
+                        const blob = await response.blob();
+                        const base64 = await new Promise((resolve) => {
+                            const reader = new FileReader();
+                            reader.onloadend = () => resolve(reader.result);
+                            reader.readAsDataURL(blob);
+                        });
+                        await addDoc(collection(db, "gallery"), { type: 'image', src: base64, createdAt: new Date().toISOString() });
+                        count++;
+                    } catch(e) { console.log("Skip " + item.src); }
+                }
+            }
+            alert(count + " Foto berhasil dipindahkan!");
+            btn.disabled = false; btn.innerText = "Selesai";
+        }
 
         // Add Brand Function (NEW)
         window.addBrandToFirebase = async function() {
@@ -753,7 +853,7 @@
         window.adminLogin = async function(e) { e.preventDefault(); const inputPass = prompt("Masukkan Password Admin:"); if(!inputPass) return; let realPass = "admin123"; try { const docSnap = await getDoc(doc(db, "settings", "admin_config")); if (docSnap.exists()) realPass = docSnap.data().password; } catch(e) { console.log("Config not found, using default"); } if (inputPass === realPass) { document.getElementById('adminModal').classList.remove('hidden'); renderAdminProductList(); showAdminTab('dashboard'); } else { alert("Password salah!"); } }
         window.closeAdmin = function() { document.getElementById('adminModal').classList.add('hidden'); }
         window.showAdminTab = function(tabName) {
-            ['Dashboard', 'Add', 'List', 'Brand', 'Testimoni', 'Settings'].forEach(t => { const sec = document.getElementById('admin' + t + 'Section'); const btn = document.getElementById('tab' + t); if(sec) sec.classList.add('hidden'); if(btn) btn.className = "flex-1 py-2 px-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition whitespace-nowrap"; });
+            ['Dashboard', 'Add', 'List', 'Brand', 'Gallery', 'Testimoni', 'Settings'].forEach(t => { const sec = document.getElementById('admin' + t + 'Section'); const btn = document.getElementById('tab' + t); if(sec) sec.classList.add('hidden'); if(btn) btn.className = "flex-1 py-2 px-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition whitespace-nowrap"; });
             const activeSec = document.getElementById('admin' + tabName.charAt(0).toUpperCase() + tabName.slice(1) + 'Section'); const activeBtn = document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
             if(activeSec) activeSec.classList.remove('hidden'); if(activeBtn) activeBtn.className = "flex-1 py-2 px-2 rounded text-xs font-bold uppercase bg-zinc-800 text-white transition whitespace-nowrap";
             if(tabName === 'list') renderAdminProductList(); if(tabName === 'brand') renderAdminBrandList(); if(tabName === 'dashboard') renderDashboard();
