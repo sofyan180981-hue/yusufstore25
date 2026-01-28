@@ -537,14 +537,20 @@
             </div>
 
             <div class="flex mb-6 bg-black rounded p-1">
-                <button onclick="showAdminTab('add')" id="tabAdd" class="flex-1 py-2 rounded text-xs font-bold uppercase bg-zinc-800 text-white transition">Tambah</button>
+                <button onclick="showAdminTab('add')" id="tabAdd" class="flex-1 py-2 rounded text-xs font-bold uppercase bg-zinc-800 text-white transition">Input</button>
                 <button onclick="showAdminTab('list')" id="tabList" class="flex-1 py-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition">Kelola</button>
             </div>
 
-            <!-- Add Section -->
+            <!-- Add/Edit Section -->
             <div id="adminAddSection">
+                <div id="editModeNotice" class="hidden mb-4 bg-yellow-900/30 border border-yellow-700 text-yellow-200 px-4 py-2 rounded text-sm flex justify-between items-center">
+                    <span><i class="fas fa-edit mr-2"></i>Mode Edit Produk</span>
+                    <button onclick="cancelEdit()" class="text-xs bg-yellow-700 hover:bg-yellow-600 px-2 py-1 rounded">Batal</button>
+                </div>
+
                 <form id="addProductForm" onsubmit="addProductToFirebase(event)" class="space-y-4">
                     <input type="text" id="addName" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Nama Produk">
+                    
                     <div class="grid grid-cols-2 gap-4">
                         <select id="addBrand" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none"></select>
                         <select id="addCategory" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none">
@@ -556,28 +562,52 @@
                             <option value="Jam Tangan">Jam Tangan</option>
                         </select>
                     </div>
-                    <div class="flex gap-4 flex-wrap">
-                        <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer"><input type="checkbox" id="addIsOriginal" class="accent-accent"> Original</label>
-                        <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer"><input type="checkbox" id="addIsSold" class="accent-red-500"> Sold Out</label>
-                        <label class="flex items-center gap-2 text-sm text-gray-400 cursor-pointer"><input type="checkbox" id="addIsPO" class="accent-yellow-500"> Pre-Order (PO)</label>
+
+                    <!-- New: Stock Type Selection -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-[10px] text-gray-500 font-bold uppercase ml-1">Status Ketersediaan</label>
+                            <select id="addStockType" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none">
+                                <option value="ready">Ready Stock</option>
+                                <option value="po">Pre-Order (PO)</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] text-gray-500 font-bold uppercase ml-1">Label Tambahan</label>
+                            <div class="flex flex-col justify-center h-[46px] gap-2 px-2">
+                                <label class="flex items-center gap-2 text-xs text-gray-400 cursor-pointer hover:text-white transition"><input type="checkbox" id="addIsOriginal" class="accent-accent"> Original</label>
+                                <label class="flex items-center gap-2 text-xs text-gray-400 cursor-pointer hover:text-red-500 transition"><input type="checkbox" id="addIsSold" class="accent-red-500"> Sold Out</label>
+                            </div>
+                        </div>
                     </div>
+
                     <input type="number" id="addPrice" required class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Harga Jual">
                     <input type="number" id="addOriginalPrice" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-sm focus:border-accent outline-none" placeholder="Harga Coret (Opsional)">
                     
                     <!-- INPUT FILE UNTUK UPLOAD KE FIREBASE -->
                     <div class="space-y-2">
-                        <label class="text-xs text-gray-500 font-bold uppercase">Foto Produk (Upload ke Firebase)</label>
-                        <input type="file" id="addImgFile" required accept="image/*" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-xs focus:border-accent outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent file:text-black hover:file:bg-white transition">
+                        <label class="text-xs text-gray-500 font-bold uppercase">Foto Produk <span id="imgReqText">(Wajib)</span></label>
+                        <input type="file" id="addImgFile" accept="image/*" class="w-full bg-black border border-zinc-700 p-3 rounded text-white text-xs focus:border-accent outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-accent file:text-black hover:file:bg-white transition">
+                        <p id="editImgHint" class="text-[10px] text-gray-500 hidden">*Kosongkan jika tidak ingin mengubah foto saat edit.</p>
                     </div>
                     
-                    <button type="submit" id="btnSubmit" class="w-full bg-white text-black font-bold py-3 rounded hover:bg-accent transition uppercase text-xs tracking-widest mt-2">
-                        <span id="btnText">Upload & Simpan</span>
-                    </button>
+                    <div class="flex gap-2">
+                        <button type="submit" id="btnSubmit" class="flex-1 bg-white text-black font-bold py-3 rounded hover:bg-accent transition uppercase text-xs tracking-widest mt-2">
+                            <span id="btnText">Upload & Simpan</span>
+                        </button>
+                        <button type="button" id="cancelEditBtn" onclick="cancelEdit()" class="hidden w-20 bg-zinc-800 text-white border border-zinc-700 font-bold py-3 rounded hover:bg-red-900 transition uppercase text-xs tracking-widest mt-2">
+                            Batal
+                        </button>
+                    </div>
                 </form>
             </div>
 
             <!-- List Section -->
             <div id="adminListSection" class="hidden">
+                <!-- Search Box -->
+                <div class="mb-4">
+                    <input type="text" id="adminSearchInput" onkeyup="renderAdminProductList()" placeholder="Cari produk untuk diedit/hapus..." class="w-full bg-black border border-zinc-700 rounded p-2 text-sm text-white focus:border-accent outline-none">
+                </div>
                 <div id="adminProductListContainer" class="space-y-2 max-h-[300px] overflow-y-auto pr-2"></div>
             </div>
         </div>
@@ -2111,6 +2141,7 @@
 
         let allProducts = [...staticProducts];
         let currentCategory = 'all';
+        let editingId = null; // Global variable untuk mode edit
 
         // Listen to Firestore Updates
         const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
@@ -2127,7 +2158,10 @@
             } else {
                 filterCategory(currentCategory);
             }
-            renderAdminProductList();
+            // Jika sedang membuka modal admin, refresh list admin
+            if(!document.getElementById('adminModal').classList.contains('hidden')) {
+                renderAdminProductList();
+            }
         });
 
         // --- GLOBAL FUNCTIONS ---
@@ -2165,7 +2199,8 @@
             const fileInput = document.getElementById('addImgFile');
             const file = fileInput.files[0];
 
-            if (!file) {
+            // Validasi File saat Mode Tambah (Bukan Edit)
+            if (!editingId && !file) {
                 alert("Pilih foto produk terlebih dahulu!");
                 return;
             }
@@ -2177,66 +2212,147 @@
             try {
                 if (!auth.currentUser) await signInAnonymously(auth);
 
-                // 1. Kompres gambar ke Base64 (Teks) agar GRATIS tanpa Storage
-                const base64Img = await compressImage(file);
+                let base64Img = null;
+                // Jika ada file baru, kompres. Jika tidak (mode edit tanpa ganti foto), biarkan null.
+                if (file) {
+                    base64Img = await compressImage(file);
+                }
 
-                // 2. Simpan Data + Gambar ke Firestore
-                const newProduct = {
+                const productData = {
                     name: document.getElementById('addName').value,
                     brand: document.getElementById('addBrand').value,
                     category: document.getElementById('addCategory').value,
                     price: parseInt(document.getElementById('addPrice').value),
                     originalPrice: document.getElementById('addOriginalPrice').value ? parseInt(document.getElementById('addOriginalPrice').value) : null,
-                    img: base64Img, // Gambar disimpan langsung di sini
                     sold: document.getElementById('addIsSold').checked,
                     isOriginal: document.getElementById('addIsOriginal').checked,
-                    isPO: document.getElementById('addIsPO').checked,
-                    createdAt: new Date().toISOString() // Simpan waktu agar urutan benar
+                    isPO: document.getElementById('addStockType').value === 'po', // Updated Logic
+                    createdAt: new Date().toISOString()
                 };
 
-                await addDoc(collection(db, "products"), newProduct);
+                // Jika ada gambar baru, masukkan ke data.
+                if (base64Img) {
+                    productData.img = base64Img;
+                }
 
-                alert("Berhasil! Produk tersimpan (Mode Hemat Kuota).");
-                document.getElementById('addProductForm').reset();
+                if (editingId) {
+                    // --- MODE UPDATE ---
+                    const productRef = doc(db, "products", editingId);
+                    // Hapus createdAt dari update agar tidak berubah urutannya (opsional)
+                    delete productData.createdAt; 
+                    
+                    await updateDoc(productRef, productData);
+                    alert("Produk berhasil diperbarui!");
+                    cancelEdit(); // Reset form mode
+                } else {
+                    // --- MODE CREATE ---
+                    if (!base64Img) throw new Error("Gambar wajib diupload untuk produk baru");
+                    await addDoc(collection(db, "products"), productData);
+                    alert("Produk baru berhasil ditambahkan!");
+                    document.getElementById('addProductForm').reset();
+                }
+
                 showAdminTab('list');
 
             } catch (error) {
-                console.error("Error adding product: ", error);
+                console.error("Error saving product: ", error);
                 alert("Gagal: " + error.message);
             } finally {
                 btnSubmit.disabled = false;
                 btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
-                btnText.innerHTML = 'Upload & Simpan';
+                btnText.innerHTML = editingId ? 'Update Produk' : 'Upload & Simpan';
             }
         }
 
         window.renderAdminProductList = function() {
             const container = document.getElementById('adminProductListContainer');
-            if (allProducts.length === 0) {
-                container.innerHTML = '<p class="text-center text-gray-400 py-4">Belum ada produk.</p>';
+            const searchQuery = document.getElementById('adminSearchInput').value.toLowerCase();
+            
+            // Filter berdasarkan search input
+            const filteredProducts = allProducts.filter(p => p.name.toLowerCase().includes(searchQuery));
+
+            if (filteredProducts.length === 0) {
+                container.innerHTML = '<p class="text-center text-gray-400 py-4">Produk tidak ditemukan.</p>';
                 return;
             }
 
-            container.innerHTML = allProducts.map(p => `
+            container.innerHTML = filteredProducts.map(p => {
+                // Determine Badge Style & Text
+                let badgeClass = 'bg-green-100 text-green-600';
+                let badgeText = 'RDY';
+                
+                if (p.sold) {
+                    badgeClass = 'bg-red-100 text-red-600';
+                    badgeText = 'SOLD';
+                } else if (p.isPO) {
+                    badgeClass = 'bg-yellow-100 text-yellow-600';
+                    badgeText = 'PO';
+                }
+
+                return `
                 <div class="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-200 text-sm hover:bg-gray-100 transition">
                     <div class="flex items-center gap-2 overflow-hidden flex-1">
                         <img src="${p.img}" class="w-10 h-10 rounded object-cover bg-gray-200 border border-gray-300">
                         <div class="truncate">
-                            <div class="font-bold text-gray-800 truncate w-24 md:w-40 ${p.sold ? 'line-through text-gray-400' : ''}">${p.name}</div>
-                            <div class="text-[10px] text-gray-500 font-mono">${p.brand}</div>
+                            <div class="font-bold text-gray-800 truncate w-24 md:w-36 ${p.sold ? 'line-through text-gray-400' : ''}">${p.name}</div>
+                            <div class="text-[10px] text-gray-500 font-mono">${p.brand} - ${formatRupiah(p.price)}</div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="toggleSold('${p.id}', ${p.isFirebase})" class="${p.sold ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'} border px-2 py-1 rounded text-[10px] font-bold w-16">
-                            ${p.sold ? 'SOLD' : 'READY'}
+                    <div class="flex items-center gap-1">
+                        <button onclick="toggleSold('${p.id}', ${p.isFirebase})" class="${badgeClass} border px-2 py-1 rounded text-[10px] font-bold w-12 text-center" title="Klik untuk ubah SOLD/READY (Status PO diedit via tombol pensil)">
+                            ${badgeText}
                         </button>
                         ${p.isFirebase ? 
-                            `<button onclick="deleteProduct('${p.id}', true)" class="text-gray-400 hover:text-red-500 p-2"><i class="fas fa-trash-alt"></i></button>` : 
-                            `<button disabled class="text-gray-200 p-2" title="Produk Statis (Tidak bisa dihapus)"><i class="fas fa-lock"></i></button>`
+                            `
+                            <button onclick="editProduct('${p.id}')" class="bg-yellow-100 text-yellow-600 border border-yellow-200 p-2 rounded hover:bg-yellow-200 transition" title="Edit Produk"><i class="fas fa-pencil-alt text-xs"></i></button>
+                            <button onclick="deleteProduct('${p.id}', true)" class="bg-red-100 text-red-500 border border-red-200 p-2 rounded hover:bg-red-200 transition" title="Hapus Permanen"><i class="fas fa-trash-alt text-xs"></i></button>
+                            ` : 
+                            `<button disabled class="text-gray-300 p-2" title="Produk Statis (Tidak bisa diedit)"><i class="fas fa-lock"></i></button>`
                         }
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
+        }
+
+        window.editProduct = function(id) {
+            const p = allProducts.find(x => x.id == id);
+            if(!p) return;
+
+            editingId = id;
+            
+            // Isi Form dengan data produk
+            document.getElementById('addName').value = p.name;
+            document.getElementById('addBrand').value = p.brand;
+            document.getElementById('addCategory').value = p.category;
+            document.getElementById('addPrice').value = p.price;
+            document.getElementById('addOriginalPrice').value = p.originalPrice || '';
+            
+            // Set Stock Type & Checkboxes
+            document.getElementById('addStockType').value = p.isPO ? 'po' : 'ready';
+            document.getElementById('addIsOriginal').checked = p.isOriginal;
+            document.getElementById('addIsSold').checked = p.sold;
+
+            // UI Updates untuk Mode Edit
+            document.getElementById('btnText').innerText = "Update Produk";
+            document.getElementById('cancelEditBtn').classList.remove('hidden');
+            document.getElementById('editModeNotice').classList.remove('hidden');
+            document.getElementById('editImgHint').classList.remove('hidden');
+            document.getElementById('imgReqText').innerText = "(Opsional)";
+            
+            // Pindah ke tab Input
+            showAdminTab('add');
+        }
+
+        window.cancelEdit = function() {
+            editingId = null;
+            document.getElementById('addProductForm').reset();
+            
+            // Reset UI ke Mode Tambah
+            document.getElementById('btnText').innerText = "Upload & Simpan";
+            document.getElementById('cancelEditBtn').classList.add('hidden');
+            document.getElementById('editModeNotice').classList.add('hidden');
+            document.getElementById('editImgHint').classList.add('hidden');
+            document.getElementById('imgReqText').innerText = "(Wajib)";
         }
 
         window.toggleSold = async function(id, isFirebase) {
