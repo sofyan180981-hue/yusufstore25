@@ -465,10 +465,58 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-black text-white py-12 border-t border-zinc-900">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-500 text-sm">© 2025 Yusuf Store 25.</p>
-            <a href="#" onclick="adminLogin(event)" class="hover:text-accent transition mt-4 inline-block text-xs uppercase tracking-widest text-gray-700">Admin Login</a>
+    <footer class="bg-black text-white pt-16 pb-8 border-t border-zinc-900">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Brand & Social -->
+                <div class="text-center md:text-left">
+                    <h2 class="font-display font-bold text-2xl text-white mb-4 uppercase tracking-wider">Yusuf Store 25</h2>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        Pusat sepatu berkualitas di Padang Sidimpuan. Menyediakan berbagai brand ternama seperti Adidas, Nike, New Balance, dan lainnya dengan kualitas terbaik.
+                    </p>
+                    <div class="flex justify-center md:justify-start gap-4">
+                        <a href="https://www.instagram.com/yusufstore_25" target="_blank" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-black transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/6281375861195" target="_blank" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-black transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact & Address -->
+                <div class="text-center md:text-left">
+                    <h3 class="font-bold text-lg text-white mb-4 uppercase tracking-wide">Alamat & Kontak</h3>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex flex-col md:flex-row items-center md:items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-accent mt-1"></i>
+                            <span>Depan Tugu Salak,<br>Padang Sidimpuan,<br>Sumatera Utara, Indonesia</span>
+                        </li>
+                        <li class="flex flex-col md:flex-row items-center md:items-start gap-3">
+                            <i class="fab fa-whatsapp text-accent mt-1"></i>
+                            <span>+62 813-7586-1195</span>
+                        </li>
+                        <li class="flex flex-col md:flex-row items-center md:items-start gap-3">
+                            <i class="fas fa-clock text-accent mt-1"></i>
+                            <span>Buka Setiap Hari: 10.00 - 22.00 WIB</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Maps -->
+                <div class="text-center md:text-left">
+                     <h3 class="font-bold text-lg text-white mb-4 uppercase tracking-wide">Lokasi Kami</h3>
+                     <div class="w-full h-48 bg-zinc-800 rounded-lg overflow-hidden border border-zinc-800 grayscale hover:grayscale-0 transition duration-500">
+                        <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=1.3759020665545012,99.27329924966573&z=16&output=embed" allowfullscreen loading="lazy"></iframe>
+                     </div>
+                     <a href="https://maps.google.com/maps?q=1.3759020665545012,99.27329924966573" target="_blank" class="inline-block mt-3 text-xs text-accent hover:text-white transition border-b border-accent pb-0.5">Buka di Google Maps <i class="fas fa-external-link-alt ml-1"></i></a>
+                </div>
+            </div>
+
+            <div class="border-t border-zinc-900 pt-8 text-center">
+                <p class="text-gray-500 text-sm">© 2025 Yusuf Store 25. All rights reserved.</p>
+                <a href="#" onclick="adminLogin(event)" class="hover:text-accent transition mt-2 inline-block text-[10px] uppercase tracking-widest text-gray-700">Admin Login</a>
+            </div>
         </div>
     </footer>
 
