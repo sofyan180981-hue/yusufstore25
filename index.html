@@ -42,7 +42,6 @@
         details[open] summary ~ * { animation: sweep .3s ease-in-out; }
         @keyframes sweep { 0% {opacity: 0; transform: translateY(-10px)} 100% {opacity: 1; transform: translateY(0)} }
         ::selection { background-color: #ccff00; color: #000; }
-        /* Custom Checkbox for Sizes */
         .size-checkbox:checked + div { background-color: #ccff00; color: black; border-color: #ccff00; }
     </style>
 </head>
@@ -752,11 +751,32 @@
             adminList.innerHTML = adminHtml;
         });
 
-        const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
-        onSnapshot(q, (snapshot) => {
+        // AMBIL DATA PRODUK DARI FIREBASE (SESUAI ATURAN JS-SORTING)
+        const productsCol = collection(db, "products");
+        onSnapshot(productsCol, (snapshot) => {
             const firebaseProducts = [];
             snapshot.forEach((doc) => firebaseProducts.push({ id: doc.id, ...doc.data(), isFirebase: true }));
-            allProducts = [...firebaseProducts, ...staticProducts];
+            
+            // GABUNGKAN DAN URUTKAN DI JAVASCRIPT (RULE 2)
+            // Prioritas: Kategori Sepatu (Running, Casual, Futsal, Basket) muncul diatas
+            const sortedData = [...firebaseProducts, ...staticProducts].sort((a, b) => {
+                const shoeCategories = ['Running', 'Casual', 'Futsal', 'Basket'];
+                const isShoeA = shoeCategories.includes(a.category);
+                const isShoeB = shoeCategories.includes(b.category);
+
+                // Jika A sepatu dan B bukan, A naik (-1)
+                if (isShoeA && !isShoeB) return -1;
+                // Jika B sepatu dan A bukan, B naik (1)
+                if (!isShoeA && isShoeB) return 1;
+
+                // Jika sesama jenis (sama-sama sepatu atau sama-sama bukan), urutkan berdasarkan tanggal terbaru
+                const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+                const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+                return dateB - dateA;
+            });
+
+            allProducts = sortedData;
+            
             if(currentCategory === 'all') renderProducts(allProducts); else filterCategory(currentCategory);
             renderDashboard();
             if(!document.getElementById('adminModal').classList.contains('hidden')) renderAdminProductList();
@@ -966,7 +986,6 @@
                     }
 
                     // Pattern 2: Matches "Size 42" or "Size 39,40" or "Size XL" or "Sieze L" (typo handling)
-                    // Case insensitive search for "Size" or "Sieze" followed by numbers or S/M/L/XL
                     const sizeKeywordMatch = newName.match(/(?:Size|Sieze)\s+([0-9,]+|[SMLX]+)/i);
                     if(sizeKeywordMatch) {
                         const sizePart = sizeKeywordMatch[1];
@@ -975,15 +994,12 @@
                             return isNaN(num) ? s.trim().toUpperCase() : num;
                         });
                         newSizes = [...new Set([...newSizes, ...extracted])];
-                        // Replace the whole match "Size 42"
                         newName = newName.replace(sizeKeywordMatch[0], '').trim();
-                        // Clean up trailing commas or dashes if any left
                         if(newName.endsWith('-') || newName.endsWith(',')) newName = newName.slice(0, -1).trim();
                         isUpdated = true;
                     }
 
                     if(isUpdated) {
-                        // Update to Firebase
                         await updateDoc(doc(db, "products", docSnap.id), {
                             name: newName,
                             sizes: newSizes
@@ -1003,7 +1019,6 @@
                 btn.innerText = "Mulai Perbaikan Otomatis";
             }
         }
-        // --- END AUTO FIX FUNCTION ---
 
         window.addProductToFirebase = async function(e) {
             e.preventDefault();
