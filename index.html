@@ -42,6 +42,7 @@
         details[open] summary ~ * { animation: sweep .3s ease-in-out; }
         @keyframes sweep { 0% {opacity: 0; transform: translateY(-10px)} 100% {opacity: 1; transform: translateY(0)} }
         ::selection { background-color: #ccff00; color: #000; }
+        /* Custom Checkbox for Sizes */
         .size-checkbox:checked + div { background-color: #ccff00; color: black; border-color: #ccff00; }
     </style>
 </head>
@@ -431,27 +432,28 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        
         signInAnonymously(auth).then(() => console.log("Connected")).catch((e) => console.error(e));
 
         const staticBrands = [{name:"Adidas",logo:"logo_adidas.jpg"},{name:"Nike",logo:"logo_nike.jpg"},{name:"Onitsuka",logo:"logo_Onitsuka.jpg"},{name:"New Balance",logo:"logo_nb.jpg"},{name:"On Cloud",logo:"logo_oncloud.jpg"},{name:"Puma",logo:"puma.jpg"},{name:"Ortuseight",logo:"logo_ortus.jpg"},{name:"910 Nineten",logo:"logo_910.jpg"},{name:"Skechers",logo:"logo_Skechers.jpg"},{name:"Hoka",logo:"logo_hoka.jpg"},{name:"Asics",logo:"logo_Asics.jpg"},{name:"Specs",logo:"logo_specs.jpg"},{name:"Le Coq",logo:"lecoq.jpg"},{name:"Converse",logo:"converse.jpg"},{name:"Saucony",logo:"saucony.jpg"},{name:"Under Armour",logo:"logo_ua.jpg"},{name:"TNF",logo:"tnf.jpg"},{name:"Lacoste",logo:"lacoste.jpg"},{name:"Kanky",logo:"kanky.jpg"},{name:"DNY",logo:"dny.jpg"},{name:"Mills",logo:"mills.jpg"},{name:"Ballerbro",logo:"balero.jpg"},{name:"No Brand",logo:"nobrand.jpg"}];
+        // Static Gallery Data for Migration
         const staticGallery = [];
         for(let i=1; i<=12; i++) staticGallery.push({type:'image', src:`pembeli${i}.jpg`});
         staticGallery.push({type:'image', src:'pembeli17.jpg'});
+        // Add videos back to static data
         staticGallery.push({type:'video', src:'video_review1.mp4'});
         staticGallery.push({type:'video', src:'video_review2.mp4'});
         staticGallery.push({type:'video', src:'video_review3.mp4'});
         staticGallery.push({type:'video', src:'video_review4.mp4'});
 
         const staticProducts = [];
+        
         let allProducts = [];
         let allBrands = [];
+        let allGallery = []; // Store gallery items
         let currentCategory = 'all';
         let editingId = null;
         let currentProductData = null;
         let selectedProductSize = null;
-
-        // --- CORE FUNCTIONS (FUNCTION DECLARATIONS ARE HOISTED) ---
 
         async function loadBanner() {
             try {
@@ -465,615 +467,640 @@
             } catch(e) { console.log("No custom banner"); }
         }
 
-        function renderDashboard() {
-            const total = allProducts.length;
-            const ready = allProducts.filter(p => !p.sold).length;
-            const sold = allProducts.filter(p => p.sold).length;
-            const asset = allProducts.filter(p => !p.sold).reduce((acc, curr) => acc + (curr.price || 0), 0);
-            const elTotal = document.getElementById('statTotalProducts');
-            const elReady = document.getElementById('statReady');
-            const elSold = document.getElementById('statSold');
-            const elAsset = document.getElementById('statTotalAsset');
-            if(elTotal) elTotal.innerText = total;
-            if(elReady) elReady.innerText = ready;
-            if(elSold) elSold.innerText = sold;
-            if(elAsset) elAsset.innerText = formatRupiah(asset);
-        }
-
-        function renderProducts(data) {
-            const grid = document.getElementById('productGrid'); 
-            const empty = document.getElementById('emptyState'); 
-            if(!grid) return;
-            grid.innerHTML = ''; 
-            if (data.length === 0) { 
-                if(empty) empty.classList.remove('hidden'); 
-                return; 
-            } else {
-                if(empty) empty.classList.add('hidden');
-            }
-
-            data.forEach(product => {
-                const imgStyle = product.sold ? 'grayscale opacity-75' : ''; 
-                const contentStyle = product.sold ? 'opacity-60' : '';
-                let priceDisplay = `<span class="text-accent font-bold text-sm md:text-lg border border-accent px-2 py-1 rounded">${formatRupiah(product.price)}</span>`;
-                if (product.originalPrice && product.originalPrice > product.price) { 
-                    const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100); 
-                    priceDisplay = `<div class="flex flex-col"><span class="text-[10px] text-gray-400 line-through">${formatRupiah(product.originalPrice)}</span><div class="flex items-center gap-2">${priceDisplay}<span class="text-[10px] bg-red-100 text-red-600 px-1 rounded font-bold">-${discount}%</span></div></div>`; 
-                }
-                let sizeBadge = ''; 
-                if(product.sizes && product.sizes.length > 0) sizeBadge = `<div class="mt-2 flex flex-wrap gap-1">` + product.sizes.slice(0, 4).map(s => `<span class="text-[10px] border border-zinc-700 px-1.5 py-0.5 rounded text-gray-300 bg-zinc-800/50">${s}</span>`).join('') + (product.sizes.length > 4 ? `<span class="text-[10px] text-gray-500 self-center">+${product.sizes.length-4}</span>` : '') + `</div>`;
-                
-                grid.innerHTML += `<div class="product-card bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 overflow-hidden relative group hover:border-accent transition duration-300 flex flex-col"><div class="relative group cursor-pointer h-48 md:h-64 overflow-hidden" onclick="openProductModal('${product.id}')"><img src="${product.img}" alt="${product.name}" loading="lazy" class="w-full h-full object-cover ${imgStyle} transition duration-500 group-hover:scale-110">${product.sold ? '<div class="absolute top-2 right-2 bg-red-600 text-white text-[10px] px-2 py-1 rounded font-bold z-20 shadow-md">SOLD OUT</div>' : (product.isPO ? '<div class="absolute top-2 right-2 bg-yellow-500 text-black text-[10px] px-2 py-1 rounded font-bold z-20 shadow-md">PRE-ORDER</div>' : '')}<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center"><span class="bg-accent text-black px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transform translate-y-4 group-hover:translate-y-0 transition duration-300"><i class="fas fa-eye mr-1"></i> Detail</span></div></div><div class="p-3 md:p-4 ${contentStyle} text-gray-300 flex-1 flex flex-col"><div class="flex justify-between items-start mb-1"><p class="text-[10px] text-gray-500 uppercase font-bold tracking-wider">${product.brand}</p>${product.isOriginal && !product.sold ? '<span class="text-[9px] bg-accent/20 text-accent border border-accent/30 px-1.5 rounded font-bold">ORI</span>' : ''}</div><h3 class="font-bold text-sm text-white line-clamp-2 leading-snug mb-1 flex-1 cursor-pointer hover:text-accent transition" onclick="openProductModal('${product.id}')">${product.name}</h3>${sizeBadge}<div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-800">${priceDisplay}<button onclick="openProductModal('${product.id}')" class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center hover:bg-accent transition shadow-lg ${product.sold ? 'opacity-50 cursor-not-allowed' : ''}"><i class="fas fa-shopping-bag text-xs"></i></button></div></div></div>`;
-            });
-        }
-
-        function renderAdminProductList() {
-            const container = document.getElementById('adminProductListContainer');
-            const searchInput = document.getElementById('adminSearchInput');
-            if(!container) return;
-            const q = searchInput ? searchInput.value.toLowerCase() : "";
-            const filtered = allProducts.filter(p => p.name.toLowerCase().includes(q));
-            container.innerHTML = filtered.map(p => {
-                let bc = p.sold ? 'bg-red-100 text-red-600' : (p.isPO ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600');
-                return `<div class="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-200 text-sm"><div class="flex items-center gap-2 truncate flex-1"><img src="${p.img}" class="w-10 h-10 rounded object-cover"><div class="truncate"><div class="font-bold text-gray-800 truncate ${p.sold ? 'line-through opacity-40' : ''}">${p.name}</div><div class="text-[10px] text-gray-500">${p.brand} - ${formatRupiah(p.price)}</div></div></div><div class="flex items-center gap-1"><button onclick="toggleSold('${p.id}')" class="${bc} border px-2 py-1 rounded text-[10px] font-bold w-12">${p.sold?'SOLD':(p.isPO?'PO':'RDY')}</button><button onclick="editProduct('${p.id}')" class="bg-yellow-100 text-yellow-600 p-2 rounded"><i class="fas fa-pencil-alt text-xs"></i></button><button onclick="deleteProduct('${p.id}')" class="bg-red-100 text-red-500 p-2 rounded"><i class="fas fa-trash-alt text-xs"></i></button></div></div>`;
-            }).join('');
-        }
-
-        function formatRupiah(n) {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(n);
-        }
-
-        function showSection(id) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
-            const target = document.getElementById(id);
-            if(target) target.classList.remove('hidden');
-            window.scrollTo(0,0);
-        }
-
-        function resetFilter() {
-            currentCategory = 'all';
-            const desktopSearch = document.getElementById('desktopSearch');
-            if(desktopSearch) desktopSearch.value = '';
-            renderProducts(allProducts);
-        }
-
-        function filterCategory(c) {
-            currentCategory = c; 
-            document.querySelectorAll('.cat-btn').forEach(b => { 
-                b.classList.remove('bg-accent','text-black'); 
-                b.classList.add('bg-black','text-gray-400'); 
-            });
-            if(event?.target && event.target.classList.contains('cat-btn')) { 
-                event.target.classList.add('bg-accent','text-black'); 
-            }
-            renderProducts(c === 'all' ? allProducts : allProducts.filter(p => p.category === c));
-        }
-
-        function openProductModal(id) {
-            const p = allProducts.find(x => x.id == id); 
-            if(!p) return; 
-            currentProductData = p; 
-            selectedProductSize = null;
-            document.getElementById('pmImage').src = p.img; 
-            document.getElementById('pmBrand').innerText = p.brand; 
-            document.getElementById('pmName').innerText = p.name; 
-            document.getElementById('pmPrice').innerText = formatRupiah(p.price);
-            document.getElementById('selectedSizeDisplay').innerText = "";
-            const badge = document.getElementById('pmBadge'); 
-            badge.innerText = p.sold ? 'SOLD OUT' : (p.isPO ? 'PRE-ORDER' : 'READY STOCK'); 
-            badge.className = `absolute top-4 left-4 px-3 py-1 rounded text-xs font-bold shadow-lg ${p.sold?'bg-red-600 text-white':(p.isPO?'bg-yellow-500 text-black':'bg-green-500 text-white')}`;
-            const sContainer = document.getElementById('pmSizes'); 
-            sContainer.innerHTML = '';
-            if(p.sizes?.length) { 
-                p.sizes.forEach(s => { 
-                    const b = document.createElement('button'); 
-                    b.className = "border border-zinc-600 text-gray-300 px-3 py-2 rounded text-sm hover:border-accent"; 
-                    b.innerText = s; 
-                    b.onclick = () => { 
-                        selectedProductSize = s; 
-                        document.getElementById('selectedSizeDisplay').innerText = s; 
-                    }; 
-                    sContainer.appendChild(b); 
-                }); 
-            }
-            document.getElementById('productModal').classList.remove('hidden');
-        }
-
-        function closeProductModal() {
-            document.getElementById('productModal').classList.add('hidden');
-        }
-
-        function validateSize() {
-            if(currentProductData && currentProductData.sizes?.length && !selectedProductSize) {
-                alert("Silakan pilih ukuran terlebih dahulu!");
-                return false;
-            }
-            const txt = `Halo Yusuf Store 25, saya mau order:\n*${currentProductData.name}*\n${selectedProductSize ? 'Ukuran: '+selectedProductSize+'\n' : ''}Harga: ${formatRupiah(currentProductData.price)}`;
-            window.open(`https://wa.me/6281375861195?text=${encodeURIComponent(txt)}`, '_blank'); 
-            return false;
-        }
-
-        async function toggleSold(id) { 
-            const p = allProducts.find(x => x.id == id); 
-            if(p) await updateDoc(doc(db, "products", id), { sold: !p.sold }); 
-        }
-
-        async function deleteProduct(id) { 
-            if (confirm("Hapus produk ini secara permanen?")) await deleteDoc(doc(db, "products", id)); 
-        }
-
-        function editProduct(id) {
-            const p = allProducts.find(x => x.id == id); 
-            if(!p) return; 
-            editingId = id;
-            document.getElementById('addName').value = p.name; 
-            document.getElementById('addBrand').value = p.brand; 
-            document.getElementById('addCategory').value = p.category; 
-            document.getElementById('addPrice').value = p.price; 
-            document.getElementById('addOriginalPrice').value = p.originalPrice || ''; 
-            document.getElementById('addStockType').value = p.isPO ? 'po' : 'ready'; 
-            document.getElementById('addIsOriginal').checked = p.isOriginal; 
-            document.getElementById('addIsSold').checked = p.sold;
-            document.querySelectorAll('.size-checkbox').forEach(cb => { 
-                cb.checked = p.sizes?.includes(cb.value); 
-            });
-            document.getElementById('btnText').innerText = "Update Produk"; 
-            showAdminTab('add');
-        }
-
-        function cancelEdit() { 
-            editingId = null; 
-            document.getElementById('addProductForm').reset(); 
-            document.querySelectorAll('.size-checkbox').forEach(c => c.checked = false); 
-            document.getElementById('btnText').innerText = "Simpan"; 
-        }
-
-        async function compressImage(file, maxWidth = 600) {
-            return new Promise((resolve) => {
-                const reader = new FileReader(); 
-                reader.readAsDataURL(file);
-                reader.onload = (e) => {
-                    const img = new Image(); 
-                    img.src = e.target.result;
-                    img.onload = () => {
-                        const canvas = document.createElement('canvas'); 
-                        const scale = maxWidth / img.width; 
-                        canvas.width = maxWidth; 
-                        canvas.height = img.height * scale;
-                        const ctx = canvas.getContext('2d'); 
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height); 
-                        resolve(canvas.toDataURL('image/jpeg', 0.7)); 
-                    }
-                }
-            });
-        }
-
-        // --- LISTENERS ---
-
-        // Brands
+        // Fetch Brands (UPDATED SORTING LOGIC)
         onSnapshot(collection(db, "brands"), (snapshot) => {
             const firebaseBrands = [];
             snapshot.forEach(doc => firebaseBrands.push({ id: doc.id, ...doc.data() }));
+            
             const orderMap = staticBrands.map(b => b.name);
             firebaseBrands.sort((a, b) => {
                 if (a.name === "No Brand") return 1;
                 if (b.name === "No Brand") return -1;
+
                 const idxA = orderMap.indexOf(a.name);
                 const idxB = orderMap.indexOf(b.name);
+                
                 if (idxA !== -1 && idxB !== -1) return idxA - idxB;
                 if (idxA !== -1) return -1;
                 if (idxB !== -1) return 1;
                 return a.name.localeCompare(b.name);
             });
+
             allBrands = firebaseBrands.length > 0 ? firebaseBrands : staticBrands;
             populateBrandOptions(); 
             renderAdminBrandList();
         });
 
-        // Gallery
+        // Fetch Gallery (UPDATED: AUTO MERGE STATIC VIDEOS)
         onSnapshot(collection(db, "gallery"), (snapshot) => {
             const firebaseGallery = [];
             snapshot.forEach(doc => firebaseGallery.push({ id: doc.id, ...doc.data() }));
+            
             const galleryContainer = document.getElementById('galleryGrid');
             const adminList = document.getElementById('adminGalleryList');
             const migrateBtn = document.getElementById('btnMigrateGallery');
-            if(!galleryContainer) return;
+            const migrateMsg = document.getElementById('migrateMsg');
+            
             let displayData = [];
+            
+            // Ambil video dari data statis (karena tidak diupload ke DB)
             const staticVideos = staticGallery.filter(item => item.type === 'video');
+
             if (firebaseGallery.length > 0) {
+                // Gabungkan Foto dari Firebase + Video Bawaan
                 displayData = [...firebaseGallery, ...staticVideos];
+                
+                // Disable migrate button
                 if(migrateBtn) {
                     migrateBtn.disabled = true;
                     migrateBtn.className = "w-full bg-zinc-800 text-gray-500 border border-zinc-700 py-3 rounded text-xs font-bold uppercase tracking-widest cursor-not-allowed";
-                    migrateBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Data di Database Aktif';
+                    migrateBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Data Sudah Ada di Database';
+                    migrateMsg.innerText = "Gunakan tombol Reset (di atas) jika ingin mengupload ulang dari awal.";
                 }
             } else {
-                displayData = staticGallery; 
+                displayData = staticGallery; // Fallback ke semua data statis
+                // Enable migrate button
                 if(migrateBtn) {
                     migrateBtn.disabled = false;
                     migrateBtn.className = "w-full bg-indigo-900/50 hover:bg-indigo-800 text-indigo-200 border border-indigo-700 py-3 rounded text-xs font-bold uppercase tracking-widest transition";
+                    migrateBtn.innerHTML = '<i class="fas fa-cloud-upload-alt mr-2"></i>Upload Galeri Bawaan';
+                    migrateMsg.innerText = "*Video bawaan tidak ikut diupload (terlalu besar), hanya foto.";
                 }
             }
+
+            // Render Frontend Gallery
             galleryContainer.innerHTML = displayData.map(item => {
                 if(item.type === 'video') {
                     return `<div onclick="viewGalleryMedia('${item.src}', 'video')" class="relative group overflow-hidden rounded-lg aspect-square bg-zinc-800 border border-zinc-700 cursor-pointer">
-                        <video class="w-full h-full object-cover pointer-events-none" muted loop playsinline><source src="${item.src}" type="video/mp4"></video>
-                        <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition"><div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/50 group-hover:scale-110 transition"><i class="fas fa-play text-white ml-1"></i></div></div>
-                        <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">VIDEO</div>
+                        <video class="w-full h-full object-cover pointer-events-none" muted loop playsinline>
+                            <source src="${item.src}" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition">
+                             <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/50 group-hover:scale-110 transition">
+                                 <i class="fas fa-play text-white ml-1"></i>
+                             </div>
+                        </div>
+                        <div class="absolute top-2 right-2 bg-accent text-black text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none">
+                            VIDEO
+                        </div>
                     </div>`; 
                 } else {
-                    return `<div onclick="viewGalleryMedia('${item.src}', 'image')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
-                        <img src="${item.src}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    // Cek jika item punya ID (berarti dari Firebase) atau src (statis)
+                    const imgSrc = item.src; 
+                    return `<div onclick="viewGalleryMedia('${imgSrc}', 'image')" class="relative group overflow-hidden rounded-lg aspect-square cursor-pointer">
+                        <img src="${imgSrc}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fas fa-search-plus text-accent text-xl"></i></div>
                     </div>`;
                 }
             }).join('');
-            if(adminList) {
-                adminList.innerHTML = firebaseGallery.map(item => `<div class="flex justify-between items-center bg-black p-2 rounded border border-zinc-800"><div class="flex items-center gap-2"><img src="${item.src}" class="w-8 h-8 object-cover rounded"><span class="text-xs text-white">Foto Galeri</span></div><button onclick="deleteGallery('${item.id}')" class="text-red-500 hover:text-red-400 ml-2"><i class="fas fa-trash"></i></button></div>`).join('');
-            }
-        });
 
-        // Testimonials
-        onSnapshot(collection(db, "testimonials"), (snapshot) => {
-            const container = document.getElementById('testimoniGrid');
-            const adminList = document.getElementById('adminTestiList');
-            if(!container) return;
-            let html = '', adminHtml = '';
-            if (!snapshot.empty) {
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    html += `<div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300"><div class="text-accent text-xs mb-4">${'★'.repeat(data.rating)}</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"${data.content}"</p><div class="flex items-center gap-4"><img src="${data.photo || 'https://via.placeholder.com/100'}" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">${data.name}</p><p class="text-xs text-gray-500 uppercase tracking-wide">${data.city}</p></div></div></div>`;
-                    adminHtml += `<div class="flex justify-between items-center bg-black p-2 rounded border border-zinc-800"><div class="text-xs text-white">${data.name} (${data.rating}★)</div><button onclick="deleteTestimonial('${doc.id}')" class="text-red-500 hover:text-red-400"><i class="fas fa-trash"></i></button></div>`;
-                });
+            // Render Admin Gallery List (Hanya menampilkan yang ada di Firebase untuk dihapus)
+            if (firebaseGallery.length === 0) {
+                adminList.innerHTML = '<p class="text-gray-500 text-[10px] text-center py-2">Belum ada foto yang diupload ke Database.</p>';
             } else {
-                html = `<div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300"><div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Barang mendarat dengan aman di Medan. Kualitasnya oke banget untuk harga segini. Adminnya ramah poll!"</p><div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Rudi Hartono</p><p class="text-xs text-gray-500 uppercase tracking-wide">Medan</p></div></div></div><div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300"><div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Suka banget sama sepatunya, pas di kaki. Pengiriman cepet, packing rapih. Next order lagi disini."</p><div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Siti Aminah</p><p class="text-xs text-gray-500 uppercase tracking-wide">Padang Sidimpuan</p></div></div></div>`;
+                adminList.innerHTML = firebaseGallery.map(item => {
+                    return `<div class="flex justify-between items-center bg-black p-2 rounded border border-zinc-800">
+                        <div class="flex items-center gap-2">
+                            <img src="${item.src}" class="w-8 h-8 object-cover rounded">
+                            <span class="text-xs text-white">Foto Galeri</span>
+                        </div>
+                        <button onclick="deleteGallery('${item.id}')" class="text-red-500 hover:text-red-400 ml-2"><i class="fas fa-trash"></i></button>
+                    </div>`;
+                }).join('');
             }
-            container.innerHTML = html; 
-            if(adminList) adminList.innerHTML = adminHtml;
         });
 
-        // --- PRODUCTS LISTENER ---
-        onSnapshot(collection(db, "products"), (snapshot) => {
-            const firebaseProducts = [];
-            snapshot.forEach((doc) => firebaseProducts.push({ id: doc.id, ...doc.data(), isFirebase: true }));
+        // Add Gallery Function
+        window.addGalleryToFirebase = async function() {
+            const file = document.getElementById('galleryFileInput').files[0];
+            if(!file) return alert("Pilih foto terlebih dahulu!");
             
-            // Urutkan: Sepatu diatas (Running, Casual, Futsal, Basket), lalu berdasarkan tanggal terbaru
-            const sortedData = [...firebaseProducts, ...staticProducts].sort((a, b) => {
-                const shoeCategories = ['Running', 'Casual', 'Futsal', 'Basket'];
-                const isShoeA = shoeCategories.includes(a.category);
-                const isShoeB = shoeCategories.includes(b.category);
-                if (isShoeA && !isShoeB) return -1;
-                if (!isShoeA && isShoeB) return 1;
-                const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-                const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
-                return dateB - dateA;
-            });
-            allProducts = sortedData;
-            
-            // Render berdasarkan kategori
-            if(currentCategory === 'all') renderProducts(allProducts); 
-            else renderProducts(allProducts.filter(p => p.category === currentCategory));
-            
-            renderDashboard();
-            renderAdminProductList();
-        });
-
-        // --- EXPOSE TO WINDOW ---
-
-        window.showSection = showSection;
-        window.resetFilter = resetFilter;
-        window.filterCategory = filterCategory;
-        window.openProductModal = openProductModal;
-        window.closeProductModal = closeProductModal;
-        window.validateSize = validateSize;
-        window.formatRupiah = formatRupiah;
-        window.renderAdminProductList = renderAdminProductList;
-        window.editProduct = editProduct;
-        window.deleteProduct = deleteProduct;
-        window.toggleSold = toggleSold;
-        window.cancelEdit = cancelEdit;
-
-        window.adminLogin = async function(e) {
-            e.preventDefault(); 
-            const p = prompt("Masukkan Password Admin:"); 
-            if(!p) return;
-            let rp = "admin123"; 
-            try { 
-                const d = await getDoc(doc(db, "settings", "admin_config")); 
-                if(d.exists()) rp = d.data().password; 
-            } catch(e){}
-            if (p === rp) { 
-                document.getElementById('adminModal').classList.remove('hidden'); 
-                showAdminTab('dashboard'); 
-            } else alert("Password salah!");
-        };
-
-        window.closeAdmin = () => document.getElementById('adminModal').classList.add('hidden');
-
-        window.showAdminTab = function(t) {
-            ['Dashboard', 'Add', 'List', 'Brand', 'Gallery', 'Testimoni', 'Settings'].forEach(x => { 
-                const sec = document.getElementById('admin'+x+'Section');
-                const btn = document.getElementById('tab'+x);
-                if(sec) sec.classList.add('hidden'); 
-                if(btn) btn.classList.remove('bg-zinc-800','text-white'); 
-            });
-            const activeSec = document.getElementById('admin'+t.charAt(0).toUpperCase()+t.slice(1)+'Section');
-            const activeBtn = document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1));
-            if(activeSec) activeSec.classList.remove('hidden');
-            if(activeBtn) activeBtn.classList.add('bg-zinc-800','text-white');
-            if(t==='list') renderAdminProductList(); 
-            if(t==='dashboard') renderDashboard();
-            if(t==='brand') renderAdminBrandList();
-        };
-
-        window.filterByBrand = function(b) { 
-            showSection('catalog'); 
-            renderProducts(allProducts.filter(p => p.brand === b)); 
-        };
-
-        window.searchProduct = function(q) { 
-            const l = q.toLowerCase(); 
-            renderProducts(allProducts.filter(p => p.name.toLowerCase().includes(l) || p.brand.toLowerCase().includes(l))); 
-        };
-
-        window.sortProducts = function(o) { 
-            let s = [...allProducts]; 
-            if(o==='low') s.sort((a,b)=>a.price-b.price); 
-            else if(o==='high') s.sort((a,b)=>b.price-a.price); 
-            renderProducts(currentCategory === 'all' ? s : s.filter(p=>p.category===currentCategory));
+            try {
+                const base64 = await compressImage(file, 600); // Reasonable quality
+                await addDoc(collection(db, "gallery"), { type: 'image', src: base64, createdAt: new Date().toISOString() });
+                alert("Foto berhasil ditambahkan ke Galeri!");
+                document.getElementById('galleryFileInput').value = '';
+            } catch(e) { alert("Gagal: " + e.message); }
         }
 
-        window.viewGalleryMedia = function(s,t) { 
-            const m = document.getElementById('imageModal'); 
-            const mi = document.getElementById('modalImg');
-            const mv = document.getElementById('modalVideo');
-            if(mi) {
-                mi.src = s;
-                mi.classList.toggle('hidden', t==='video');
-            }
-            if(mv) {
-                mv.src = s;
-                mv.classList.toggle('hidden', t==='image');
-                if(t==='video') mv.play();
-            }
-            if(m) m.classList.remove('hidden'); 
-        };
+        window.deleteGallery = async function(id) {
+            if(confirm("Hapus foto ini dari galeri?")) await deleteDoc(doc(db, "gallery", id));
+        }
 
-        window.closeModal = () => { 
-            document.getElementById('imageModal').classList.add('hidden'); 
-            const mv = document.getElementById('modalVideo');
-            if(mv) mv.pause(); 
-        };
-
-        window.toggleMenu = () => document.getElementById('mobileMenu').classList.toggle('hidden');
-
-        window.addGalleryToFirebase = async function() {
-            const file = document.getElementById('galleryFileInput').files[0]; 
-            if(!file) return alert("Pilih foto terlebih dahulu!");
-            try { 
-                const base64 = await compressImage(file, 600); 
-                await addDoc(collection(db, "gallery"), { type: 'image', src: base64, createdAt: new Date().toISOString() }); 
-                alert("Foto galeri berhasil ditambahkan!"); 
-                document.getElementById('galleryFileInput').value = ''; 
-            } catch(e) { alert("Gagal: " + e.message); }
-        };
-
-        window.deleteGallery = async function(id) { 
-            if(confirm("Hapus foto galeri ini?")) await deleteDoc(doc(db, "gallery", id)); 
-        };
-
+        // New Reset Function
         window.resetGallery = async function() {
-            if(!confirm("Hapus SEMUA foto galeri dari Database?")) return;
-            const snapshot = await getDocs(collection(db, "gallery")); 
-            const batchPromises = snapshot.docs.map(doc => deleteDoc(doc.ref)); 
-            await Promise.all(batchPromises); 
-            alert("Seluruh galeri di Database telah dikosongkan.");
-        };
+            if(!confirm("PERINGATAN: Tombol ini akan menghapus SEMUA FOTO di galeri Anda (termasuk yang double). Anda harus mengupload ulang setelah ini.\n\nYakin ingin melanjutkan?")) return;
+            
+            const btn = document.querySelector('button[onclick="resetGallery()"]');
+            const originalText = btn.innerHTML;
+            btn.innerText = "Menghapus...";
+            btn.disabled = true;
+
+            try {
+                const snapshot = await getDocs(collection(db, "gallery"));
+                const batchPromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
+                await Promise.all(batchPromises);
+                alert("Galeri berhasil dikosongkan. Silakan upload ulang data bawaan (Cukup klik tombol upload 1 kali).");
+            } catch (e) {
+                alert("Gagal menghapus: " + e.message);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
 
         window.migrateGalleryToFirebase = async function() {
-            if(!confirm("Upload galeri bawaan (foto saja) ke Database?")) return;
+            if(!confirm("Upload semua FOTO galeri bawaan ke Firebase? (Video tidak akan diupload)")) return;
+            const btn = document.getElementById('btnMigrateGallery');
+            btn.disabled = true; btn.innerText = "Memproses...";
+            
             let count = 0;
             for(const item of staticGallery) {
                 if(item.type === 'image') {
-                    try { 
-                        const res = await fetch(item.src); 
-                        const blob = await res.blob(); 
-                        const base64 = await new Promise(r => { 
-                            const rd = new FileReader(); 
-                            rd.onloadend = () => r(rd.result); 
-                            rd.readAsDataURL(blob); 
-                        }); 
-                        await addDoc(collection(db, "gallery"), { type: 'image', src: base64, createdAt: new Date().toISOString() }); 
-                        count++; 
-                    } catch(e) {}
+                    try {
+                        const response = await fetch(item.src);
+                        const blob = await response.blob();
+                        const base64 = await new Promise((resolve) => {
+                            const reader = new FileReader();
+                            reader.onloadend = () => resolve(reader.result);
+                            reader.readAsDataURL(blob);
+                        });
+                        await addDoc(collection(db, "gallery"), { type: 'image', src: base64, createdAt: new Date().toISOString() });
+                        count++;
+                    } catch(e) { console.log("Skip " + item.src); }
                 }
             }
-            alert(count + " foto bawaan berhasil dipindahkan ke Database!");
-        };
+            alert(count + " Foto berhasil dipindahkan!");
+            // Button disabled logic handled by onSnapshot
+        }
 
+        // Add Brand Function (NEW)
         window.addBrandToFirebase = async function() {
             const name = document.getElementById('brandNameInput').value;
             const file = document.getElementById('brandLogoInput').files[0];
+            
             if(!name || !file) return alert("Nama Brand dan Logo wajib diisi!");
-            try { 
-                const logo = await compressImage(file, 200); 
-                await addDoc(collection(db, "brands"), { name, logo, createdAt: new Date().toISOString() }); 
-                alert("Brand baru berhasil ditambahkan!"); 
-            } catch(e) { alert("Gagal: " + e.message); }
-        };
+            
+            try {
+                const logo = await compressImage(file, 200); // Resize logo
+                // Menambahkan createdAt agar data masa depan lebih rapi
+                await addDoc(collection(db, "brands"), { name, logo, createdAt: new Date().toISOString() });
+                alert("Brand berhasil ditambahkan!");
+                document.getElementById('brandNameInput').value = '';
+                document.getElementById('brandLogoInput').value = '';
+            } catch(e) {
+                alert("Gagal: " + e.message);
+            }
+        }
 
-        window.deleteBrand = async function(id) { 
-            if(confirm("Hapus Brand ini?")) await deleteDoc(doc(db, "brands", id)); 
-        };
+        window.deleteBrand = async function(id) {
+            if(confirm("Hapus Brand ini?")) await deleteDoc(doc(db, "brands", id));
+        }
 
         window.renderAdminBrandList = function() {
             const container = document.getElementById('adminBrandList');
-            if(!container) return;
-            container.innerHTML = allBrands.map(b => `<div class="flex justify-between items-center bg-black p-2 rounded border border-zinc-800"><div class="flex items-center gap-2"><img src="${b.logo}" class="w-8 h-8 object-contain bg-white rounded p-1"><span class="text-xs text-white">${b.name}</span></div>${b.id ? `<button onclick="deleteBrand('${b.id}')" class="text-red-500 hover:text-red-400 ml-2"><i class="fas fa-trash"></i></button>` : `<span class="text-gray-500 text-[10px] italic">Bawaan</span>`}</div>`).join('');
-        };
+            container.innerHTML = allBrands.map(b => {
+                // Handle static vs firebase data structure
+                const isFirebase = !!b.id;
+                const deleteBtn = isFirebase ? 
+                    `<button onclick="deleteBrand('${b.id}')" class="text-red-500 hover:text-red-400 ml-2"><i class="fas fa-trash"></i></button>` : 
+                    `<span class="text-gray-500 text-[10px] italic">Bawaan</span>`;
+                
+                return `
+                <div class="flex justify-between items-center bg-black p-2 rounded border border-zinc-800">
+                    <div class="flex items-center gap-2">
+                        <img src="${b.logo}" class="w-8 h-8 object-contain bg-white rounded p-1">
+                        <span class="text-xs text-white">${b.name}</span>
+                    </div>
+                    ${deleteBtn}
+                </div>`;
+            }).join('');
+        }
 
         window.migrateBrandsToFirebase = async function() {
-            if(!confirm("Upload seluruh brand bawaan ke Database?")) return;
+            if(!confirm("Upload semua brand bawaan ke Firebase?")) return;
+            const btn = document.getElementById('btnMigrateBrands');
+            btn.disabled = true;
+            btn.innerText = "Memproses...";
+            
             let count = 0;
             for(const b of staticBrands) {
-                try { 
-                    const res = await fetch(b.logo); 
-                    const blob = await res.blob(); 
-                    const b64 = await new Promise(r => { 
-                        const rd = new FileReader(); 
-                        rd.onloadend = () => r(rd.result); 
-                        rd.readAsDataURL(blob); 
-                    }); 
-                    await addDoc(collection(db, "brands"), { name: b.name, logo: b64 }); 
-                    count++; 
-                } catch(e) {}
+                try {
+                    // Coba fetch image lokal
+                    const response = await fetch(b.logo);
+                    const blob = await response.blob();
+                    
+                    // Convert blob to base64 via FileReader
+                    const base64 = await new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onloadend = () => resolve(reader.result);
+                        reader.readAsDataURL(blob);
+                    });
+                    
+                    await addDoc(collection(db, "brands"), { name: b.name, logo: base64 });
+                    count++;
+                } catch(e) { console.log("Skip " + b.name); }
             }
-            alert(count + " Brand berhasil dipindahkan ke Database!");
-        };
+            alert(count + " Brand berhasil dipindahkan!");
+            btn.disabled = false;
+            btn.innerText = "Selesai";
+        }
 
+        onSnapshot(collection(db, "testimonials"), (snapshot) => {
+            const container = document.getElementById('testimoniGrid');
+            const adminList = document.getElementById('adminTestiList');
+            
+            let html = '';
+            let adminHtml = '';
+
+            // Jika ada data di Firebase, gunakan itu
+            if (!snapshot.empty) {
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    html += `
+                    <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
+                        <div class="text-accent text-xs mb-4">${'★'.repeat(data.rating)}</div>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">"${data.content}"</p>
+                        <div class="flex items-center gap-4">
+                            <img src="${data.photo || 'https://via.placeholder.com/100'}" class="w-10 h-10 rounded-full object-cover border border-zinc-700">
+                            <div><p class="font-bold text-sm text-white">${data.name}</p><p class="text-xs text-gray-500 uppercase tracking-wide">${data.city}</p></div>
+                        </div>
+                    </div>`;
+                    adminHtml += `
+                    <div class="flex justify-between items-center bg-black p-2 rounded border border-zinc-800">
+                        <div class="text-xs text-white">${data.name} (${data.rating}★)</div>
+                        <button onclick="deleteTestimonial('${doc.id}')" class="text-red-500 hover:text-red-400"><i class="fas fa-trash"></i></button>
+                    </div>`;
+                });
+            } else {
+                // FALLBACK: Tampilkan Testimoni Bawaan jika Firebase kosong
+                html = `
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Barang mendarat dengan aman di Medan. Kualitasnya oke banget untuk harga segini. Adminnya ramah poll!"</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Rudi Hartono</p><p class="text-xs text-gray-500 uppercase tracking-wide">Medan</p></div></div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Suka banget sama sepatunya, pas di kaki. Pengiriman cepet, packing rapih. Next order lagi disini."</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Siti Aminah</p><p class="text-xs text-gray-500 uppercase tracking-wide">Padang Sidimpuan</p></div></div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-lg hover:border-accent/50 transition duration-300">
+                    <div class="text-accent text-xs mb-4">★★★★★</div><p class="text-gray-400 text-sm mb-6 leading-relaxed">"Awalnya ragu karena online, tapi pas sampe barangnya realpict. Thanks Yusuf Store!"</p>
+                    <div class="flex items-center gap-4"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" class="w-10 h-10 rounded-full object-cover border border-zinc-700"><div><p class="font-bold text-sm text-white">Ferdinand Sianturi</p><p class="text-xs text-gray-500 uppercase tracking-wide">P.Siantar</p></div></div>
+                </div>`;
+            }
+            container.innerHTML = html;
+            adminList.innerHTML = adminHtml;
+        });
+
+        const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+        onSnapshot(q, (snapshot) => {
+            const firebaseProducts = [];
+            snapshot.forEach((doc) => firebaseProducts.push({ id: doc.id, ...doc.data(), isFirebase: true }));
+            allProducts = [...firebaseProducts, ...staticProducts];
+            if(currentCategory === 'all') renderProducts(allProducts); else filterCategory(currentCategory);
+            renderDashboard();
+            if(!document.getElementById('adminModal').classList.contains('hidden')) renderAdminProductList();
+        });
+
+        window.renderDashboard = function() {
+            const total = allProducts.length;
+            const ready = allProducts.filter(p => !p.sold).length;
+            const sold = allProducts.filter(p => p.sold).length;
+            const asset = allProducts.filter(p => !p.sold).reduce((acc, curr) => acc + (curr.price || 0), 0);
+            document.getElementById('statTotalProducts').innerText = total;
+            document.getElementById('statReady').innerText = ready;
+            document.getElementById('statSold').innerText = sold;
+            document.getElementById('statTotalAsset').innerText = formatRupiah(asset);
+        }
+
+        window.openProductModal = function(id) {
+            const product = allProducts.find(p => p.id == id);
+            if(!product) return;
+            currentProductData = product;
+            selectedProductSize = null;
+            document.getElementById('pmImage').src = product.img;
+            document.getElementById('pmBrand').innerText = product.brand;
+            document.getElementById('pmName').innerText = product.name;
+            document.getElementById('pmPrice').innerText = formatRupiah(product.price);
+            const oriEl = document.getElementById('pmOriginalPrice');
+            if(product.originalPrice > product.price) { oriEl.innerText = formatRupiah(product.originalPrice); oriEl.classList.remove('hidden'); } else { oriEl.classList.add('hidden'); }
+            const badge = document.getElementById('pmBadge');
+            if(product.sold) {
+                badge.className = "absolute top-4 left-4 px-3 py-1 rounded text-xs font-bold shadow-lg bg-red-600 text-white"; badge.innerText = "SOLD OUT";
+                document.getElementById('pmBuyBtn').classList.add('pointer-events-none', 'opacity-50', 'grayscale'); document.getElementById('pmBuyBtn').innerText = "Stok Habis";
+            } else if(product.isPO) {
+                badge.className = "absolute top-4 left-4 px-3 py-1 rounded text-xs font-bold shadow-lg bg-yellow-500 text-black"; badge.innerText = "PRE-ORDER";
+                document.getElementById('pmBuyBtn').classList.remove('pointer-events-none', 'opacity-50', 'grayscale'); document.getElementById('pmBuyBtn').innerHTML = '<i class="fab fa-whatsapp mr-2"></i> Pesan PO Sekarang';
+            } else {
+                badge.className = "absolute top-4 left-4 px-3 py-1 rounded text-xs font-bold shadow-lg bg-green-500 text-white"; badge.innerText = "READY STOCK";
+                document.getElementById('pmBuyBtn').classList.remove('pointer-events-none', 'opacity-50', 'grayscale'); document.getElementById('pmBuyBtn').innerHTML = '<i class="fab fa-whatsapp mr-2"></i> Beli Sekarang';
+            }
+            const sizeContainer = document.getElementById('pmSizes');
+            const sizeSection = document.getElementById('pmSizeSection');
+            const warning = document.getElementById('pmSizeWarning');
+            const displaySize = document.getElementById('selectedSizeDisplay');
+            sizeContainer.innerHTML = ''; warning.classList.add('hidden'); displaySize.innerText = '';
+            if (product.sizes && product.sizes.length > 0) {
+                sizeSection.classList.remove('hidden');
+                product.sizes.forEach(size => {
+                    const btn = document.createElement('button');
+                    btn.className = "border border-zinc-600 text-gray-300 px-3 py-2 rounded text-sm font-bold hover:border-accent hover:text-accent transition min-w-[40px]";
+                    btn.innerText = size; btn.onclick = () => selectSize(size, btn); sizeContainer.appendChild(btn);
+                });
+            } else { sizeSection.classList.add('hidden'); selectedProductSize = "All Size/Default"; }
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        window.closeProductModal = function() { document.getElementById('productModal').classList.add('hidden'); }
+        window.selectSize = function(size, btnElement) {
+            selectedProductSize = size;
+            document.getElementById('selectedSizeDisplay').innerText = size;
+            document.getElementById('pmSizeWarning').classList.add('hidden');
+            const allBtns = document.getElementById('pmSizes').children;
+            for(let b of allBtns) { b.className = "border border-zinc-600 text-gray-300 px-3 py-2 rounded text-sm font-bold hover:border-accent hover:text-accent transition min-w-[40px]"; }
+            btnElement.className = "bg-accent text-black border border-accent px-3 py-2 rounded text-sm font-bold shadow-[0_0_10px_rgba(204,255,0,0.4)] min-w-[40px] transform scale-105";
+        }
+
+        window.validateSize = function() {
+            if(!currentProductData) return false;
+            const hasSizes = currentProductData.sizes && currentProductData.sizes.length > 0;
+            if(hasSizes && (!selectedProductSize || selectedProductSize === "All Size/Default")) {
+                document.getElementById('pmSizeWarning').classList.remove('hidden');
+                const section = document.getElementById('pmSizeSection');
+                section.classList.add('translate-x-[-5px]'); setTimeout(() => section.classList.remove('translate-x-[-5px]'), 100); setTimeout(() => section.classList.add('translate-x-[5px]'), 150); setTimeout(() => section.classList.remove('translate-x-[5px]'), 250);
+                return false;
+            }
+            const phone = "6281375861195";
+            let text = `Halo Yusuf Store 25, saya mau order:\n\n*${currentProductData.name}*\n`;
+            if(selectedProductSize && selectedProductSize !== "All Size/Default") { text += `Ukuran: *${selectedProductSize}*\n`; }
+            text += `Harga: ${formatRupiah(currentProductData.price)}\n\nApakah barang masih ready?`;
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank'); return false;
+        }
+
+        // New viewGalleryMedia function for videos and images
+        window.viewGalleryMedia = function(src, type) {
+            const modal = document.getElementById('imageModal');
+            const img = document.getElementById('modalImg');
+            const vid = document.getElementById('modalVideo');
+            
+            modal.classList.remove('hidden');
+            
+            if (type === 'video') {
+                img.classList.add('hidden');
+                vid.classList.remove('hidden');
+                vid.src = src;
+                // Note: autoplay is set in HTML, but good to ensure
+                vid.play().catch(e => console.log("Autoplay blocked"));
+            } else {
+                vid.classList.add('hidden');
+                vid.pause();
+                img.classList.remove('hidden');
+                img.src = src;
+            }
+        }
+
+        window.closeModal = function() { 
+            document.getElementById('imageModal').classList.add('hidden'); 
+            const vid = document.getElementById('modalVideo');
+            vid.pause();
+            vid.src = "";
+        }
+
+        // FUNGSI CEK ONGKIR (Missing Logic Added)
         window.checkShipping = function(e) {
-            e.preventDefault(); 
-            const dest = document.getElementById('destination').value; 
+            e.preventDefault();
+            const dest = document.getElementById('destination').value;
             if(!dest) return;
-            const btn = e.target.querySelector('button'); 
-            btn.innerText = "Mengecek..."; 
+            
+            const resultDiv = document.getElementById('shippingResult');
+            const destSpan = document.getElementById('destResult');
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            
+            // UI Feedback
+            btn.innerText = "Mengecek...";
             btn.disabled = true;
-            setTimeout(() => { 
-                document.getElementById('destResult').innerText = dest; 
-                document.getElementById('shippingResult').classList.remove('hidden'); 
-                btn.innerText = "Cek Ongkir"; 
-                btn.disabled = false; 
+            btn.classList.add('opacity-70', 'cursor-wait');
+            
+            setTimeout(() => {
+                destSpan.innerText = dest;
+                resultDiv.classList.remove('hidden');
+                btn.innerText = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-70', 'cursor-wait');
             }, 1000);
-        };
+        }
+
+        function compressImage(file, maxWidth = 600) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image(); img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas'); const scaleSize = maxWidth / img.width; canvas.width = maxWidth; canvas.height = img.height * scaleSize;
+                        const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height); resolve(canvas.toDataURL('image/jpeg', 0.7)); 
+                    }
+                }
+                reader.onerror = (error) => reject(error);
+            });
+        }
 
         window.saveBannerSettings = async function() {
             const file = document.getElementById('bannerImg').files[0];
             const title = document.getElementById('bannerTitle').value;
             const subtitle = document.getElementById('bannerSubtitle').value;
             const data = {};
-            if(title) data.title = title; 
-            if(subtitle) data.subtitle = subtitle; 
-            if(file) data.image = await compressImage(file, 1200);
-            await setDoc(doc(db, "settings", "banner"), data, { merge: true }); 
-            alert("Konfigurasi banner berhasil diperbarui!"); 
-            loadBanner();
-        };
+            if(title) data.title = title; if(subtitle) data.subtitle = subtitle;
+            if(file) { data.image = await compressImage(file, 1200); }
+            await setDoc(doc(db, "settings", "banner"), data, { merge: true });
+            alert("Banner berhasil diperbarui! Silakan refresh jika gambar belum berubah."); loadBanner();
+        }
 
         window.addTestimonial = async function() {
-            const name = document.getElementById('testiName').value;
-            const city = document.getElementById('testiCity').value;
-            const content = document.getElementById('testiContent').value;
-            const rating = document.getElementById('testiRating').value;
-            const file = document.getElementById('testiPhoto').files[0];
-            if(!name || !content || !file) return alert("Nama, Ulasan, dan Foto wajib diisi!");
-            const photo = await compressImage(file, 200); 
-            await addDoc(collection(db, "testimonials"), { name, city, content, rating, photo, createdAt: new Date().toISOString() }); 
-            alert("Testimoni baru ditambahkan!");
-        };
+            const name = document.getElementById('testiName').value; const city = document.getElementById('testiCity').value; const content = document.getElementById('testiContent').value; const rating = document.getElementById('testiRating').value; const file = document.getElementById('testiPhoto').files[0];
+            if(!name || !content || !file) return alert("Nama, Isi Ulasan, dan Foto wajib diisi!");
+            const photo = await compressImage(file, 200);
+            await addDoc(collection(db, "testimonials"), { name, city, content, rating, photo, createdAt: new Date().toISOString() });
+            alert("Testimoni berhasil ditambahkan!");
+            document.getElementById('testiName').value = ''; document.getElementById('testiCity').value = ''; document.getElementById('testiContent').value = ''; document.getElementById('testiPhoto').value = '';
+        }
 
-        window.deleteTestimonial = async function(id) { 
-            if(confirm("Hapus testimoni ini?")) await deleteDoc(doc(db, "testimonials", id)); 
-        };
-
+        window.deleteTestimonial = async function(id) { if(confirm("Hapus testimoni ini?")) await deleteDoc(doc(db, "testimonials", id)); }
         window.changePassword = async function() {
-            const newPass = document.getElementById('newAdminPassword').value; 
-            if(!newPass) return alert("Password tidak boleh kosong!");
-            await setDoc(doc(db, "settings", "admin_config"), { password: newPass }); 
-            alert("Password admin berhasil diubah!");
-        };
+            const newPass = document.getElementById('newAdminPassword').value;
+            if(!newPass) return alert("Password tidak boleh kosong");
+            try { await setDoc(doc(db, "settings", "admin_config"), { password: newPass }); alert("Password berhasil diubah!"); document.getElementById('newAdminPassword').value = ''; } catch(e) { alert("Gagal ubah password: " + e.message); }
+        }
 
+        // --- NEW: AUTO FIX FUNCTION ---
         window.autoFixProductData = async function() {
-            if(!confirm("Perbaiki nama dan ekstraksi ukuran produk secara otomatis?")) return;
-            const btn = document.getElementById('btnAutoFix'); 
-            btn.disabled = true; 
-            btn.innerText = "Memproses...";
-            const snapshot = await getDocs(collection(db, "products")); 
-            let count = 0;
-            for (const docSnap of snapshot.docs) {
-                const data = docSnap.data(); 
-                let newName = data.name, newSizes = data.sizes || [], isUpdated = false;
-                const parenMatch = newName.match(/\(([\d,]+)\)/);
-                if(parenMatch) { 
-                    newSizes = [...new Set([...newSizes, ...parenMatch[1].split(',').map(s => parseInt(s.trim()))])]; 
-                    newName = newName.replace(parenMatch[0], '').trim(); 
-                    isUpdated = true; 
+            if(!confirm("PENTING: Fitur ini akan mengedit banyak produk sekaligus.\n\nSistem akan:\n1. Mencari tulisan 'Size X' atau '(39,40)' di nama produk.\n2. Memasukkannya ke data Ukuran.\n3. Menghapus tulisan tersebut dari Nama Produk.\n\nLanjutkan?")) return;
+
+            const btn = document.getElementById('btnAutoFix');
+            btn.disabled = true;
+            btn.innerText = "Sedang Memproses...";
+
+            try {
+                const snapshot = await getDocs(collection(db, "products"));
+                let count = 0;
+
+                for (const docSnap of snapshot.docs) {
+                    const data = docSnap.data();
+                    let newName = data.name;
+                    let newSizes = data.sizes || [];
+                    let isUpdated = false;
+
+                    // Pattern 1: Matches "(36,37,38)" or "(39,40)"
+                    const parenMatch = newName.match(/\(([\d,]+)\)/);
+                    if(parenMatch) {
+                        const sizesStr = parenMatch[1];
+                        const extracted = sizesStr.split(',').map(s => {
+                            const num = parseInt(s.trim());
+                            return isNaN(num) ? s.trim() : num;
+                        });
+                        newSizes = [...new Set([...newSizes, ...extracted])];
+                        newName = newName.replace(parenMatch[0], '').trim();
+                        isUpdated = true;
+                    }
+
+                    // Pattern 2: Matches "Size 42" or "Size 39,40" or "Size XL" or "Sieze L" (typo handling)
+                    // Case insensitive search for "Size" or "Sieze" followed by numbers or S/M/L/XL
+                    const sizeKeywordMatch = newName.match(/(?:Size|Sieze)\s+([0-9,]+|[SMLX]+)/i);
+                    if(sizeKeywordMatch) {
+                        const sizePart = sizeKeywordMatch[1];
+                        const extracted = sizePart.split(',').map(s => {
+                            const num = parseInt(s.trim());
+                            return isNaN(num) ? s.trim().toUpperCase() : num;
+                        });
+                        newSizes = [...new Set([...newSizes, ...extracted])];
+                        // Replace the whole match "Size 42"
+                        newName = newName.replace(sizeKeywordMatch[0], '').trim();
+                        // Clean up trailing commas or dashes if any left
+                        if(newName.endsWith('-') || newName.endsWith(',')) newName = newName.slice(0, -1).trim();
+                        isUpdated = true;
+                    }
+
+                    if(isUpdated) {
+                        // Update to Firebase
+                        await updateDoc(doc(db, "products", docSnap.id), {
+                            name: newName,
+                            sizes: newSizes
+                        });
+                        count++;
+                        console.log(`Updated: ${data.name} -> ${newName} | Sizes: ${newSizes}`);
+                    }
                 }
-                const sizeMatch = newName.match(/(?:Size|Sieze)\s+([0-9,]+|[SMLX]+)/i);
-                if(sizeMatch) { 
-                    newSizes = [...new Set([...newSizes, ...sizeMatch[1].split(',').map(s => isNaN(parseInt(s)) ? s.trim().toUpperCase() : parseInt(s))])]; 
-                    newName = newName.replace(sizeMatch[0], '').trim(); 
-                    if(newName.endsWith('-') || newName.endsWith(',')) newName = newName.slice(0, -1).trim(); 
-                    isUpdated = true; 
-                }
-                if(isUpdated) { 
-                    await updateDoc(doc(db, "products", docSnap.id), { name: newName, sizes: newSizes }); 
-                    count++; 
-                }
+                
+                alert("Selesai! " + count + " produk berhasil diperbaiki otomatis.");
+
+            } catch (e) {
+                console.error(e);
+                alert("Terjadi kesalahan: " + e.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Mulai Perbaikan Otomatis";
             }
-            alert(count + " produk berhasil diperbaiki otomatis!"); 
-            btn.disabled = false; 
-            btn.innerText = "Mulai Perbaikan Otomatis";
-        };
+        }
+        // --- END AUTO FIX FUNCTION ---
 
         window.addProductToFirebase = async function(e) {
-            e.preventDefault(); 
-            const btnSubmit = document.getElementById('btnSubmit'); 
-            const file = document.getElementById('addImgFile').files[0];
-            if (!editingId && !file) return alert("Foto produk wajib dipilih!");
-            btnSubmit.disabled = true; 
-            btnSubmit.innerText = "Memproses...";
+            e.preventDefault();
+            const btnSubmit = document.getElementById('btnSubmit'); const btnText = document.getElementById('btnText'); const fileInput = document.getElementById('addImgFile'); const file = fileInput.files[0];
+            if (!editingId && !file) { alert("Pilih foto produk terlebih dahulu!"); return; }
+            btnSubmit.disabled = true; btnSubmit.classList.add('opacity-50', 'cursor-not-allowed'); btnText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
             try {
-                let base64Img = file ? await compressImage(file) : null;
-                const selectedSizes = []; 
-                document.querySelectorAll('.size-checkbox:checked').forEach(cb => selectedSizes.push(cb.value));
-                const productData = { 
-                    name: document.getElementById('addName').value, 
-                    brand: document.getElementById('addBrand').value, 
-                    category: document.getElementById('addCategory').value, 
-                    price: parseInt(document.getElementById('addPrice').value), 
-                    originalPrice: document.getElementById('addOriginalPrice').value ? parseInt(document.getElementById('addOriginalPrice').value) : null, 
-                    sold: document.getElementById('addIsSold').checked, 
-                    isOriginal: document.getElementById('addIsOriginal').checked, 
-                    isPO: document.getElementById('addStockType').value === 'po', 
-                    sizes: selectedSizes 
+                if (!auth.currentUser) await signInAnonymously(auth);
+                let base64Img = null; if (file) base64Img = await compressImage(file);
+                const selectedSizes = []; document.querySelectorAll('.size-checkbox:checked').forEach(cb => selectedSizes.push(cb.value));
+                const productData = {
+                    name: document.getElementById('addName').value, brand: document.getElementById('addBrand').value, category: document.getElementById('addCategory').value,
+                    price: parseInt(document.getElementById('addPrice').value), originalPrice: document.getElementById('addOriginalPrice').value ? parseInt(document.getElementById('addOriginalPrice').value) : null,
+                    sold: document.getElementById('addIsSold').checked, isOriginal: document.getElementById('addIsOriginal').checked, isPO: document.getElementById('addStockType').value === 'po',
+                    sizes: selectedSizes, createdAt: new Date().toISOString()
                 };
                 if (base64Img) productData.img = base64Img;
-                if (editingId) { 
-                    await updateDoc(doc(db, "products", editingId), productData); 
-                    alert("Produk diperbarui!"); 
-                    cancelEdit(); 
-                } else { 
-                    productData.createdAt = new Date().toISOString(); 
-                    await addDoc(collection(db, "products"), productData); 
-                    alert("Produk baru ditambahkan!"); 
-                    document.getElementById('addProductForm').reset(); 
-                }
+                if (editingId) { const productRef = doc(db, "products", editingId); delete productData.createdAt; await updateDoc(productRef, productData); alert("Produk berhasil diperbarui!"); cancelEdit(); } 
+                else { if (!base64Img) throw new Error("Gambar wajib diupload untuk produk baru"); await addDoc(collection(db, "products"), productData); alert("Produk baru berhasil ditambahkan!"); document.getElementById('addProductForm').reset(); document.querySelectorAll('.size-checkbox').forEach(cb => cb.checked = false); }
                 showAdminTab('list');
-            } catch (error) { alert("Terjadi kesalahan saat menyimpan data."); } 
-            finally { 
-                btnSubmit.disabled = false; 
-                btnSubmit.innerText = editingId ? 'Update Produk' : 'Simpan'; 
-            }
-        };
+            } catch (error) { console.error("Error: ", error); alert("Gagal: " + error.message); } 
+            finally { btnSubmit.disabled = false; btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed'); btnText.innerHTML = editingId ? 'Update Produk' : 'Upload & Simpan'; }
+        }
 
-        function populateBrandOptions() {
-            const elAddBrand = document.getElementById('addBrand');
-            const elBrandContainer = document.getElementById('brandContainer');
-            if(elAddBrand) elAddBrand.innerHTML = allBrands.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
-            if(elBrandContainer) {
-                elBrandContainer.innerHTML = allBrands.map(b => `<div onclick="filterByBrand('${b.name}')" class="brand-logo cursor-pointer bg-white p-2 rounded-lg flex items-center justify-center h-16 md:h-20 shadow-lg border border-gray-200 hover:bg-accent transition"><img src="${b.logo}" class="max-h-full max-w-full object-contain"></div>`).join('');
-            }
-            const shoeSizes = [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45], shirtSizes = ['S', 'M', 'L', 'XL', 'XXL', '3XL'];
-            const elShoeSize = document.getElementById('shoeSizeContainer');
-            const elShirtSize = document.getElementById('shirtSizeContainer');
-            if(elShoeSize) elShoeSize.innerHTML = shoeSizes.map(s => `<label class="cursor-pointer"><input type="checkbox" value="${s}" class="size-checkbox hidden"><div class="text-[10px] text-center border border-gray-600 rounded py-1 text-gray-400 hover:border-accent hover:text-accent transition">${s}</div></label>`).join('');
-            if(elShirtSize) elShirtSize.innerHTML = shirtSizes.map(s => `<label class="cursor-pointer"><input type="checkbox" value="${s}" class="size-checkbox hidden"><div class="text-[10px] text-center border border-gray-600 rounded py-1 text-gray-400 hover:border-accent hover:text-accent transition">${s}</div></label>`).join('');
+        window.renderAdminProductList = function() {
+            const container = document.getElementById('adminProductListContainer');
+            const searchQuery = document.getElementById('adminSearchInput').value.toLowerCase();
+            const filteredProducts = allProducts.filter(p => p.name.toLowerCase().includes(searchQuery));
+            if (filteredProducts.length === 0) { container.innerHTML = '<p class="text-center text-gray-400 py-4">Produk tidak ditemukan.</p>'; return; }
+            container.innerHTML = filteredProducts.map(p => {
+                let badgeClass = 'bg-green-100 text-green-600', badgeText = 'RDY';
+                if (p.sold) { badgeClass = 'bg-red-100 text-red-600'; badgeText = 'SOLD'; } else if (p.isPO) { badgeClass = 'bg-yellow-100 text-yellow-600'; badgeText = 'PO'; }
+                return `<div class="flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-200 text-sm hover:bg-gray-100 transition"><div class="flex items-center gap-2 overflow-hidden flex-1"><img src="${p.img}" class="w-10 h-10 rounded object-cover bg-gray-200 border border-gray-300"><div class="truncate"><div class="font-bold text-gray-800 truncate w-24 md:w-36 ${p.sold ? 'line-through text-gray-400' : ''}">${p.name}</div><div class="text-[10px] text-gray-500 font-mono">${p.brand} - ${formatRupiah(p.price)}</div></div></div><div class="flex items-center gap-1"><button onclick="toggleSold('${p.id}', ${p.isFirebase})" class="${badgeClass} border px-2 py-1 rounded text-[10px] font-bold w-12 text-center">${badgeText}</button>${p.isFirebase ? `<button onclick="editProduct('${p.id}')" class="bg-yellow-100 text-yellow-600 border border-yellow-200 p-2 rounded hover:bg-yellow-200 transition"><i class="fas fa-pencil-alt text-xs"></i></button><button onclick="deleteProduct('${p.id}', true)" class="bg-red-100 text-red-500 border border-red-200 p-2 rounded hover:bg-red-200 transition"><i class="fas fa-trash-alt text-xs"></i></button>` : `<button disabled class="text-gray-300 p-2"><i class="fas fa-lock"></i></button>`}</div></div>`
+            }).join('');
+        }
+
+        window.editProduct = function(id) {
+            const p = allProducts.find(x => x.id == id); if(!p) return; editingId = id;
+            document.getElementById('addName').value = p.name; document.getElementById('addBrand').value = p.brand; document.getElementById('addCategory').value = p.category; document.getElementById('addPrice').value = p.price; document.getElementById('addOriginalPrice').value = p.originalPrice || ''; document.getElementById('addStockType').value = p.isPO ? 'po' : 'ready'; document.getElementById('addIsOriginal').checked = p.isOriginal; document.getElementById('addIsSold').checked = p.sold;
+            document.querySelectorAll('.size-checkbox').forEach(cb => cb.checked = false);
+            if (p.sizes && Array.isArray(p.sizes)) { p.sizes.forEach(s => { const cb = document.querySelector(`.size-checkbox[value="${s}"]`); if(cb) cb.checked = true; }); }
+            document.getElementById('btnText').innerText = "Update Produk"; document.getElementById('cancelEditBtn').classList.remove('hidden'); document.getElementById('editModeNotice').classList.remove('hidden'); document.getElementById('editImgHint').classList.remove('hidden'); document.getElementById('imgReqText').innerText = "(Opsional)"; showAdminTab('add');
+        }
+
+        window.cancelEdit = function() {
+            editingId = null; document.getElementById('addProductForm').reset(); document.querySelectorAll('.size-checkbox').forEach(cb => cb.checked = false);
+            document.getElementById('btnText').innerText = "Upload & Simpan"; document.getElementById('cancelEditBtn').classList.add('hidden'); document.getElementById('editModeNotice').classList.add('hidden'); document.getElementById('editImgHint').classList.add('hidden'); document.getElementById('imgReqText').innerText = "(Wajib)";
+        }
+
+        window.toggleSold = async function(id, isFirebase) { if (isFirebase) { const p = allProducts.find(x => x.id == id); await updateDoc(doc(db, "products", id), { sold: !p.sold }); } else alert("Fitur edit status hanya untuk produk yang diupload ke Firebase."); }
+        window.deleteProduct = async function(id, isFirebase) { if (isFirebase && confirm("Yakin ingin menghapus permanen dari Firebase?")) await deleteDoc(doc(db, "products", id)); }
+        window.renderProducts = function(data) {
+            const grid = document.getElementById('productGrid'); const empty = document.getElementById('emptyState'); grid.innerHTML = ''; if (data.length === 0) { empty.classList.remove('hidden'); return; } else empty.classList.add('hidden');
+            data.forEach(product => {
+                const imgStyle = product.sold ? 'grayscale opacity-75' : ''; const contentStyle = product.sold ? 'opacity-60' : '';
+                let btnText = "Beli Sekarang", btnClass = "bg-white text-black hover:bg-accent";
+                if (product.sold) { btnText = "SOLD OUT"; btnClass = "bg-zinc-800 text-gray-500 cursor-not-allowed"; } else if (product.isPO) { btnText = "Pesan PO"; btnClass = "bg-yellow-500 text-black hover:bg-yellow-400"; }
+                let priceDisplay = `<span class="text-accent font-bold text-sm md:text-lg border border-accent px-2 py-1 rounded">${formatRupiah(product.price)}</span>`;
+                if (product.originalPrice && product.originalPrice > product.price) { const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100); priceDisplay = `<div class="flex flex-col"><span class="text-[10px] text-gray-400 line-through">${formatRupiah(product.originalPrice)}</span><div class="flex items-center gap-2">${priceDisplay}<span class="text-[10px] bg-red-100 text-red-600 px-1 rounded font-bold">-${discount}%</span></div></div>`; }
+                let sizeBadge = ''; if(product.sizes && product.sizes.length > 0) { const displaySizes = product.sizes.slice(0, 4); sizeBadge = `<div class="mt-2 flex flex-wrap gap-1">` + displaySizes.map(s => `<span class="text-[10px] border border-zinc-700 px-1.5 py-0.5 rounded text-gray-300 bg-zinc-800/50">${s}</span>`).join('') + (product.sizes.length > 4 ? `<span class="text-[10px] text-gray-500 self-center">+${product.sizes.length-4}</span>` : '') + `</div>`; }
+                grid.innerHTML += `<div class="product-card bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 overflow-hidden relative group hover:border-accent transition duration-300 flex flex-col"><div class="relative group cursor-pointer h-48 md:h-64 overflow-hidden" onclick="openProductModal('${product.id}')"><img src="${product.img}" alt="${product.name}" loading="lazy" class="w-full h-full object-cover ${imgStyle} transition duration-500 group-hover:scale-110">${product.sold ? '<div class="absolute top-2 right-2 bg-red-600 text-white text-[10px] px-2 py-1 rounded font-bold z-20 shadow-md">SOLD OUT</div>' : (product.isPO ? '<div class="absolute top-2 right-2 bg-yellow-500 text-black text-[10px] px-2 py-1 rounded font-bold z-20 shadow-md">PRE-ORDER</div>' : '')}<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center"><span class="bg-accent text-black px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transform translate-y-4 group-hover:translate-y-0 transition duration-300"><i class="fas fa-eye mr-1"></i> Detail</span></div></div><div class="p-3 md:p-4 ${contentStyle} text-gray-300 flex-1 flex flex-col"><div class="flex justify-between items-start mb-1"><p class="text-[10px] text-gray-500 uppercase font-bold tracking-wider">${product.brand}</p>${product.isOriginal && !product.sold ? '<span class="text-[9px] bg-accent/20 text-accent border border-accent/30 px-1.5 rounded font-bold">ORI</span>' : ''}</div><h3 class="font-bold text-sm text-white line-clamp-2 leading-snug mb-1 flex-1 cursor-pointer hover:text-accent transition" onclick="openProductModal('${product.id}')">${product.name}</h3>${sizeBadge}<div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-800">${priceDisplay}<button onclick="openProductModal('${product.id}')" class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center hover:bg-accent transition shadow-lg ${product.sold ? 'opacity-50 cursor-not-allowed' : ''}"><i class="fas fa-shopping-bag text-xs"></i></button></div></div></div>`;
+            });
+        }
+
+        window.formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        window.adminLogin = async function(e) { e.preventDefault(); const inputPass = prompt("Masukkan Password Admin:"); if(!inputPass) return; let realPass = "admin123"; try { const docSnap = await getDoc(doc(db, "settings", "admin_config")); if (docSnap.exists()) realPass = docSnap.data().password; } catch(e) { console.log("Config not found, using default"); } if (inputPass === realPass) { document.getElementById('adminModal').classList.remove('hidden'); renderAdminProductList(); showAdminTab('dashboard'); } else { alert("Password salah!"); } }
+        window.closeAdmin = function() { document.getElementById('adminModal').classList.add('hidden'); }
+        window.showAdminTab = function(tabName) {
+            ['Dashboard', 'Add', 'List', 'Brand', 'Gallery', 'Testimoni', 'Settings'].forEach(t => { const sec = document.getElementById('admin' + t + 'Section'); const btn = document.getElementById('tab' + t); if(sec) sec.classList.add('hidden'); if(btn) btn.className = "flex-1 py-2 px-2 rounded text-xs font-bold uppercase text-gray-500 hover:text-white transition whitespace-nowrap"; });
+            const activeSec = document.getElementById('admin' + tabName.charAt(0).toUpperCase() + tabName.slice(1) + 'Section'); const activeBtn = document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
+            if(activeSec) activeSec.classList.remove('hidden'); if(activeBtn) activeBtn.className = "flex-1 py-2 px-2 rounded text-xs font-bold uppercase bg-zinc-800 text-white transition whitespace-nowrap";
+            if(tabName === 'list') renderAdminProductList(); if(tabName === 'brand') renderAdminBrandList(); if(tabName === 'dashboard') renderDashboard();
+        }
+        window.filterCategory = function(category) { currentCategory = category; document.querySelectorAll('.cat-btn').forEach(btn => { btn.classList.remove('bg-accent', 'text-white'); btn.classList.add('bg-white/10', 'text-white', 'border', 'border-white/20'); }); if(event && event.target) { event.target.classList.remove('bg-white/10', 'border'); event.target.classList.add('bg-accent', 'text-black'); } if (category === 'all') renderProducts(allProducts); else renderProducts(allProducts.filter(p => p.category === currentCategory)); }
+        window.filterByBrand = function(brandName) { showSection('catalog'); renderProducts(allProducts.filter(p => p.brand === brandName)); }
+        window.searchProduct = function(query) { const lowerQ = query.toLowerCase(); renderProducts(allProducts.filter(p => p.name.toLowerCase().includes(lowerQ) || p.brand.toLowerCase().includes(lowerQ) || p.category.toLowerCase().includes(lowerQ))); }
+        window.sortProducts = function(order) { let sorted = [...allProducts]; if (currentCategory !== 'all') sorted = sorted.filter(p => p.category === currentCategory); if (order === 'low') sorted.sort((a, b) => a.price - b.price); else if (order === 'high') sorted.sort((a, b) => b.price - a.price); renderProducts(sorted); }
+        window.showSection = function(sectionId) { document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden')); document.getElementById(sectionId).classList.remove('hidden'); window.scrollTo(0, 0); }
+        window.openModal = function(id) { const product = allProducts.find(p => p.id == id); if(!product) return; document.getElementById('modalImg').src = product.img; document.getElementById('imageModal').classList.remove('hidden'); }
+        window.closeModal = function() { document.getElementById('imageModal').classList.add('hidden'); }
+        window.viewGalleryImage = function(src) { document.getElementById('modalImg').src = src; document.getElementById('imageModal').classList.remove('hidden'); }
+        window.toggleMenu = function() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
+        
+        window.populateBrandOptions = function() {
+            document.getElementById('addBrand').innerHTML = allBrands.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
+            document.getElementById('brandContainer').innerHTML = allBrands.map(b => `<div onclick="filterByBrand('${b.name}')" class="brand-logo cursor-pointer bg-white p-2 rounded-lg flex items-center justify-center h-16 md:h-20 shadow-lg border border-gray-200 hover:bg-accent transition group overflow-hidden relative"><img src="${b.logo}" alt="${b.name}" class="max-h-full max-w-full object-contain group-hover:scale-110 transition duration-300 z-10 relative"><span class="absolute text-[10px] text-gray-300 font-bold opacity-0">${b.name}</span></div>`).join('');
+            
+            const shoeSizes = [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
+            const shirtSizes = ['S', 'M', 'L', 'XL', 'XXL', '3XL'];
+            document.getElementById('shoeSizeContainer').innerHTML = shoeSizes.map(s => `<label class="cursor-pointer"><input type="checkbox" value="${s}" class="size-checkbox hidden"><div class="text-[10px] text-center border border-gray-600 rounded py-1 text-gray-400 hover:border-accent hover:text-accent transition">${s}</div></label>`).join('');
+            document.getElementById('shirtSizeContainer').innerHTML = shirtSizes.map(s => `<label class="cursor-pointer"><input type="checkbox" value="${s}" class="size-checkbox hidden"><div class="text-[10px] text-center border border-gray-600 rounded py-1 text-gray-400 hover:border-accent hover:text-accent transition">${s}</div></label>`).join('');
         }
 
         window.onload = () => { 
             showSection('home-section'); 
             loadBanner(); 
-        };
+        }
     </script>
 </body>
 </html>
